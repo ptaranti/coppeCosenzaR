@@ -1,0 +1,35 @@
+Package: coppeCosenza
+Title: COPPE-Cosenza Fuzzy Hierarchy Model (coppeCosenza)
+Date: 2017-04-20
+Version: 0.0.1
+Authors@R: c(
+             person("Leonardo", "Pessôa", email = "XXX@XXX.xxx",
+             role = c("aut" , "cre")),
+             person("Pier", "Taranti", email = "ptaranti@gmail.com",
+             role = c("aut"))
+             )
+Description: TODO(Pessoa)
+Depends:
+    R (>= 3.2.2)
+Imports:
+    methods
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests:
+    testthat
+BugReports: XXX@XXX.xxx
+Collate: 
+    'coppeCosenza.R'
+    'factor.R'
+    'factors_under_consideration.R'
+    'libs.R'
+    'option-factor-availability.R'
+    'project-criterion.R'
+    'project-criteria.R'
+    'project.R'
+    'option-portfolio.R'
+    'option-resources.R'
+    'option.R'
+    'project-portfolio.R'
