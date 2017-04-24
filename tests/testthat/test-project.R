@@ -4,7 +4,7 @@ require(testthat)
 
 
 
-context("\n\nProject.criterion constructor\n")
+context("\n\nProject.criterion \n")
 
 fat1 <- Factor("fat1")
 fat2 <- Factor("_23FAT")
@@ -22,7 +22,7 @@ test_that("Project.criterion constructor\n", {
 
 
 
-context("\n\nProject.criteria constructor\n")
+context("\n\nProject.criteria \n")
 
 pc1 <- Project.criterion(Factor("fator1"), "LC", FALSE)
 pc2 <- Project.criterion(Factor("fator1"), "C", FALSE)
@@ -41,7 +41,7 @@ test_that("Project.criteria  constructor\n", {
 
 
 
-context("\n\nProject constructor\n")
+context("\n\nProject \n")
 
 pc1 <- Project.criterion(Factor("fator0"), "LC", FALSE)
 pc2 <- Project.criterion(Factor("fator1"), "C", FALSE)
@@ -66,9 +66,20 @@ test_that("Project  constructor\n", {
 )
 
 
+test_that("getProjectFactorsNames\n", {
+  expect_error(getProjectFactorsNames(), )
+  expect_error(getProjectFactorsNames(list()),)
+  expect_error(getProjectFactorsNames(list("pc1",22)), )
+
+  project1 <- Project("p3",project.criteria1)
+  expect_is(getProjectFactorsNames(project1),"list")
+  getProjectFactorsNames(project1)
+
+}
+)
 
 
-context("\n\nProject.portfolio constructor\n")
+context("\n\nProject.portfolio \n")
 
 pc1 <- Project.criterion(Factor("fator0"), "LC", FALSE)
 pc2 <- Project.criterion(Factor("fator1"), "C", FALSE)

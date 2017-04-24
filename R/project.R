@@ -69,3 +69,44 @@ setMethod(
 Project <- function(name, project.criteria){
   new("Project", name, project.criteria)
 }
+
+
+#' Title
+#'
+#' @param project
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getProjectFactorsNames <- function(project){
+  list.of.factors.names <- list()
+  for (project.criterion in project@project.criteria@list.of.project.criterion) {
+    list.of.factors.names <- list(list.of.factors.names, project.criterion@factor@name )
+
+  }
+  vector.of.factors.names <- unlist(list.of.factors.names)
+  vector.of.factors.names <- sort(vector.of.factors.names, decreasing = FALSE)
+  return(vector.of.factors.names)
+}
+
+
+#' Title
+#'
+#' @param project
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getProjectFactorsSpecific <- function(project){
+  list.of.factors.names <- list()
+  for (project.criterion in project@project.criteria@list.of.project.criterion) {
+    if (project.criterion@specific == TRUE) {
+    list.of.factors.names <- list(list.of.factors.names, project.criterion@factor@name )
+    }
+  }
+  vector.of.factors.names <- unlist(list.of.factors.names)
+  vector.of.factors.names <- sort(vector.of.factors.names, decreasing = FALSE)
+  return(vector.of.factors.names)
+}

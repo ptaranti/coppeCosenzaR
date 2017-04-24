@@ -3,9 +3,9 @@
 \docType{class}
 \name{Project.portfolio-class}
 \alias{Project.portfolio-class}
-\title{Project.portfoio S4 Class}
+\title{Project.portfolio S4 Class}
 \description{
-Project.portfoio S4 class contains a list of S4 Project objects.
+Project.portfolio S4 class contains a list of S4 Project objects.
 # TODO (Pessoa) explicar que é input com o resources.portfolio e a matrix de
 agregacao.
 }

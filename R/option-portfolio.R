@@ -4,9 +4,9 @@
 
 
 
-#' Option.portfoio S4 Class
+#' Option.portfolio S4 Class
 #'
-#' Option.portfoio S4 class contains a list of S4 Option objects.
+#' Option.portfolio S4 class contains a list of S4 Option objects.
 #' # TODO (Pessoa) explicar que é input com o resources.portfolio e a matrix de
 #' agregacao.
 #'
@@ -75,3 +75,77 @@ Option.portfolio <- function(list.of.option){
 
 
 
+
+
+
+#' Title
+#'
+#' @param option.portfolio
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getOptionPortfolioFactorsAsDataFrame <- function(option.portfolio){
+
+  portfolio.factors <- getOptionPortfolioFactors(option.portfolio)
+  option.portfolio.names <- getOptionPortfolioNames(option.portfolio)
+
+  df <- data.frame(matrix(ncol = length(portfolio.factors), nrow = length(option.portfolio.names)))
+  colnames(df) <- portfolio.factors
+  rownames(df) <- option.portfolio.names
+  for (option in option.portfolio@list.of.option) {
+    for (option.factor.availability in option@option.resources@list.of.factor.availability) {
+      df[option@name, option.factor.availability@factor@name] <- option.factor.availability@availability
+      #print(project.criterion@factor@name, project, project.criterion@importance.degree)
+    }
+  }
+  return(df)
+}
+
+
+
+
+
+
+
+
+
+#' Title
+#'
+#' @param option.portfolio
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getOptionPortfolioFactors <- function(option.portfolio){
+  vector.of.factors <- NULL
+  for (option in option.portfolio@list.of.option) {
+    vector.of.factors <- c(vector.of.factors, getOptionFactorsNames(option))
+  }
+  vector.of.factors <- sort(vector.of.factors, decreasing = FALSE)
+  vector.of.factors <- unique(vector.of.factors)
+  return(vector.of.factors)
+}
+
+
+
+
+
+#' Title
+#'
+#' @param option.portfolio
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getOptionPortfolioNames <- function(option.portfolio){
+  vector.of.names <- NULL
+  for (option in option.portfolio@list.of.option) {
+    vector.of.names <- c(vector.of.names, option@name)
+  }
+  vector.of.names <- sort(vector.of.names, decreasing = FALSE)
+  return(vector.of.names)
+}

@@ -4,9 +4,9 @@
 
 
 
-#' Project.portfoio S4 Class
+#' Project.portfolio S4 Class
 #'
-#' Project.portfoio S4 class contains a list of S4 Project objects.
+#' Project.portfolio S4 class contains a list of S4 Project objects.
 #' # TODO (Pessoa) explicar que é input com o resources.portfolio e a matrix de
 #' agregacao.
 #'
@@ -90,3 +90,99 @@ Project.portfolio <- function(list.of.project){
 
 
 
+#' Title
+#'
+#' @param project.portfolio
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getProjectPortfolioFactorsAsDataFrame <- function(project.portfolio){
+
+  portfolio.factors <- getProjectPortfolioFactors(project.portfolio)
+  project.portfolio.names <- getProjectPortfolioNames(project.portfolio)
+
+  df <- data.frame(matrix(ncol = length(portfolio.factors), nrow = length(project.portfolio.names)))
+  colnames(df) <- portfolio.factors
+  rownames(df) <- project.portfolio.names
+  for (project in project.portfolio@list.of.project) {
+    for (project.criterion in project@project.criteria@list.of.project.criterion) {
+      df[project@name, project.criterion@factor@name] <- project.criterion@importance.degree
+      #print(project.criterion@factor@name, project, project.criterion@importance.degree)
+      }
+  }
+  return(df)
+}
+
+
+
+
+
+#' Title
+#'
+#' @param project.portfolio
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getProjectPortfolioSpecificsAsDataFrame <- function(project.portfolio){
+
+portfolio.factors <- getProjectPortfolioFactors(project.portfolio)
+project.portfolio.names <- getProjectPortfolioNames(project.portfolio)
+
+df <- data.frame(matrix(ncol = length(portfolio.factors), nrow = length(project.portfolio.names)))
+colnames(df) <- portfolio.factors
+rownames(df) <- project.portfolio.names
+for (project in project.portfolio@list.of.project) {
+  for (project.criterion in project@project.criteria@list.of.project.criterion) {
+    df[project@name, project.criterion@factor@name] <- project.criterion@specific
+    #print(project.criterion@factor@name, project, project.criterion@importance.degree)
+  }
+}
+# change any "" or "   "  to NA
+#data.frame <- as.data.frame(apply(data.frame,2,function(x)gsub("^\\s*$", NA,x)))
+
+return(df)
+}
+
+
+
+#' Title
+#'
+#' @param project.portfolio
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getProjectPortfolioFactors <- function(project.portfolio){
+  vector.of.factors <- NULL
+  for (project in project.portfolio@list.of.project) {
+    vector.of.factors <- c(vector.of.factors, getProjectFactorsNames(project))
+  }
+  vector.of.factors <- sort(vector.of.factors, decreasing = FALSE)
+  vector.of.factors <- unique(vector.of.factors)
+  return(vector.of.factors)
+}
+
+
+
+
+#' Title
+#'
+#' @param project.portfolio
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getProjectPortfolioNames <- function(project.portfolio){
+vector.of.names <- NULL
+for (project in project.portfolio@list.of.project) {
+  vector.of.names <- c(vector.of.names, project@name)
+}
+vector.of.names <- sort(vector.of.names, decreasing = FALSE)
+return(vector.of.names)
+}

@@ -69,3 +69,27 @@ setMethod(
 Option <- function(name, option.resources){
   new("Option", name, option.resources)
 }
+
+
+
+
+#' Title
+#'
+#' @param option
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getOptionFactorsNames <- function(option){
+  list.of.factors.names <- list()
+  for (option.factor.availability in option@option.resources@list.of.factor.availability) {
+    list.of.factors.names <- list(list.of.factors.names, option.factor.availability@factor@name )
+
+  }
+  vector.of.factors.names <- unlist(list.of.factors.names)
+  vector.of.factors.names <- sort(vector.of.factors.names, decreasing = FALSE)
+  return(vector.of.factors.names)
+}
+
+

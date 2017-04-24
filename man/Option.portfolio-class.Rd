@@ -3,9 +3,9 @@
 \docType{class}
 \name{Option.portfolio-class}
 \alias{Option.portfolio-class}
-\title{Option.portfoio S4 Class}
+\title{Option.portfolio S4 Class}
 \description{
-Option.portfoio S4 class contains a list of S4 Option objects.
+Option.portfolio S4 class contains a list of S4 Option objects.
 # TODO (Pessoa) explicar que é input com o resources.portfolio e a matrix de
 agregacao.
 }
