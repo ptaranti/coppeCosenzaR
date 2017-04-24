@@ -68,6 +68,23 @@ Factors.under.consideration <- function(list.of.factors){
 
 
 
+#' Title
+#'
+#' @param factors.under.consideration
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getFactorsUnderConsiderationNames <- function(factors.under.consideration){
+  vector.of.factors.names <- NULL
+  for (factor in factors.under.consideration@list.of.factors) {
+    vector.of.factors.names <- c(vector.of.factors.names, factor@name)
+  }
+  vector.of.factors.names <- sort(vector.of.factors.names, decreasing = FALSE)
+  vector.of.factors.names <- unique(vector.of.factors.names)
+  return(vector.of.factors.names)
+}
 
 
 

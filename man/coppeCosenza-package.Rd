@@ -22,19 +22,4 @@ Currently, coppeCosenza provides implementation to support .....:
 These classes are implemented as S4 classes and have constructor methods with
 the same name as the class. A \code{plot} method is also provided.
 }
-\seealso{
-Useful links:
-\itemize{
-  \item Report bugs at \url{XXX@XXX.xxx}
-}
 
-}
-\author{
-\strong{Maintainer}: Leonardo Pessôa \email{XXX@XXX.xxx}
-
-Authors:
-\itemize{
-  \item Pier Taranti \email{ptaranti@gmail.com}
-}
-
-}

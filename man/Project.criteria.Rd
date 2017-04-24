@@ -19,3 +19,4 @@ Project.criteria(list) is a constructor to Factor S4 objects.
 # TODO(Taranti) inserir exemplo
 
 }
+

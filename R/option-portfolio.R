@@ -86,7 +86,7 @@ Option.portfolio <- function(list.of.option){
 #' @export
 #'
 #' @examples
-getOptionPortfolioFactorsAsDataFrame <- function(option.portfolio){
+getOptionPortfolioAsDataFrame <- function(option.portfolio){
 
   portfolio.factors <- getOptionPortfolioFactors(option.portfolio)
   option.portfolio.names <- getOptionPortfolioNames(option.portfolio)

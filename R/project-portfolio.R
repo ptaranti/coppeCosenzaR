@@ -98,7 +98,7 @@ Project.portfolio <- function(list.of.project){
 #' @export
 #'
 #' @examples
-getProjectPortfolioFactorsAsDataFrame <- function(project.portfolio){
+getProjectPortfolioAsDataFrame <- function(project.portfolio){
 
   portfolio.factors <- getProjectPortfolioFactors(project.portfolio)
   project.portfolio.names <- getProjectPortfolioNames(project.portfolio)
