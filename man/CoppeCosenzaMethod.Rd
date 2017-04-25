@@ -10,4 +10,3 @@ CoppeCosenzaMethod(project.portfolio, option.portfolio,
 \description{
 CoppeCosenzaMethod
 }
-

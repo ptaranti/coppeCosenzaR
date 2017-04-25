@@ -20,4 +20,3 @@ Project.portfolio(list.of.project) is a constructor to Project.portfolio S4 obje
 # TODO(Taranti) inserir exemplo
 
 }
-

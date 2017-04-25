@@ -12,4 +12,3 @@ getProjectPortfolioAsDataFrame(project.portfolio)
 \description{
 Title
 }
-

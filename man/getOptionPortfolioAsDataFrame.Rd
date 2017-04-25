@@ -12,4 +12,3 @@ getOptionPortfolioAsDataFrame(option.portfolio)
 \description{
 Title
 }
-

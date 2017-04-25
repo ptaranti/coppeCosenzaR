@@ -19,4 +19,3 @@ Factors.under.consideration(list.of.factors) is a constructor.
 Factors.under.consideration(list(Factor("factor1"), Factor("factor2"), Factor("factor3")))
 
 }
-

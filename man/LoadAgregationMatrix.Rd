@@ -12,4 +12,3 @@ LoadAgregationMatrix(x)
 \description{
 LoadAgregationMatrix
 }
-

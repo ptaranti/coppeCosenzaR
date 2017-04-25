@@ -12,4 +12,3 @@ getOptionFactorsNames(option)
 \description{
 Title
 }
-

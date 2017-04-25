@@ -28,4 +28,3 @@ Project.criterion(Factor("fator1"), "LC", FALSE)
 
 
 }
-

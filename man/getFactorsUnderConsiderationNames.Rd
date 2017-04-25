@@ -12,4 +12,3 @@ getFactorsUnderConsiderationNames(factors.under.consideration)
 \description{
 Title
 }
-

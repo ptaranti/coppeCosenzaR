@@ -12,4 +12,3 @@ getProjectFactorsNames(project)
 \description{
 Title
 }
-

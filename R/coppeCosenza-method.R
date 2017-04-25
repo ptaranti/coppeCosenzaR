@@ -55,6 +55,14 @@ setMethod("CoppeCosenzaMethod",
                                               ,
                                               drop = FALSE]
 
+            project.portfolio.specifics.as.data.frame <-
+              getProjectPortfolioSpecificsAsDataFrame(project.portfolio)
+
+            project.portfolio.specifics.as.data.frame <-
+              project.portfolio.specifics.as.data.frame[row.names(project.portfolio.as.data.frame),
+                                                        colnames(project.portfolio.as.data.frame),
+                                                        drop = FALSE]
+
             option.portfolio.as.data.frame <- getOptionPortfolioAsDataFrame(option.portfolio)
             option.portfolio.as.data.frame <-
               option.portfolio.as.data.frame[,
@@ -77,7 +85,9 @@ setMethod("CoppeCosenzaMethod",
 
             if (agregation.matrix == "default" ) {
               print("CoppeCosenzaMethod assuming default agregation matrix")
-              ResolveDefaultAgregationMatrix(project.portfolio.as.data.frame, option.portfolio.as.data.frame)
+              ResolveDefaultAgregationMatrix(project.portfolio.as.data.frame,
+                                             project.portfolio.specifics.as.data.frame,
+                                             option.portfolio.as.data.frame)
 
             }
             else stop(agregation.matrix,  " not implemented")
@@ -105,32 +115,68 @@ CheckSelectFactors <- function(project.portfolio, option.portfolio, factors.unde
 }
 
 
-ResolveDefaultAgregationMatrix <- function(project.portfolio.as.data.frame, option.portfolio.as.data.frame) {
+
+
+
+ResolveDefaultAgregationMatrix <- function(project.portfolio.as.data.frame,
+                                            project.portfolio.specifics.as.data.frame,
+                                            option.portfolio.as.data.frame) {
   print(project.portfolio.as.data.frame)
   print(option.portfolio.as.data.frame)
   print("#TODO implementar a ResolveDefaultAgregationMatrix")
 
-  agregate <- function(x, y, nrfactors){
-    if (x == "Cr") {
-      if (y == "Excelent") return(1)
+  nrfactors <- length(colnames(project.portfolio.as.data.frame))
+  a <- NULL
+  for(i in 1:length(row.names(project.portfolio.as.data.frame))){
+    temp <- Map(agregate(),
+        project.portfolio.as.data.frame[i,],
+        project.portfolio.specifics.as.data.frame[i,],
+        option.portfolio.as.data.frame[i,],
+        nrfactors )
+    print(temp)
+  }
+}
+
+
+
+
+
+
+#' Title
+#'
+#' @param factor.evaluation
+#' @param resource.evaluation
+#' @param factor.is.specific
+#' @param nrfactors
+#'
+#' @return
+#' @export
+#'
+#' @examples
+  agregate <- function(factor.evaluation, resource.evaluation, factor.is.specific, nrfactors){
+    if (factor.evaluation == "Cr") {
+      if (resource.evaluation == "Excelent") return(1)
+      if (factor.is.specific) return(-1)
       return(0)
     }
-    if (x == "C") {
-      if (y == "Excelent") return(1 + 1/nrfactors)
-      if (y == "Good") return(1)
+    if (factor.evaluation == "C") {
+      if (resource.evaluation == "Excelent") return(1 + 1/nrfactors)
+      if (resource.evaluation == "Good") return(1)
+      if (factor.is.specific) return(-1)
       return(0)
     }
-    if (x == "LC") {
-      if (y == "Excelent") return(1 + 2/nrfactors)
-      if (y == "Good") return(1 + 1/nrfactors)
-      if (y == "Regular") return(1)
+    if (factor.evaluation == "LC") {
+      if (resource.evaluation == "Excelent") return(1 + 2/nrfactors)
+      if (resource.evaluation == "Good") return(1 + 1/nrfactors)
+      if (resource.evaluation == "Regular") return(1)
+      if (factor.is.specific) return(-1)
       return(0)
     }
-    if (x == "I") {
-      if (y == "Excelent") return(1 + 3/nrfactors)
-      if (y == "Good") return(1 + 2/nrfactors)
-      if (y == "Regular") return(1 + 1/nrfactors)
-      if (y == "Weak") return(1)
+    if (factor.evaluation == "I") {
+      if (resource.evaluation == "Excelent") return(1 + 3/nrfactors)
+      if (resource.evaluation == "Good") return(1 + 2/nrfactors)
+      if (resource.evaluation == "Regular") return(1 + 1/nrfactors)
+      if (resource.evaluation == "Weak") return(1)
       return(0)
     }
   stop("fail when agregating  - invalid factor or resource evaluation")
@@ -138,4 +184,4 @@ ResolveDefaultAgregationMatrix <- function(project.portfolio.as.data.frame, opti
 
 
 
-}
+

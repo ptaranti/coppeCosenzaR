@@ -20,4 +20,3 @@ Option.portfolio(list.of.option) is a constructor to Option.portfolio S4 objects
 # TODO(Taranti) inserir exemplo
 
 }
-
