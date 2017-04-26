@@ -34,3 +34,4 @@ Collate:
     'option-factor-availability.R'
     'option-resources.R'
     'option.R'
+    'test-data.R'

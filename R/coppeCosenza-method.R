@@ -35,7 +35,7 @@ setMethod("CoppeCosenzaMethod",
             if (!CheckSelectFactors(project.portfolio, option.portfolio,
                                     factors.under.consideration)) {
               stop("The selected factors are incompatible with the portfolios")
-              }
+            }
             project.portfolio.as.data.frame <-
               getProjectPortfolioAsDataFrame(project.portfolio)
             project.portfolio.as.data.frame <-
@@ -50,10 +50,7 @@ setMethod("CoppeCosenzaMethod",
                       considered factors and will be disregarded: ",
                       rownames(temp.df))
             }
-            project.portfolio.as.data.frame <-
-              project.portfolio.as.data.frame[!is.na(project.portfolio.as.data.frame),
-                                              ,
-                                              drop = FALSE]
+            project.portfolio.as.data.frame <- na.omit(project.portfolio.as.data.frame)
 
             project.portfolio.specifics.as.data.frame <-
               getProjectPortfolioSpecificsAsDataFrame(project.portfolio)
@@ -77,10 +74,7 @@ setMethod("CoppeCosenzaMethod",
                       rownames(temp.df))
             }
 
-            option.portfolio.as.data.frame <-
-              option.portfolio.as.data.frame[!is.na(option.portfolio.as.data.frame),
-                                             ,
-                                             drop = FALSE]
+            option.portfolio.as.data.frame <- na.omit(option.portfolio.as.data.frame)
 
 
             if (agregation.matrix == "default" ) {
@@ -119,22 +113,36 @@ CheckSelectFactors <- function(project.portfolio, option.portfolio, factors.unde
 
 
 ResolveDefaultAgregationMatrix <- function(project.portfolio.as.data.frame,
-                                            project.portfolio.specifics.as.data.frame,
-                                            option.portfolio.as.data.frame) {
+                                           project.portfolio.specifics.as.data.frame,
+                                           option.portfolio.as.data.frame) {
+  print("ResolveDefaultAgregationMatrix >>>> \n\n")
+  print("project.portfolio.as.data.frame >>>> \n\n")
   print(project.portfolio.as.data.frame)
+  print("option.portfolio.as.data.frame >>>> \n\n")
   print(option.portfolio.as.data.frame)
-  print("#TODO implementar a ResolveDefaultAgregationMatrix")
 
+  agregation.matrix.temp <- data.frame(matrix(ncol = length(row.names(option.portfolio.as.data.frame)), nrow = length(row.names(project.portfolio.as.data.frame))))
+  colnames(agregation.matrix.temp) <- row.names(option.portfolio.as.data.frame)
+  rownames(agregation.matrix.temp) <- row.names(project.portfolio.as.data.frame)
+  print("agregation.matrix.temp >>>> \n\n")
+  print(agregation.matrix.temp)
   nrfactors <- length(colnames(project.portfolio.as.data.frame))
-  a <- NULL
-  for(i in 1:length(row.names(project.portfolio.as.data.frame))){
-    temp <- Map(agregate(),
-        project.portfolio.as.data.frame[i,],
-        project.portfolio.specifics.as.data.frame[i,],
-        option.portfolio.as.data.frame[i,],
-        nrfactors )
-    print(temp)
+  for (i in 1:length(row.names(project.portfolio.as.data.frame))) {
+    message("\n\nagregating project ", i)
+    for (j in 1:length(row.names(option.portfolio.as.data.frame))) {
+      message("\nagregating option " , j)
+      temp.list.agregation <- lapply(1:nrfactors, function(x)
+        (agregate(project.portfolio.as.data.frame[i, x],
+                  option.portfolio.as.data.frame[j, x],
+                  project.portfolio.specifics.as.data.frame[i, x],
+                  nrfactors)))
+      agregation <- NULL
+      if (any(temp.list.agregation == -1)) agregation <- "out"
+      else agregation <- sum(unlist(temp.list.agregation))
+      agregation.matrix.temp[i,j] <- agregation
+    }
   }
+  print(agregation.matrix.temp)
 }
 
 
@@ -153,34 +161,36 @@ ResolveDefaultAgregationMatrix <- function(project.portfolio.as.data.frame,
 #' @export
 #'
 #' @examples
-  agregate <- function(factor.evaluation, resource.evaluation, factor.is.specific, nrfactors){
-    if (factor.evaluation == "Cr") {
-      if (resource.evaluation == "Excelent") return(1)
-      if (factor.is.specific) return(-1)
-      return(0)
-    }
-    if (factor.evaluation == "C") {
-      if (resource.evaluation == "Excelent") return(1 + 1/nrfactors)
-      if (resource.evaluation == "Good") return(1)
-      if (factor.is.specific) return(-1)
-      return(0)
-    }
-    if (factor.evaluation == "LC") {
-      if (resource.evaluation == "Excelent") return(1 + 2/nrfactors)
-      if (resource.evaluation == "Good") return(1 + 1/nrfactors)
-      if (resource.evaluation == "Regular") return(1)
-      if (factor.is.specific) return(-1)
-      return(0)
-    }
-    if (factor.evaluation == "I") {
-      if (resource.evaluation == "Excelent") return(1 + 3/nrfactors)
-      if (resource.evaluation == "Good") return(1 + 2/nrfactors)
-      if (resource.evaluation == "Regular") return(1 + 1/nrfactors)
-      if (resource.evaluation == "Weak") return(1)
-      return(0)
-    }
-  stop("fail when agregating  - invalid factor or resource evaluation")
+agregate <- function(factor.evaluation, resource.evaluation, factor.is.specific, nrfactors){
+  message("agregate")
+  message(factor.evaluation, " ", resource.evaluation, " ", factor.is.specific, " ", nrfactors)
+  if (factor.evaluation == "Cr") {
+    if (resource.evaluation == "Excelent") return(1)
+    if (factor.is.specific) return(-1)
+    return(0)
   }
+  if (factor.evaluation == "C") {
+    if (resource.evaluation == "Excelent") return(1 + 1/nrfactors)
+    if (resource.evaluation == "Good") return(1)
+    if (factor.is.specific) return(-1)
+    return(0)
+  }
+  if (factor.evaluation == "LC") {
+    if (resource.evaluation == "Excelent") return(1 + 2/nrfactors)
+    if (resource.evaluation == "Good") return(1 + 1/nrfactors)
+    if (resource.evaluation == "Regular") return(1)
+    if (factor.is.specific) return(-1)
+    return(0)
+  }
+  if (factor.evaluation == "I") {
+    if (resource.evaluation == "Excelent") return(1 + 3/nrfactors)
+    if (resource.evaluation == "Good") return(1 + 2/nrfactors)
+    if (resource.evaluation == "Regular") return(1 + 1/nrfactors)
+    if (resource.evaluation == "Weak") return(1)
+    return(0)
+  }
+  stop("fail when agregating  - invalid factor or resource evaluation")
+}
 
 
 

@@ -71,7 +71,36 @@ Option.portfolio <- function(list.of.option){
 }
 
 
+#' Title
+#'
+#' @param option.portfolio.as.data.frame
+#'
+#' @return
+#' @export
+#'
+#' @examples
+Option.portfolio2 <- function(option.portfolio.as.data.frame){
 
+  option.names <- row.names(option.portfolio.as.data.frame)
+  factors.names <- colnames(option.portfolio.as.data.frame)
+  Option.portfolio(
+    lapply( i <- 1:length(option.names), function(i) {
+      Option(
+        option.names[[i]],
+        Option.resources(
+          lapply( x <- 1:length(factors.names), function(x) {
+            Option.factor.availability(
+              Factor(option.names[[x]]),
+              option.portfolio.as.data.frame[i,x]
+            )
+          }
+          )
+        )
+      )
+    }
+    )
+  )
+}
 
 
 

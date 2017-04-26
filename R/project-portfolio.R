@@ -81,12 +81,45 @@ setMethod(
 #' \dontrun{Project.portfolio(list(project1, project2, project3))}
 #' # TODO(Taranti) inserir exemplo
 #'
+
 Project.portfolio <- function(list.of.project){
   new("Project.portfolio", list.of.project)
 }
 
 
+#' Title
+#'
+#' @param project.portfolio.as.data.frame
+#' @param project.portfolio.specifics.as.data.frame
+#'
+#' @return
+#' @export
+#'
+#' @examples
+Project.portfolio2 <- function(project.portfolio.as.data.frame,
+                               project.portfolio.specifics.as.data.frame){
 
+  project.names <- row.names(project.portfolio.as.data.frame)
+  factors.names <- colnames(project.portfolio.as.data.frame)
+  Project.portfolio(
+    lapply( i <- 1:length(project.names), function(i) {
+      Project(
+        project.names[[i]],
+        Project.criteria(
+          lapply( x <- 1:length(factors.names), function(x) {
+            Project.criterion(
+              Factor(factors.names[[x]]),
+              project.portfolio.as.data.frame[i,x],
+              project.portfolio.specifics.as.data.frame[i,x]
+            )
+          }
+          )
+        )
+      )
+    }
+    )
+  )
+}
 
 
 
