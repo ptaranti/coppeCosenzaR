@@ -8,11 +8,15 @@
 Option.factor.availability S4 class. It defines the availability to be used in
 association to a factor when evaluatig projects ... TODO(Pessoa) VRF eAmpliar
 }
+\details{
+The accepted degrees are: "Excellent", "Good", "Regular", "Weak", "Void",
+"Zero", "Inexistent"
+}
 \section{Slots}{
 
 \describe{
 \item{\code{factor}}{Factor S4 class}
 
-\item{\code{availability}}{char, must mach the scale of degrees to be used}
+\item{\code{availability}}{character, must mach the scale of degrees to be used}
 }}
 

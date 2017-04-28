@@ -82,44 +82,93 @@ setMethod(
 #' # TODO(Taranti) inserir exemplo
 #'
 
-Project.portfolio <- function(list.of.project){
-  new("Project.portfolio", list.of.project)
-}
 
 
-#' Title
+
+
+
+#' Project.portfolio Constructor
 #'
-#' @param project.portfolio.as.data.frame
-#' @param project.portfolio.specifics.as.data.frame
-#'
-#' @return
+#' @return S4 class
 #' @export
 #'
 #' @examples
-Project.portfolio2 <- function(project.portfolio.as.data.frame,
-                               project.portfolio.specifics.as.data.frame){
+setGeneric("Project.portfolio", function(x, y, ...) standardGeneric("Project.portfolio"))
 
-  project.names <- row.names(project.portfolio.as.data.frame)
-  factors.names <- colnames(project.portfolio.as.data.frame)
-  Project.portfolio(
-    lapply( i <- 1:length(project.names), function(i) {
-      Project(
-        project.names[[i]],
-        Project.criteria(
-          lapply( x <- 1:length(factors.names), function(x) {
-            Project.criterion(
-              Factor(factors.names[[x]]),
-              project.portfolio.as.data.frame[i,x],
-              project.portfolio.specifics.as.data.frame[i,x]
+
+#' @rdname Project.portfolio
+#' @param Arguments (ANY) \cr
+#'  A call to \code{Project.portfolio( )} with no parameters will return
+#'  an error message for missing argument.
+#'
+setMethod("Project.portfolio",
+          signature("ANY"),
+          function(x,...)
+            stop("Coppe.cosenza constructor not implemented for provided parameters")
+)
+
+
+#' @rdname Project.portfolio
+#'
+#' @include project-portfolio.R
+#'
+setMethod("Project.portfolio",
+          signature("list"),
+          function(x){
+            list.of.project <- x
+            new("Project.portfolio", list.of.project)
+            }
+          )
+
+
+#' @rdname Project.portfolio
+#'
+#' @include project-portfolio.R
+#'
+setMethod("Project.portfolio",
+          signature("data.frame", "data.frame"),
+          function(x, y){
+            project.portfolio.as.data.frame <- x
+            project.portfolio.specifics.as.data.frame <- y
+
+            if (!(row.names(project.portfolio.as.data.frame) > 0) )
+              stop("there is no project in the portfolio")
+
+            if (!(colnames(project.portfolio.as.data.frame) > 0) )
+              stop("there is no factors in the portfolio")
+
+            if (!(row.names(project.portfolio.as.data.frame) ==
+                  row.names(project.portfolio.specifics.as.data.frame)))
+              stop("both 02 data frames must have the same projects")
+
+
+            if (!(colnames(project.portfolio.as.data.frame) ==
+                  colnames(project.portfolio.specifics.as.data.frame)))
+              stop("both 02 data frames must have the same factors ")
+
+
+            project.names <- row.names(project.portfolio.as.data.frame)
+            factors.names <- colnames(project.portfolio.as.data.frame)
+            Project.portfolio(
+              lapply( i <- 1:length(project.names), function(i) {
+                Project(
+                  project.names[[i]],
+                  Project.criteria(
+                    lapply( x <- 1:length(factors.names), function(x) {
+                      Project.criterion(
+                        Factor(factors.names[[x]]),
+                        project.portfolio.as.data.frame[i,x],
+                        project.portfolio.specifics.as.data.frame[i,x]
+                      )
+                    }
+                    )
+                  )
+                )
+              }
+              )
             )
           }
-          )
-        )
-      )
-    }
-    )
-  )
-}
+)
 
 
 

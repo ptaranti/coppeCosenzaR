@@ -5,13 +5,20 @@
 \alias{Option.portfolio-class}
 \title{Option.portfolio S4 Class}
 \description{
-Option.portfolio S4 class contains a list of S4 Option objects.
-# TODO (Pessoa) explicar que é input com o resources.portfolio e a matrix de
-agregacao.
+Option.portfolio S4 class contains a type-checked list of S4 Option objects.
+This object is an argument to construct the CoppeCosenza S4 objects, which,
+in turn, represents the method solution.
+}
+\details{
+Any S4 Option object can be included in the @list.of.options. This means we
+can have options with different set of factors. It is possible to export and
+import Option.portfolio to/from data.frame, allowing to store and edit
+information externally.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{list.of.option}}{list of Option S4 objects}
+\item{\code{list.of.option}}{list of Option S4 objects. The option names are checked
+and must be distinct.}
 }}
 

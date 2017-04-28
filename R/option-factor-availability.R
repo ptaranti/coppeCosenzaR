@@ -1,18 +1,14 @@
 
-
-# TODO(Taranti) criar lista de Degree of availability para ser usada na validacao
-#  do Option.factor.availability
-
-
-
-
 #' Option.factor.availability S4 Class
 #'
 #' Option.factor.availability S4 class. It defines the availability to be used in
 #' association to a factor when evaluatig projects ... TODO(Pessoa) VRF eAmpliar
 #'
+#' The accepted degrees are: "Excellent", "Good", "Regular", "Weak", "Void",
+#' "Zero", "Inexistent"
+#'
 #' @slot factor Factor S4 class
-#' @slot availability char, must mach the scale of degrees to be used
+#' @slot availability character, must mach the scale of degrees to be used
 #'
 #' @export
 #' @include factor.R
@@ -22,14 +18,14 @@ setClass(
     factor = "Factor",
     availability = "character"),
   validity = function(object) {
-    if (!methods::is(object@factor, "Factor")) stop("'@factor must be a Factor S4 object")
-
-    # accepted.availability deveria ser substituida por uma chamada de
-    # funcao que traria a escala escolhida.
-    accepted.availability <- c("Excellent", "Good", "Regular","Weak")
+    if (!methods::is(object@factor, "Factor"))
+      stop("@factor must be a Factor S4 object")
+    accepted.availability <-
+      c("Excellent", "Good", "Regular", "Weak", "Void", "Zero", "Inexistent")
     if (!(object@availability %in% accepted.availability))
       stop("'@availability must match an expectded value. Currently:
-           c(\"Excellent\", \"Good\", \"Regular\",\"Weak\")")
+           c(\"Excellent\", \"Good\", \"Regular\",\"Weak\",\"Void\",\"Zero\",
+           \"Inexistent\")")
     TRUE
   }
 )
@@ -42,7 +38,7 @@ setMethod(
   definition = function(.Object,
                         factor,
                         availability){
-    cat("~~~ Option.factor.availability ~~~ \n")
+    #cat("~~~ Option.factor.availability ~~~ \n")
     # Assignment of the slots
     .Object@factor <- factor
     .Object@availability = availability
@@ -52,15 +48,15 @@ setMethod(
   }
 )
 
-#' Option.factor.availability Constructor function
+#' Option.factor.availability Constructor
 #'
-#'
-#' Constructs a Option.factor.availability S4 class. This defines the criterium to be
-#'  used in association to a factor when evaluatig projects ... TODO(Pessoa) VRF
-#'  eAmpliar
+#' Constructs a Option.factor.availability S4 class. This defines the criterion
+#' to be used in association to a factor when evaluatig projects ...
+#' TODO(Pessoa) VRF e Ampliar
 #'
 #' @param  factor Factor S4 class
-#' @param  availability char, must mach the scale of degrees to be used
+#' @param  availability character, must mach the scale of degrees as provided in
+#' \code{\link{Option.factor.availability}} class documentation
 #'
 #' @return a \code{\link{Option.factor.availability}} S4 object
 #'

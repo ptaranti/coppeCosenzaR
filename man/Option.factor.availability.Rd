@@ -2,22 +2,23 @@
 % Please edit documentation in R/option-factor-availability.R
 \name{Option.factor.availability}
 \alias{Option.factor.availability}
-\title{Option.factor.availability Constructor function}
+\title{Option.factor.availability Constructor}
 \usage{
 Option.factor.availability(factor, availability)
 }
 \arguments{
 \item{factor}{Factor S4 class}
 
-\item{availability}{char, must mach the scale of degrees to be used}
+\item{availability}{character, must mach the scale of degrees as provided in
+\code{\link{Option.factor.availability}} class documentation}
 }
 \value{
 a \code{\link{Option.factor.availability}} S4 object
 }
 \description{
-Constructs a Option.factor.availability S4 class. This defines the criterium to be
- used in association to a factor when evaluatig projects ... TODO(Pessoa) VRF
- eAmpliar
+Constructs a Option.factor.availability S4 class. This defines the criterion
+to be used in association to a factor when evaluatig projects ...
+TODO(Pessoa) VRF e Ampliar
 }
 \examples{
 \dontrun{Option.factor.availability <- Option.factor.availability(factor, availability)}

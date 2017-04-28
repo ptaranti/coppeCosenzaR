@@ -2,13 +2,21 @@
 % Please edit documentation in R/option.R
 \name{getOptionFactorsNames}
 \alias{getOptionFactorsNames}
-\title{Title}
+\title{getOptionFactorsNames}
 \usage{
 getOptionFactorsNames(option)
 }
 \arguments{
-\item{option}{}
+\item{option}{an Option S4 object}
+}
+\value{
+It provides a sorted vector with the names of factors in an option.
 }
 \description{
-Title
+This function returns a sorted vector with all the factors names in a Option
+S4 object
+}
+\examples{
+\dontrun{getOptionFactorsNames(option)}
+
 }

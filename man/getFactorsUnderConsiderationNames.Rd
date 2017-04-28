@@ -2,13 +2,20 @@
 % Please edit documentation in R/factors-under-consideration.R
 \name{getFactorsUnderConsiderationNames}
 \alias{getFactorsUnderConsiderationNames}
-\title{Title}
+\title{getFactorsUnderConsiderationNames}
 \usage{
 getFactorsUnderConsiderationNames(factors.under.consideration)
 }
 \arguments{
 \item{factors.under.consideration}{}
 }
+\value{
+vector of character
+}
 \description{
-Title
+It provides a sorted vector with the names of factors.
+}
+\examples{
+\dontrun{getFactorsUnderConsiderationNames(factors.under.consideration)}
+
 }

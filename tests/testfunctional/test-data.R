@@ -185,6 +185,6 @@ factors.under.consideration <- Factors.under.consideration(
   )
   )
 
-CoppeCosenzaMethod(project.portfolio, option.portfolio, factors.under.consideration)
+CoppeCosenza(project.portfolio, option.portfolio, factors.under.consideration)
 
 }

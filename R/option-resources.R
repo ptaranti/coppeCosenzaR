@@ -1,8 +1,9 @@
 
 #' Option.resources S4 Class
 #'
-#' Option.resources S4 class contains a list of S4 Option.factor.availability objects.
-#' This list is   used to construct Option objects.
+#' Option.resources S4 class contains a list of one or more S4
+#' Option.factor.availability objects. This list is type-checked and used to
+#' construct Option objects.
 #'
 #' @slot list.of.factor.availability list of Option.factor.availability
 #'
@@ -52,7 +53,7 @@ setMethod(
   signature = "Option.resources",
   definition = function(.Object,
                         list.of.factor.availability){
-    cat("~~~ Option.resources: initializator ~~~ \n")
+    #cat("~~~ Option.resources: initializator ~~~ \n")
     # Assignment of the slots
     .Object@list.of.factor.availability <- list.of.factor.availability
     methods::validObject(.Object)
@@ -63,7 +64,7 @@ setMethod(
 
 #' Option.resources Constructor
 #'
-#' Option.resources(list) is a constructor to Factor S4 objects.
+#' A constructor to Option.resources S4 objects.
 #'
 #' @param list list of Option.factor.availability S4 objects
 #'
@@ -72,8 +73,7 @@ setMethod(
 #' @export
 #'
 #' @examples
-#'
-#' # TODO(Taranti) inserir exemplo
+#' \dontrun{Option.resources(list.of.factor.availability)}
 #'
 Option.resources <- function(list.of.factor.availability){
   new("Option.resources", list.of.factor.availability)

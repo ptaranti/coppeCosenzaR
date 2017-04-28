@@ -6,11 +6,13 @@
 \title{Factors.under.consideration S4 Class}
 \description{
 Factors.under.consideration S4 class contains a list of S4 Factor objects.
-This list is   used to construct Projec objects.
+This list is used as parameter when construction de output from Coppe-Cosenza
+ method.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{list.of.factors}}{list of Factor}
+\item{\code{list.of.factors}}{list of Factor.
+Has une or more distinct S4 Factor objects.}
 }}
 

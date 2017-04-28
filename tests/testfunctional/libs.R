@@ -17,4 +17,3 @@ LoadAgregationMatrix <- function(x){
   save(agregationMatrix,file = "./R/agregationMatrix.Rda")
   load("./R/agregationMatrix.Rda")
   }
-

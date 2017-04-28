@@ -41,7 +41,7 @@ setMethod(
                         project.criteria){
     cat(" ~~~ \n")
     # Assignment of the slots
-    .Object@name <- name
+    .Object@name <- as.character(name)
     .Object@project.criteria = project.criteria
     methods::validObject(.Object)
     return(.Object)

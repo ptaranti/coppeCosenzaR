@@ -2,7 +2,7 @@
 % Please edit documentation in R/factors-under-consideration.R
 \name{Factors.under.consideration}
 \alias{Factors.under.consideration}
-\title{Factors.under.consideration(list.of.factors)}
+\title{Factors.under.consideration Constructor}
 \usage{
 Factors.under.consideration(list.of.factors)
 }
@@ -13,9 +13,12 @@ Factors.under.consideration(list.of.factors)
 a \code{\link{Factors.under.consideration}} S4 object
 }
 \description{
-Factors.under.consideration(list.of.factors) is a constructor.
+Factors.under.consideration is a constructor. Factor elements inserted in
+list.of.factors are type-checked as S4 coppeCosenza::Factor objects. They
+must have distint names.
 }
 \examples{
-Factors.under.consideration(list(Factor("factor1"), Factor("factor2"), Factor("factor3")))
+Factors.under.consideration(list(Factor("factor1"), Factor("factor2"),
+Factor("factor3")))
 
 }

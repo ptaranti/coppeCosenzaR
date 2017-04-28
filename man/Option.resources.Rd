@@ -13,10 +13,9 @@ Option.resources(list.of.factor.availability)
 a \code{\link{Option.resources}} S4 object
 }
 \description{
-Option.resources(list) is a constructor to Factor S4 objects.
+A constructor to Option.resources S4 objects.
 }
 \examples{
-
-# TODO(Taranti) inserir exemplo
+\dontrun{Option.resources(list.of.factor.availability)}
 
 }

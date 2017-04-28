@@ -5,8 +5,9 @@
 \alias{Option.resources-class}
 \title{Option.resources S4 Class}
 \description{
-Option.resources S4 class contains a list of S4 Option.factor.availability objects.
-This list is   used to construct Option objects.
+Option.resources S4 class contains a list of one or more S4
+Option.factor.availability objects. This list is type-checked and used to
+construct Option objects.
 }
 \section{Slots}{
 

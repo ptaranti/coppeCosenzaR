@@ -3,9 +3,13 @@
 #' Factors.under.consideration S4 Class
 #'
 #' Factors.under.consideration S4 class contains a list of S4 Factor objects.
-#' This list is   used to construct Projec objects.
+#' This list is used as parameter when construction de output from Coppe-Cosenza
+#'  method.
 #'
-#' @slot list.of.factors list of Factor
+#'
+#'
+#' @slot list.of.factors list of Factor.
+#' Has une or more distinct S4 Factor objects.
 #'
 #' @export
 #'
@@ -17,8 +21,8 @@ setClass(
     list.of.factors = "list"),
   validity = function(object) {
       msg <- NULL
-      if (is.null(object@list.of.factors)) stop("Factors.under.consideration must have one
-                                    or more Factors")
+      if (is.null(object@list.of.factors))
+        stop("Factors.under.consideration must have one or more Factors")
       for (factor in object@list.of.factors) {
         if (!methods::is(factor, "Factor"))
           msg <-
@@ -38,7 +42,7 @@ setMethod(
   signature = "Factors.under.consideration",
   definition = function(.Object,
                         list.of.factors){
-    cat("~~~ Factors.under.consideration: initializator ~~~ \n")
+    # cat("~~~ Factors.under.consideration: initializator ~~~ \n")
     # Assignment of the slots
     .Object@list.of.factors <- list.of.factors
     methods::validObject(.Object)
@@ -47,9 +51,12 @@ setMethod(
   }
 )
 
-#' Factors.under.consideration(list.of.factors)
+#' Factors.under.consideration Constructor
 #'
-#' Factors.under.consideration(list.of.factors) is a constructor.
+#' Factors.under.consideration is a constructor. Factor elements inserted in
+#' list.of.factors are type-checked as S4 coppeCosenza::Factor objects. They
+#' must have distint names.
+#'
 #'
 #' @param list.of.factors list of Factor S4 objects
 #'
@@ -58,7 +65,8 @@ setMethod(
 #' @export
 #'
 #' @examples
-#' Factors.under.consideration(list(Factor("factor1"), Factor("factor2"), Factor("factor3")))
+#' Factors.under.consideration(list(Factor("factor1"), Factor("factor2"),
+#' Factor("factor3")))
 #'
 #' @include factor.R
 #'
@@ -68,15 +76,25 @@ Factors.under.consideration <- function(list.of.factors){
 
 
 
-#' Title
+#' getFactorsUnderConsiderationNames
+#'
+#' It provides a sorted vector with the names of factors.
 #'
 #' @param factors.under.consideration
 #'
-#' @return
+#' @return vector of character
 #' @export
 #'
 #' @examples
+#' \dontrun{getFactorsUnderConsiderationNames(factors.under.consideration)}
+#'
 getFactorsUnderConsiderationNames <- function(factors.under.consideration){
+
+  #type check
+  if (!methods::is(factors.under.consideration, "Factors.under.consideration"))
+    stop("factors.under.consideration parameter must be a
+         Factors.under.consideration S4 object")
+
   vector.of.factors.names <- NULL
   for (factor in factors.under.consideration@list.of.factors) {
     vector.of.factors.names <- c(vector.of.factors.names, factor@name)

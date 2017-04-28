@@ -1,5 +1,5 @@
 
 library(testthat)
-library(coppeCosenza)
+library(coppeCosenzaR)
 
 #test_check("Factor")

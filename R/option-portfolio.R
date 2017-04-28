@@ -1,20 +1,23 @@
-# criar metodo para instanciar a partir de data.frame
-#
-
-
 
 
 #' Option.portfolio S4 Class
 #'
-#' Option.portfolio S4 class contains a list of S4 Option objects.
-#' # TODO (Pessoa) explicar que é input com o resources.portfolio e a matrix de
-#' agregacao.
+#' Option.portfolio S4 class contains a type-checked list of S4 Option objects.
+#' This object is an argument to construct the CoppeCosenza S4 objects, which,
+#' in turn, represents the method solution.
 #'
-#' @slot list.of.option list of Option S4 objects
+#' Any S4 Option object can be included in the @list.of.options. This means we
+#' can have options with different set of factors. It is possible to export and
+#' import Option.portfolio to/from data.frame, allowing to store and edit
+#' information externally.
+#'
+#'
+#' @slot list.of.option list of Option S4 objects. The option names are checked
+#' and must be distinct.
 #'
 #' @export
 #'
-#' @include project.R
+#' @include option.R
 #'
 setClass(
   "Option.portfolio",
@@ -52,56 +55,99 @@ setMethod(
   }
 )
 
-#' Option.portfolio Constructor
+
+
+#' Option.portfolio
 #'
-#' Option.portfolio(list.of.option) is a constructor to Option.portfolio S4 objects.
+#' S4 method to construct Option.portfolio S4 objects. It accepts different
+#' sets for parameters types.
 #'
-#' @param list.of.option list of Option S4 objects
-#'
-#' @return a \code{\link{Option.portfolio}} S4 object
-#'
+#' @return a Option.portfolio S4 object
 #' @export
 #'
+setGeneric("Option.portfolio", function(x, y, ...) standardGeneric("Option.portfolio"))
+
+
+#' @rdname Option.portfolio
+#' @param Arguments (ANY) \cr
+#'  A call to \code{Project.portfolio( )} with no parameters will return
+#'  an error message for mismatch argument.
+#'
+setMethod("Option.portfolio",
+          signature("ANY"),
+          function(x,...)
+            stop("Option.portfolio constructor not implemented for provided parameters")
+)
+
+
+#' @rdname Option.portfolio
+#'
+#' @param Arguments list(). A non-empty list with Option S4 objects.
+#'
 #' @examples
-#' \dontrun{Option.portfolio(list(project1, project2, project3))}
-#' # TODO(Taranti) inserir exemplo
+#' \dontrun{option.portfolio <- Option.portfolio(list.of.options)}
 #'
-Option.portfolio <- function(list.of.option){
-  new("Option.portfolio", list.of.option)
-}
+setMethod("Option.portfolio",
+          signature("list"),
+          function(x){
+            list.of.option <- x
+            new("Option.portfolio", list.of.option)
+          }
+)
 
 
-#' Title
+#' @rdname Option.portfolio
 #'
-#' @param option.portfolio.as.data.frame
+#' @param Arguments data.frame. A data.frame where columns represent factors and
+#' rows are the options. The data frame is checked for no columns and no rows.
+#' The constructors called subsequently will verify if acceptable values where
+#' used to factor evaluation and for distinct names of factors and options.
 #'
-#' @return
-#' @export
+#' @note It is possible to obtain a dummy table to serve as example by
+#' construction a potrfolio using  \code{Option.portfolio(list.of.options)} and
+#' after converting it in a data.frame using the function
+#' \code{getOptionPortfolioAsDataFrame(option.portfolio)}.
 #'
 #' @examples
-Option.portfolio2 <- function(option.portfolio.as.data.frame){
+#' \dontrun{option.portfolio <- Option.portfolio(my.option.portfolio.data.frame)}
+#'
+#' @rdname Option.portfolio
+#'
+#' @include option-portfolio.R
+#'
+setMethod("Option.portfolio",
+          signature("data.frame"),
+          function(x){
+            option.portfolio.as.data.frame <- x
 
-  option.names <- row.names(option.portfolio.as.data.frame)
-  factors.names <- colnames(option.portfolio.as.data.frame)
-  Option.portfolio(
-    lapply( i <- 1:length(option.names), function(i) {
-      Option(
-        option.names[[i]],
-        Option.resources(
-          lapply( x <- 1:length(factors.names), function(x) {
-            Option.factor.availability(
-              Factor(option.names[[x]]),
-              option.portfolio.as.data.frame[i,x]
+
+            if (!(row.names(option.portfolio.as.data.frame) > 0) )
+              stop("there is no options in the portfolio")
+
+            if (!(colnames(option.portfolio.as.data.frame) > 0) )
+              stop("there is no factors in the portfolio")
+
+            option.names <- row.names(option.portfolio.as.data.frame)
+            factors.names <- colnames(option.portfolio.as.data.frame)
+            Option.portfolio(
+              lapply( i <- 1:length(option.names), function(i) {
+                Option(
+                  option.names[[i]],
+                  Option.resources(
+                    lapply( x <- 1:length(factors.names), function(x) {
+                      Option.factor.availability(
+                        Factor(option.names[[x]]),
+                        option.portfolio.as.data.frame[i,x]
+                      )
+                    }
+                    )
+                  )
+                )
+              }
+              )
             )
           }
-          )
-        )
-      )
-    }
-    )
-  )
-}
-
+)
 
 
 

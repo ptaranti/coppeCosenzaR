@@ -1,4 +1,4 @@
-Package: coppeCosenza
+Package: coppeCosenzaR
 Title: COPPE-Cosenza Fuzzy Hierarchy Model (coppeCosenza)
 Date: 2017-04-20
 Version: 0.0.1
@@ -20,18 +20,16 @@ RoxygenNote: 6.0.1
 Suggests:
     testthat
 BugReports: XXX@XXX.xxx
-Collate:
+Collate: 
     'factor.R'
     'factors-under-consideration.R'
-    'project-criterion.R'
-    'project-criteria.R'
-    'project.R'
-    'option-portfolio.R'
-    'project-portfolio.R'
-    'coppeCosenza-method.R'
-    'coppeCosenza.R'
-    'libs.R'
     'option-factor-availability.R'
     'option-resources.R'
     'option.R'
-    'test-data.R'
+    'option-portfolio.R'
+    'project-criterion.R'
+    'project-criteria.R'
+    'project.R'
+    'project-portfolio.R'
+    'coppeCosenza.R'
+    'coppeCosenzaR.R'
