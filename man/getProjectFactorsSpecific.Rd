@@ -2,13 +2,22 @@
 % Please edit documentation in R/project.R
 \name{getProjectFactorsSpecific}
 \alias{getProjectFactorsSpecific}
-\title{Title}
+\title{getProjectFactorsSpecific}
 \usage{
 getProjectFactorsSpecific(project)
 }
 \arguments{
-\item{project}{}
+\item{option}{an Project S4 object}
+}
+\value{
+It provides a sorted vector with the names of factors in an project
+whitch were classified as specific to the project under discussion.
 }
 \description{
-Title
+This function returns a sorted vector with all the factors names in a Project
+S4 object whitch were classified as specific to the project under discussion.
+}
+\examples{
+\dontrun{getProjectFactorsSpecific(project)}
+
 }

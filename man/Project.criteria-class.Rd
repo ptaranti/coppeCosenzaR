@@ -6,7 +6,7 @@
 \title{Project.criteria S4 Class}
 \description{
 Project.criteria S4 class contains a list of S4 Project.criterion objects.
-This list is   used to construct Projec objects.
+This list is   used to construct Projec objects, and is type checked.
 }
 \section{Slots}{
 

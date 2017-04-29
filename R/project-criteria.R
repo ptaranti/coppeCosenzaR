@@ -2,7 +2,7 @@
 #' Project.criteria S4 Class
 #'
 #' Project.criteria S4 class contains a list of S4 Project.criterion objects.
-#' This list is   used to construct Projec objects.
+#' This list is   used to construct Projec objects, and is type checked.
 #'
 #' @slot list.of.project.criterion list of Project.criterion
 #'
@@ -34,6 +34,7 @@ setClass(
              Project.criterion S4 objects")
     }
 
+    # all elements are Project.criterion are related to distinct factors
     factor.names <- c()
     for (project.criterion in object@list.of.project.criterion) {
          factor.names <- c(factor.names, project.criterion@factor@name)}
@@ -52,7 +53,7 @@ setMethod(
   signature = "Project.criteria",
   definition = function(.Object,
                         list.of.project.criterion){
-    cat("~~~ Project.criteria: initializator ~~~ \n")
+    #cat("~~~ Project.criteria: initializator ~~~ \n")
     # Assignment of the slots
     .Object@list.of.project.criterion <- list.of.project.criterion
     methods::validObject(.Object)
@@ -63,9 +64,10 @@ setMethod(
 
 #' Project.criteria Constructor
 #'
-#' Project.criteria(list) is a constructor to Factor S4 objects.
+#' Project.criteria is a constructor to Factor S4 objects.
 #'
-#' @param list list of Project.criterion S4 objects
+#' @param list list of Project.criterion S4 objects. The list is type checked
+#' and cannot be empty.
 #'
 #' @return a \code{\link{Project.criteria}} S4 object
 #'

@@ -2,13 +2,20 @@
 % Please edit documentation in R/project-portfolio.R
 \name{getProjectPortfolioNames}
 \alias{getProjectPortfolioNames}
-\title{Title}
+\title{getProjectPortfolioNames}
 \usage{
 getProjectPortfolioNames(project.portfolio)
 }
 \arguments{
 \item{project.portfolio}{}
 }
+\value{
+vector of character
+}
 \description{
-Title
+function that provides a sorted vector with project names.
+}
+\examples{
+\dontrun{getProjectPortfolioNames(project.portfolio)}
+
 }

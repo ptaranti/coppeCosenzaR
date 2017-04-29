@@ -39,7 +39,7 @@ sets for parameters types.
 It is possible to obtain a dummy table to serve as example by
 construction a potrfolio using  \code{Option.portfolio(list.of.options)} and
 after converting it in a data.frame using the function
-\code{getOptionPortfolioAsDataFrame(option.portfolio)}.
+\code{as.data.frame(option.portfolio)}.
 }
 \examples{
 \dontrun{option.portfolio <- Option.portfolio(list.of.options)}

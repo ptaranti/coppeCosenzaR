@@ -1,8 +1,9 @@
 
 #' Option.factor.availability S4 Class
 #'
-#' Option.factor.availability S4 class. It defines the availability to be used in
-#' association to a factor when evaluatig projects ... TODO(Pessoa) VRF eAmpliar
+#' Option.factor.availability S4 class. It defines the availability to be used
+#' in association to a factor when evaluatig projects ...
+#' TODO(Pessoa) VRF eAmpliar
 #'
 #' The accepted degrees are: "Excellent", "Good", "Regular", "Weak", "Void",
 #' "Zero", "Inexistent"

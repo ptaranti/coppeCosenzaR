@@ -1,18 +1,17 @@
-# criar metodo para instanciar a partir de data.frame
-#
-
-
-
-
-#' Project.portfolio S4 Class
+#' @title  Project.portfolio
 #'
-#' Project.portfolio S4 class contains a list of S4 Project objects.
-#' # TODO (Pessoa) explicar que é input com o resources.portfolio e a matrix de
-#' agregacao.
+#' @description Project.portfolio S4 class contains a type-checked list of S4
+#' Project objects. This project.portfolio is an argument to construct the
+#' CoppeCosenza S4 objects, which, in turn, represents the method solution.
 #'
 #' @slot list.of.project list of Project S4 objects
 #'
 #' @export
+#' @note  Any S4 Project object can be included in the @list.of.project. This
+#' means we can have projects with different set of factors. It is possible to
+#' export and import Project.portfolio to/from data.frame, allowing to store
+#' and edit information externally.
+#'  TODO (Pessoa)  VRF
 #'
 #' @include project.R
 #'
@@ -58,7 +57,7 @@ setMethod(
   signature = "Project.portfolio",
   definition = function(.Object,
                         list.of.project){
-    cat("~~~ Project.portfolio: initializator ~~~ \n")
+    #cat("~~~ Project.portfolio: initializator ~~~ \n")
     # Assignment of the slots
     .Object@list.of.project <- list.of.project
     methods::validObject(.Object)
@@ -67,35 +66,21 @@ setMethod(
   }
 )
 
-#' Project.portfolio Constructor
-#'
-#' Project.portfolio(list.of.project) is a constructor to Project.portfolio S4 objects.
-#'
-#' @param list.of.project list of Project S4 objects
-#'
-#' @return a \code{\link{Project.portfolio}} S4 object
-#'
-#' @export
-#'
-#' @examples
-#' \dontrun{Project.portfolio(list(project1, project2, project3))}
-#' # TODO(Taranti) inserir exemplo
-#'
-
-
-
-
 
 
 #' Project.portfolio Constructor
 #'
-#' @return S4 class
+#' S4 method to construct Project.portfolio S4 objects. It accepts different
+#' sets for parameters types.
+#'
+#' @return a Project.portfolio S4 object
 #' @export
 #'
-#' @examples
-setGeneric("Project.portfolio", function(x, y, ...) standardGeneric("Project.portfolio"))
+setGeneric("Project.portfolio", function(x, y, ...)
+  standardGeneric("Project.portfolio"))
 
 
+#'
 #' @rdname Project.portfolio
 #' @param Arguments (ANY) \cr
 #'  A call to \code{Project.portfolio( )} with no parameters will return
@@ -110,6 +95,11 @@ setMethod("Project.portfolio",
 
 #' @rdname Project.portfolio
 #'
+#' @param Arguments list(). A non-empty list with Project S4 objects.
+#'
+#' @examples
+#' \dontrun{option.portfolio <- Project.portfolio(list.of.project)}
+#'
 #' @include project-portfolio.R
 #'
 setMethod("Project.portfolio",
@@ -117,10 +107,31 @@ setMethod("Project.portfolio",
           function(x){
             list.of.project <- x
             new("Project.portfolio", list.of.project)
-            }
-          )
+          }
+)
 
 
+
+
+#' @rdname Project.portfolio
+#'
+#' @param Arguments (data.frame, data.frame). Data.frame where columns represent
+#' factors and rows are the projects. The data.frame is checked for no-columns
+#' and no-rows. The firs data.frame contain the factors evaluation and the
+#' second, with same rows and columns, contain boolean information about the
+#' factor being specific or not to the project.
+#' The constructors called subsequently will verify if acceptable values where
+#' used to factor evaluation and for distinct names of factors and projects
+#'
+#' @note It is possible to obtain a dummy table to serve as example by
+#' construction a potrfolio using  \code{Project.portfolio(list.of.projects)}
+#' and, after, converting it in a data.frame using the function
+#' \code{as.data.frame(project.portfolio)}.
+#'
+#' @examples
+#' \dontrun{project.portfolio <-
+#' (project.portfolio.as.data.frame, project.portfolio.specifics.as.data.frame)}
+#'
 #' @rdname Project.portfolio
 #'
 #' @include project-portfolio.R
@@ -171,15 +182,7 @@ setMethod("Project.portfolio",
 )
 
 
-
-#' Title
-#'
-#' @param project.portfolio
-#'
-#' @return
-#' @export
-#'
-#' @examples
+#function called by method as.data.frame(project.portfolio, boolean)
 getProjectPortfolioAsDataFrame <- function(project.portfolio){
 
   portfolio.factors <- getProjectPortfolioFactors(project.portfolio)
@@ -192,54 +195,55 @@ getProjectPortfolioAsDataFrame <- function(project.portfolio){
     for (project.criterion in project@project.criteria@list.of.project.criterion) {
       df[project@name, project.criterion@factor@name] <- project.criterion@importance.degree
       #print(project.criterion@factor@name, project, project.criterion@importance.degree)
-      }
+    }
   }
   return(df)
 }
 
 
 
-
-
-#' Title
-#'
-#' @param project.portfolio
-#'
-#' @return
-#' @export
-#'
-#' @examples
+#function called by method as.data.frame(project.portfolio, boolean)
 getProjectPortfolioSpecificsAsDataFrame <- function(project.portfolio){
 
-portfolio.factors <- getProjectPortfolioFactors(project.portfolio)
-project.portfolio.names <- getProjectPortfolioNames(project.portfolio)
+  portfolio.factors <- getProjectPortfolioFactors(project.portfolio)
+  project.portfolio.names <- getProjectPortfolioNames(project.portfolio)
 
-df <- data.frame(matrix(ncol = length(portfolio.factors), nrow = length(project.portfolio.names)))
-colnames(df) <- portfolio.factors
-rownames(df) <- project.portfolio.names
-for (project in project.portfolio@list.of.project) {
-  for (project.criterion in project@project.criteria@list.of.project.criterion) {
-    df[project@name, project.criterion@factor@name] <- project.criterion@specific
-    #print(project.criterion@factor@name, project, project.criterion@importance.degree)
+  df <- data.frame(matrix(ncol = length(portfolio.factors), nrow = length(project.portfolio.names)))
+  colnames(df) <- portfolio.factors
+  rownames(df) <- project.portfolio.names
+  for (project in project.portfolio@list.of.project) {
+    for (project.criterion in project@project.criteria@list.of.project.criterion) {
+      df[project@name, project.criterion@factor@name] <- project.criterion@specific
+      #print(project.criterion@factor@name, project, project.criterion@importance.degree)
+    }
   }
-}
-# change any "" or "   "  to NA
-#data.frame <- as.data.frame(apply(data.frame,2,function(x)gsub("^\\s*$", NA,x)))
-
-return(df)
+  # change any "" or "   "  to NA
+  #data.frame <- as.data.frame(apply(data.frame,2,function(x)gsub("^\\s*$", NA,x)))
+  return(df)
 }
 
 
 
-#' Title
+
+#' getProjectPortfolioFactors
+#'
+#' function that provides a sorted vector with factors from the project list.
 #'
 #' @param project.portfolio
 #'
-#' @return
+#' @return vector of character
+#'
 #' @export
 #'
 #' @examples
+#' \dontrun{getProjectPortfolioFactors(project.portfolio)}
+#'
 getProjectPortfolioFactors <- function(project.portfolio){
+
+
+  if (!methods::is(project.portfolio, "Project.portfolio"))
+    stop("project.portfolio an instance of project.portfolio S4 objects")
+
   vector.of.factors <- NULL
   for (project in project.portfolio@list.of.project) {
     vector.of.factors <- c(vector.of.factors, getProjectFactorsNames(project))
@@ -252,19 +256,60 @@ getProjectPortfolioFactors <- function(project.portfolio){
 
 
 
-#' Title
+#' getProjectPortfolioNames
+#'
+#' function that provides a sorted vector with project names.
 #'
 #' @param project.portfolio
 #'
-#' @return
+#' @return vector of character
+#'
 #' @export
 #'
 #' @examples
+#' \dontrun{getProjectPortfolioNames(project.portfolio)}
+#'
 getProjectPortfolioNames <- function(project.portfolio){
-vector.of.names <- NULL
-for (project in project.portfolio@list.of.project) {
-  vector.of.names <- c(vector.of.names, project@name)
+
+  if (!methods::is(project.portfolio, "Project.portfolio"))
+    stop("project.portfolio an instance of project.portfolio S4 objects")
+
+  vector.of.names <- NULL
+  for (project in project.portfolio@list.of.project) {
+    vector.of.names <- c(vector.of.names, project@name)
+  }
+  vector.of.names <- sort(vector.of.names, decreasing = FALSE)
+  return(vector.of.names)
 }
-vector.of.names <- sort(vector.of.names, decreasing = FALSE)
-return(vector.of.names)
-}
+
+
+
+
+#' @rdname as.data.frame
+#'
+#' @param (x, get.specific = FALSE)
+#' \itemize{
+#' \item x is a Project.portfolio S4 objec
+#' \item get.specific indicates if the return is a data.frame with factor
+#' evaluations or with the information about which factors are specific to
+#' a project.
+#' }
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{as.data.frame(option.portfolio, TRUE)}
+#'
+#'
+#' @include option-portfolio.R
+#'
+#  The generic S4 method is in option-portfolio.R
+#
+setMethod("as.data.frame", signature("Project.portfolio"),
+          function(x, get.specific = FALSE) {
+            option.portfolio <- x
+            if (get.specific)
+              return(getProjectPortfolioSpecificsAsDataFrame(option.portfolio))
+            else return(getProjectPortfolioAsDataFrame(option.portfolio))
+          }
+)

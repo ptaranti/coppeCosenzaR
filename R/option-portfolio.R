@@ -46,7 +46,7 @@ setMethod(
   signature = "Option.portfolio",
   definition = function(.Object,
                         list.of.option){
-    cat("~~~ Option.portfolio: initializator ~~~ \n")
+    #cat("~~~ Option.portfolio: initializator ~~~ \n")
     # Assignment of the slots
     .Object@list.of.option <- list.of.option
     methods::validObject(.Object)
@@ -65,7 +65,8 @@ setMethod(
 #' @return a Option.portfolio S4 object
 #' @export
 #'
-setGeneric("Option.portfolio", function(x, y, ...) standardGeneric("Option.portfolio"))
+setGeneric("Option.portfolio", function(x, y, ...)
+  standardGeneric("Option.portfolio"))
 
 
 #' @rdname Option.portfolio
@@ -76,7 +77,8 @@ setGeneric("Option.portfolio", function(x, y, ...) standardGeneric("Option.portf
 setMethod("Option.portfolio",
           signature("ANY"),
           function(x,...)
-            stop("Option.portfolio constructor not implemented for provided parameters")
+            stop("Option.portfolio constructor not
+                 implemented for provided parameters")
 )
 
 
@@ -106,7 +108,7 @@ setMethod("Option.portfolio",
 #' @note It is possible to obtain a dummy table to serve as example by
 #' construction a potrfolio using  \code{Option.portfolio(list.of.options)} and
 #' after converting it in a data.frame using the function
-#' \code{getOptionPortfolioAsDataFrame(option.portfolio)}.
+#' \code{as.data.frame(option.portfolio)}.
 #'
 #' @examples
 #' \dontrun{option.portfolio <- Option.portfolio(my.option.portfolio.data.frame)}
@@ -151,50 +153,26 @@ setMethod("Option.portfolio",
 
 
 
-
-
-#' Title
+#'
+#' getOptionPortfolioFactors
+#'
+#' function that provides a list of Factor S4 objects presents in a
+#' Option.portfolio S4 object
 #'
 #' @param option.portfolio
 #'
-#' @return
+#' @return list of Factor S4 objects
+#'
 #' @export
 #'
 #' @examples
-getOptionPortfolioAsDataFrame <- function(option.portfolio){
-
-  portfolio.factors <- getOptionPortfolioFactors(option.portfolio)
-  option.portfolio.names <- getOptionPortfolioNames(option.portfolio)
-
-  df <- data.frame(matrix(ncol = length(portfolio.factors), nrow = length(option.portfolio.names)))
-  colnames(df) <- portfolio.factors
-  rownames(df) <- option.portfolio.names
-  for (option in option.portfolio@list.of.option) {
-    for (option.factor.availability in option@option.resources@list.of.factor.availability) {
-      df[option@name, option.factor.availability@factor@name] <- option.factor.availability@availability
-      #print(project.criterion@factor@name, project, project.criterion@importance.degree)
-    }
-  }
-  return(df)
-}
-
-
-
-
-
-
-
-
-
-#' Title
+#' \dontrun{getOptionPortfolioFactors(option.portfolio)}
 #'
-#' @param option.portfolio
-#'
-#' @return
-#' @export
-#'
-#' @examples
 getOptionPortfolioFactors <- function(option.portfolio){
+
+  if (!methods::is(option.portfolio, "Option.portfolio"))
+    stop("option.portfolio an instance of Option.portfolio S4 objects")
+
   vector.of.factors <- NULL
   for (option in option.portfolio@list.of.option) {
     vector.of.factors <- c(vector.of.factors, getOptionFactorsNames(option))
@@ -208,15 +186,25 @@ getOptionPortfolioFactors <- function(option.portfolio){
 
 
 
-#' Title
+
+#' getOptionPortfolioNames
+#'
+#' function that provides a sorted vector with option names.
 #'
 #' @param option.portfolio
 #'
-#' @return
+#' @return vector of character
+#'
 #' @export
 #'
 #' @examples
+#' \dontrun{getOptionPortfolioNames(option.portfolio)}
+#'
 getOptionPortfolioNames <- function(option.portfolio){
+
+  if (!methods::is(option.portfolio, "Option.portfolio"))
+    stop("option.portfolio an instance of Option.portfolio S4 objects")
+
   vector.of.names <- NULL
   for (option in option.portfolio@list.of.option) {
     vector.of.names <- c(vector.of.names, option@name)
@@ -224,3 +212,58 @@ getOptionPortfolioNames <- function(option.portfolio){
   vector.of.names <- sort(vector.of.names, decreasing = FALSE)
   return(vector.of.names)
 }
+
+
+
+
+#' as.data.frame
+#'
+#' Generic S4 method to \code{\link{as.data.frame}}.
+#'
+#' @return data.frame
+#'
+#' @export
+#'
+setGeneric("as.data.frame",
+           function(x, ...)
+             standardGeneric(
+               "as.data.frame", function(x,...) base::as.data.frame(x,...)
+               )
+           )
+
+
+
+#' @rdname as.data.frame
+#'
+#' @param x Option.portfolio S4 object
+#'
+#' @return data.frame
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{as.data.frame(option.portfolio)}
+#'
+setMethod("as.data.frame", signature("Option.portfolio"),
+          function(x) {
+            option.portfolio <- x
+            portfolio.factors <- getOptionPortfolioFactors(option.portfolio)
+            option.portfolio.names <- getOptionPortfolioNames(option.portfolio)
+
+            df <- data.frame(matrix(ncol = length(portfolio.factors),
+                                    nrow = length(option.portfolio.names)))
+            colnames(df) <- portfolio.factors
+            rownames(df) <- option.portfolio.names
+
+            for (option in option.portfolio@list.of.option) {
+              for (option.factor.availability in
+                   option@option.resources@list.of.factor.availability) {
+                df[option@name, option.factor.availability@factor@name] <-
+                  option.factor.availability@availability
+              }
+            }
+            return(df)
+          }
+)
+
+

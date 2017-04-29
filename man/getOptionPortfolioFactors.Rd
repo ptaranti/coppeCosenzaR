@@ -2,13 +2,21 @@
 % Please edit documentation in R/option-portfolio.R
 \name{getOptionPortfolioFactors}
 \alias{getOptionPortfolioFactors}
-\title{Title}
+\title{getOptionPortfolioFactors}
 \usage{
 getOptionPortfolioFactors(option.portfolio)
 }
 \arguments{
 \item{option.portfolio}{}
 }
+\value{
+list of Factor S4 objects
+}
 \description{
-Title
+function that provides a list of Factor S4 objects presents in a
+Option.portfolio S4 object
+}
+\examples{
+\dontrun{getOptionPortfolioFactors(option.portfolio)}
+
 }

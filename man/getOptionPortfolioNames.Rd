@@ -2,13 +2,20 @@
 % Please edit documentation in R/option-portfolio.R
 \name{getOptionPortfolioNames}
 \alias{getOptionPortfolioNames}
-\title{Title}
+\title{getOptionPortfolioNames}
 \usage{
 getOptionPortfolioNames(option.portfolio)
 }
 \arguments{
 \item{option.portfolio}{}
 }
+\value{
+vector of character
+}
 \description{
-Title
+function that provides a sorted vector with option names.
+}
+\examples{
+\dontrun{getOptionPortfolioNames(option.portfolio)}
+
 }

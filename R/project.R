@@ -1,17 +1,13 @@
 
-# TODO(Taranti) method para coletar os fatores utilizados.
-# TODO(Taranti) method para instanciar com data.frame e list(specific factors) nome
-# TODO(Taranti) criar lista de Degree of importance para ser usada na validacao
-#  do criterion
-
-
-
-
 #' Project S4 Class
 #'
-#' Project S4 class.  ... TODO(Pessoa) VRF eAmpliar
+#' Project S4 class represents a potential project and its slots include a
+#' Project.criteria object, with the list of needed factors to the project and
+#' their degree of importance. The project has a non-empty name.
+#' #TODO(Pessoa) VRF eAmpliar
 #'
-#' @slot name character
+#' @slot name character any argument will be casted using
+#' \code{\link{as.character()}}
 #' @slot project.criteria Project.criteria
 #'
 #' @export
@@ -21,9 +17,11 @@ setClass(
   representation(
     name = "character",
     project.criteria = "Project.criteria"),
-  validity = function(object) {
-    if (!methods::is(object@project.criteria, "Project.criteria")) stop("@project.criteria must be a Project.criteria S4 object")
 
+  validity = function(object) {
+
+    if (!methods::is(object@project.criteria, "Project.criteria"))
+      stop("@project.criteria must be a Project.criteria S4 object")
     if (length(object@name) > 1) stop("@name cannot have more then 1 value")
     if (object@name == "") stop("@name cannot be void")
     if (grepl("^\\s*$", object@name)) stop("@name cannot be only blanc spaces")
@@ -49,6 +47,7 @@ setMethod(
   }
 )
 
+
 #' Project Constructor function
 #'
 #'
@@ -71,39 +70,67 @@ Project <- function(name, project.criteria){
 }
 
 
-#' Title
+
+#' getProjectFactorsNames
 #'
-#' @param project
+#' This function returns a sorted vector with all the factors names in a Project
+#' S4 object
 #'
-#' @return
+#' @param option an Project S4 object
+#'
+#' @return It provides a sorted vector with the names of factors in an project
 #' @export
 #'
 #' @examples
+#' \dontrun{getProjectFactorsNames(project)}
+#'
 getProjectFactorsNames <- function(project){
-  list.of.factors.names <- list()
-  for (project.criterion in project@project.criteria@list.of.project.criterion) {
-    list.of.factors.names <- list(list.of.factors.names, project.criterion@factor@name )
 
-  }
+  #type check
+  if (!methods::is(project, "Project"))
+    stop("project parameter must be an Project S4 object")
+
+  list.of.factors.names <- list()
+  for (project.criterion in
+       project@project.criteria@list.of.project.criterion) {
+    list.of.factors.names <-
+      list(list.of.factors.names, project.criterion@factor@name )
+    }
   vector.of.factors.names <- unlist(list.of.factors.names)
   vector.of.factors.names <- sort(vector.of.factors.names, decreasing = FALSE)
   return(vector.of.factors.names)
 }
 
 
-#' Title
+#' getProjectFactorsSpecific
 #'
-#' @param project
+#' This function returns a sorted vector with all the factors names in a Project
+#' S4 object whitch were classified as specific to the project under discussion.
 #'
-#' @return
+#' @param option an Project S4 object
+#'
+#' @return It provides a sorted vector with the names of factors in an project
+#' whitch were classified as specific to the project under discussion.
+#'
 #' @export
 #'
 #' @examples
+#' \dontrun{getProjectFactorsSpecific(project)}
+#'
 getProjectFactorsSpecific <- function(project){
+
+
+  #type check
+  if (!methods::is(project, "Project"))
+    stop("project parameter must be an Project S4 object")
+
+
   list.of.factors.names <- list()
-  for (project.criterion in project@project.criteria@list.of.project.criterion) {
+  for (project.criterion in
+       project@project.criteria@list.of.project.criterion) {
     if (project.criterion@specific == TRUE) {
-    list.of.factors.names <- list(list.of.factors.names, project.criterion@factor@name )
+    list.of.factors.names <-
+      list(list.of.factors.names, project.criterion@factor@name )
     }
   }
   vector.of.factors.names <- unlist(list.of.factors.names)

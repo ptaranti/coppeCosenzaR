@@ -1,6 +1,5 @@
 
 
-
 #' Option S4 Class
 #'
 #' Option S4 class represents a possible solution to projects. The object
@@ -76,8 +75,6 @@ Option <- function(name, option.resources){
 }
 
 
-
-# TODO (Taranti) type check the entry
 #' getOptionFactorsNames
 #'
 #' This function returns a sorted vector with all the factors names in a Option

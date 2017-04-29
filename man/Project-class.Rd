@@ -5,12 +5,16 @@
 \alias{Project-class}
 \title{Project S4 Class}
 \description{
-Project S4 class.  ... TODO(Pessoa) VRF eAmpliar
+Project S4 class represents a potential project and its slots include a
+Project.criteria object, with the list of needed factors to the project and
+their degree of importance. The project has a non-empty name.
+#TODO(Pessoa) VRF eAmpliar
 }
 \section{Slots}{
 
 \describe{
-\item{\code{name}}{character}
+\item{\code{name}}{character any argument will be casted using
+\code{\link{as.character()}}}
 
 \item{\code{project.criteria}}{Project.criteria}
 }}

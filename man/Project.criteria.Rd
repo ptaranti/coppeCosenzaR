@@ -7,13 +7,14 @@
 Project.criteria(list.of.project.criterion)
 }
 \arguments{
-\item{list}{list of Project.criterion S4 objects}
+\item{list}{list of Project.criterion S4 objects. The list is type checked
+and cannot be empty.}
 }
 \value{
 a \code{\link{Project.criteria}} S4 object
 }
 \description{
-Project.criteria(list) is a constructor to Factor S4 objects.
+Project.criteria is a constructor to Factor S4 objects.
 }
 \examples{
 # TODO(Taranti) inserir exemplo

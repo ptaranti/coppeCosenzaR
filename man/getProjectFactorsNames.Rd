@@ -2,13 +2,21 @@
 % Please edit documentation in R/project.R
 \name{getProjectFactorsNames}
 \alias{getProjectFactorsNames}
-\title{Title}
+\title{getProjectFactorsNames}
 \usage{
 getProjectFactorsNames(project)
 }
 \arguments{
-\item{project}{}
+\item{option}{an Project S4 object}
+}
+\value{
+It provides a sorted vector with the names of factors in an project
 }
 \description{
-Title
+This function returns a sorted vector with all the factors names in a Project
+S4 object
+}
+\examples{
+\dontrun{getProjectFactorsNames(project)}
+
 }

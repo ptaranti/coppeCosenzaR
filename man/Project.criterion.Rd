@@ -2,14 +2,15 @@
 % Please edit documentation in R/project-criterion.R
 \name{Project.criterion}
 \alias{Project.criterion}
-\title{Project.criterion Constructor function}
+\title{Project.criterion}
 \usage{
 Project.criterion(factor, importance.degree, specific)
 }
 \arguments{
 \item{factor}{Factor S4 class}
 
-\item{importance.degree}{char, must mach the scale of degrees to be used}
+\item{importance.degree}{character, must mach one item of the scale of
+degrees to be used ("Cr", "C", "LC","I")}
 
 \item{specific}{logical indicates the considered factors is specific for the
 project under consideration#'}
@@ -18,13 +19,13 @@ project under consideration#'}
 a \code{\link{Project.criterion}} S4 object
 }
 \description{
-Constructs a Project.criterion S4 class. This defines the criterium to be
- used in association to a factor when evaluatig projects ... TODO(Pessoa) VRF
- eAmpliar
+This function is a constructor to Project.criterion S4 class.
+It defines the criteron to be used in association to a factor when evaluatig
+ projects ...
+ TODO(Pessoa) VRF e Ampliar
 }
 \examples{
 \dontrun{Project.criterion <- Project.criterion(factor, importance.degree, specific)}
 Project.criterion(Factor("fator1"), "LC", FALSE)
-
 
 }

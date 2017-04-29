@@ -2,13 +2,20 @@
 % Please edit documentation in R/project-portfolio.R
 \name{getProjectPortfolioFactors}
 \alias{getProjectPortfolioFactors}
-\title{Title}
+\title{getProjectPortfolioFactors}
 \usage{
 getProjectPortfolioFactors(project.portfolio)
 }
 \arguments{
 \item{project.portfolio}{}
 }
+\value{
+vector of character
+}
 \description{
-Title
+function that provides a sorted vector with factors from the project list.
+}
+\examples{
+\dontrun{getProjectPortfolioFactors(project.portfolio)}
+
 }

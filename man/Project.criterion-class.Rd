@@ -8,12 +8,15 @@
 Project.criterion S4 class. It defines the criterium to be used in
 association to a factor when evaluatig projects ... TODO(Pessoa) VRF eAmpliar
 }
+\details{
+The accepted degrees are: "Cr", "C", "LC","I"
+}
 \section{Slots}{
 
 \describe{
 \item{\code{factor}}{Factor S4 class}
 
-\item{\code{importance.degree}}{char, must mach the scale of degrees to be used}
+\item{\code{importance.degree}}{charactere, must mach the scale of degrees to be used}
 
 \item{\code{specific}}{logical indicates the considered factors is specific for the
 project under consideration}

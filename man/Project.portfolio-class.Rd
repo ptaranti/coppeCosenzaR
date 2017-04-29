@@ -3,11 +3,11 @@
 \docType{class}
 \name{Project.portfolio-class}
 \alias{Project.portfolio-class}
-\title{Project.portfolio S4 Class}
+\title{Project.portfolio}
 \description{
-Project.portfolio S4 class contains a list of S4 Project objects.
-# TODO (Pessoa) explicar que é input com o resources.portfolio e a matrix de
-agregacao.
+Project.portfolio S4 class contains a type-checked list of S4
+Project objects. This project.portfolio is an argument to construct the
+CoppeCosenza S4 objects, which, in turn, represents the method solution.
 }
 \section{Slots}{
 
@@ -15,3 +15,10 @@ agregacao.
 \item{\code{list.of.project}}{list of Project S4 objects}
 }}
 
+\note{
+Any S4 Project object can be included in the @list.of.project. This
+means we can have projects with different set of factors. It is possible to
+export and import Project.portfolio to/from data.frame, allowing to store
+and edit information externally.
+ TODO (Pessoa)  VRF
+}
