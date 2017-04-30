@@ -7,7 +7,7 @@
 getOptionPortfolioNames(option.portfolio)
 }
 \arguments{
-\item{option.portfolio}{}
+\item{option.portfolio}{S4 Option.portfolio object}
 }
 \value{
 vector of character

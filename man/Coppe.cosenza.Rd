@@ -16,14 +16,16 @@ Coppe.cosenza(x, y, z, k, ...)
   y, z)
 }
 \arguments{
-\item{Arguments}{(ANY) \cr
-A call to \code{Coppe.cosenza( )} with no parameters will return
-an error message for missing argument.}
+\item{Arguments}{(ANY) A call to \code{Coppe.cosenza( )} with no parameters
+will return an error message for missing argument.}
 
 \item{Arguments}{\itemize{
 \item x  a Project.portfolio S4 object
 \item Option.portfolio S4 object
 \item Factors.under.consideration S4 object}}
+}
+\value{
+Coppe.cosenza S4 object
 }
 \description{
 S4 method to construc Coppe.cosenza objects. It solves de

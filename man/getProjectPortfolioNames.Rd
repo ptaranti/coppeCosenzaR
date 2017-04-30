@@ -7,7 +7,7 @@
 getProjectPortfolioNames(project.portfolio)
 }
 \arguments{
-\item{project.portfolio}{}
+\item{project.portfolio}{S4 Project.portfolio object}
 }
 \value{
 vector of character

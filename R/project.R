@@ -37,7 +37,7 @@ setMethod(
   definition = function(.Object,
                         name,
                         project.criteria){
-    cat(" ~~~ \n")
+    #cat("~~~ Project: initializator ~~~ \n")
     # Assignment of the slots
     .Object@name <- as.character(name)
     .Object@project.criteria = project.criteria

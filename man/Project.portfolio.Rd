@@ -6,7 +6,7 @@
 \alias{Project.portfolio,ANY,ANY-method}
 \alias{Project.portfolio,list,ANY-method}
 \alias{Project.portfolio,data.frame,data.frame-method}
-\title{Project.portfolio Constructor}
+\title{Project.portfolio}
 \usage{
 Project.portfolio(x, y, ...)
 
@@ -49,5 +49,6 @@ and, after, converting it in a data.frame using the function
 
 \dontrun{project.portfolio <-
 (project.portfolio.as.data.frame, project.portfolio.specifics.as.data.frame)}
+
 
 }

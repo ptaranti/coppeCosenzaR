@@ -80,7 +80,7 @@ Factors.under.consideration <- function(list.of.factors){
 #'
 #' It provides a sorted vector with the names of factors.
 #'
-#' @param factors.under.consideration
+#' @param factors.under.consideration S4 Factors.under.consideration object
 #'
 #' @return vector of character
 #' @export

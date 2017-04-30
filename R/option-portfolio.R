@@ -23,9 +23,10 @@ setClass(
   "Option.portfolio",
   representation(
     list.of.option = "list"),
+
   validity = function(object) {
-    if (is.null(object@list.of.option)) stop("Option.portfolio must have one
-                                              or more Option")
+    if (is.null(object@list.of.option) || !(length(object@list.of.option) > 0))
+      stop("Option.portfolio cannot be NULL and must have one or more Option")
     for (project in object@list.of.option) {
       if (!methods::is(project, "Option"))
         stop("@list.of.option must be a list of Option S4 objects")
@@ -159,7 +160,7 @@ setMethod("Option.portfolio",
 #' function that provides a list of Factor S4 objects presents in a
 #' Option.portfolio S4 object
 #'
-#' @param option.portfolio
+#' @param option.portfolio S4 Option.portfolio object
 #'
 #' @return list of Factor S4 objects
 #'
@@ -191,7 +192,7 @@ getOptionPortfolioFactors <- function(option.portfolio){
 #'
 #' function that provides a sorted vector with option names.
 #'
-#' @param option.portfolio
+#' @param option.portfolio S4 Option.portfolio object
 #'
 #' @return vector of character
 #'
@@ -224,20 +225,16 @@ getOptionPortfolioNames <- function(option.portfolio){
 #'
 #' @export
 #'
-setGeneric("as.data.frame",
-           function(x, ...)
-             standardGeneric(
-               "as.data.frame", function(x,...) base::as.data.frame(x,...)
-               )
-           )
-
+#setGeneric("as.data.frame", function(x, ...) standardGeneric("as.data.frame"))
+setGeneric("as.data.frame", function(x, row.names, optional, ...)
+  standardGeneric("as.data.frame"),
+  useAsDefault = base::as.data.frame
+  )
 
 
 #' @rdname as.data.frame
 #'
 #' @param x Option.portfolio S4 object
-#'
-#' @return data.frame
 #'
 #' @export
 #'

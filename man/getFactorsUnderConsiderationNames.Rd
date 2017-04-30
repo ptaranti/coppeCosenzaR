@@ -7,7 +7,7 @@
 getFactorsUnderConsiderationNames(factors.under.consideration)
 }
 \arguments{
-\item{factors.under.consideration}{}
+\item{factors.under.consideration}{S4 Factors.under.consideration object}
 }
 \value{
 vector of character

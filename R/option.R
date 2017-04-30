@@ -39,7 +39,7 @@ setMethod(
   definition = function(.Object,
                         name,
                         option.resources){
-    cat(" ~~~ \n")
+    #cat("~~~ Option: initializator ~~~ \n")
     # Assignment of the slots
     .Object@name <- as.character(name)
     .Object@option.resources = option.resources

@@ -7,7 +7,7 @@
 getOptionPortfolioFactors(option.portfolio)
 }
 \arguments{
-\item{option.portfolio}{}
+\item{option.portfolio}{S4 Option.portfolio object}
 }
 \value{
 list of Factor S4 objects

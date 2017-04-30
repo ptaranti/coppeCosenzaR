@@ -84,6 +84,7 @@ option1 <- Option("o3",option.resources1)
 option2 <- Option("o2",option.resources2)
 option3 <- Option("o2",option.resources3)
 
+option.portfolio <- Option.portfolio(list(option1,option3))
 
 test_that("Option.portfolio  constructor\n", {
   expect_error(Option.portfolio(), )

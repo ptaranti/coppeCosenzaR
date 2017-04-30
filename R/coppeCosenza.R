@@ -1,16 +1,35 @@
+# TODO(Taranti) desacoplar o codigo para permitir facil inserção de novas
+# matrizes de agregação
+# TODO (Taranti) inserir metodo de construcao que, se nao receber lista de
+# fatores, elimine projetos e locais com NA, depois selecione a interceção de
+# fatores como conjunto maximo
 
 
-
+#' Coppe.cosenza S4 Class
+#'
+#' Coppe.cosenza S4 class represents the solution of the COPPE-Cosenza method.
+#' # TODO(Pessoa)Ampliar aqui.
+#'
+#' @slot result data.frame
+#' @slot messages list
+#'
+#' @export
+#'
 setClass(
   "Coppe.cosenza",
   representation(
     result = "data.frame",
-    msgs = "list"),
+    messages = "list"),
   validity = function(object) {
     if (!is.data.frame(df)) stop("@result must be a data.frame" )
     TRUE
-  }
-)
+
+    # TODO(Taranti) consider extre validation - columns and rows non empty and
+    # distinct. Non empty values, not NA
+    # Unit tests
+    }
+
+ )
 
 
 
@@ -39,14 +58,15 @@ setMethod(
 #'
 #' @export
 #'
+#' @return Coppe.cosenza S4 object
+#'
 setGeneric("Coppe.cosenza", function(x, y, z, k,...)
   standardGeneric("Coppe.cosenza"))
 
 
 #' @rdname Coppe.cosenza
-#' @param Arguments (ANY) \cr
-#'  A call to \code{Coppe.cosenza( )} with no parameters will return
-#'  an error message for missing argument.
+#' @param Arguments (ANY) A call to \code{Coppe.cosenza( )} with no parameters
+#'  will return an error message for missing argument.
 #'
 setMethod("Coppe.cosenza",
           signature("ANY"),
@@ -82,7 +102,7 @@ setMethod("Coppe.cosenza",
               stop("The selected factors are incompatible with the portfolios")
             }
             project.portfolio.as.data.frame <-
-              getProjectPortfolioAsDataFrame(project.portfolio)
+              as.data.frame(project.portfolio)
             project.portfolio.as.data.frame <-
               project.portfolio.as.data.frame[,
                                               getFactorsUnderConsiderationNames
@@ -100,7 +120,7 @@ setMethod("Coppe.cosenza",
               na.omit(project.portfolio.as.data.frame)
 
             project.portfolio.specifics.as.data.frame <-
-              getProjectPortfolioSpecificsAsDataFrame(project.portfolio)
+              as.data.frame(project.portfolio, optional = TRUE)
 
             project.portfolio.specifics.as.data.frame <-
               project.portfolio.specifics.as.data.frame[
@@ -130,16 +150,24 @@ setMethod("Coppe.cosenza",
 
             if (agregation.matrix == "default" ) {
               print("CoppeCosenzaMethod assuming default agregation matrix")
-              ResolveDefaultAgregationMatrix(
+              out <- ResolveDefaultAgregationMatrix(
                 project.portfolio.as.data.frame,
                 project.portfolio.specifics.as.data.frame,
                 option.portfolio.as.data.frame)
             }
             else stop(agregation.matrix,  " not implemented")
+
+            messages <- list() #TODO (Taranti)
+
+            coppe.cosenza <- new("Coppe.cosenza",out, messages )
+
+            return(coppe.cosenza) #TODO (Taranti) não esta funcionando
           }
 )
 
 
+# Function to verify if all factors in factors.under.consideration are included
+# in project.portfolio and option.portfolio
 CheckSelectFactors <-
   function(project.portfolio, option.portfolio, factors.under.consideration) {
     factors.under.consideration.names <-
@@ -173,7 +201,10 @@ CheckSelectFactors <-
 
 
 
-
+# Function to handle the solving of the agregate matrix. It call agregate for
+# Project(j,i) and option(k,i), i vary from 1:number.of.factors
+# This function needs a well behavored set of parameters, said: no NA, all
+# values already checked and valid, and all project and options evaluated.
 ResolveDefaultAgregationMatrix <- function(
   project.portfolio.as.data.frame, project.portfolio.specifics.as.data.frame,
   option.portfolio.as.data.frame) {
@@ -185,6 +216,7 @@ ResolveDefaultAgregationMatrix <- function(
         nrow = length(row.names(project.portfolio.as.data.frame))
       )
     )
+
   colnames(agregation.matrix.temp) <- row.names(option.portfolio.as.data.frame)
   rownames(agregation.matrix.temp) <- row.names(project.portfolio.as.data.frame)
 
@@ -192,7 +224,7 @@ ResolveDefaultAgregationMatrix <- function(
   for (i in 1:length(row.names(project.portfolio.as.data.frame))) {
     for (j in 1:length(row.names(option.portfolio.as.data.frame))) {
       temp.list.agregation <- lapply(1:nrfactors, function(x)
-        (agregate(project.portfolio.as.data.frame[i, x],
+        (Agregate(project.portfolio.as.data.frame[i, x],
                   option.portfolio.as.data.frame[j, x],
                   project.portfolio.specifics.as.data.frame[i, x],
                   nrfactors)))
@@ -202,7 +234,8 @@ ResolveDefaultAgregationMatrix <- function(
       agregation.matrix.temp[i,j] <- agregation
     }
   }
-  print(agregation.matrix.temp)
+
+  return(agregation.matrix.temp)
 }
 
 
@@ -210,24 +243,32 @@ ResolveDefaultAgregationMatrix <- function(
 
 
 
-#' Title
+#' Agregate
 #'
-#' @param factor.evaluation
-#' @param resource.evaluation
-#' @param factor.is.specific
-#' @param nrfactors
+#' This function do not validate entries, since it is not exported and the data
+#' is validated by the constructors. The validation here would be resource
+#' consuming.
 #'
-#' @return
-#' @export
+#' @param factor.evaluation character factor evaluation from project
+#' @param resource.evaluation character factor evaluation from option
+#' @param factor.is.specific logic indicates that this factor is specific for
+#' the project
+#' @param nrfactors numeric number of factors evaluated for each project/option
 #'
-#' @examples
-agregate <-
+#' @return numeric indicate the result factor per option. If a specific factor
+#' is not achived it returns -1
+#'
+#'
+Agregate <-
   function(
     factor.evaluation,
     resource.evaluation,
     factor.is.specific,
     nrfactors){
-
+    # factor.evaluation  - character
+    # resource.evaluation - character
+    # factor.is.specific - logical
+    # nrfactors - numeric
     if (factor.evaluation == "Cr") {
       if (resource.evaluation == "Excelent") return(1)
       if (factor.is.specific) return(-1)

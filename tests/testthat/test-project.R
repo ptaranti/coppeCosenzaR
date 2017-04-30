@@ -53,6 +53,7 @@ project.criteria1 <- Project.criteria(list(pc1, pc2, pc3))
 project.criteria2 <- Project.criteria(list(pc2, pc3, pc4))
 project.criteria3 <- Project.criteria(list(pc3, pc4, pc5))
 
+project1 <- Project("p3",project.criteria1)
 
 
 test_that("Project  constructor\n", {
@@ -71,8 +72,8 @@ test_that("getProjectFactorsNames\n", {
   expect_error(getProjectFactorsNames(list()),)
   expect_error(getProjectFactorsNames(list("pc1",22)), )
 
-  project1 <- Project("p3",project.criteria1)
-  expect_is(getProjectFactorsNames(project1),"list")
+
+  expect_is(getProjectFactorsNames(project1),"character")
   getProjectFactorsNames(project1)
 
 }
@@ -95,6 +96,7 @@ project1 <- Project("p3",project.criteria1)
 project2 <- Project("p2",project.criteria2)
 project3 <- Project("p2",project.criteria1)
 
+Project.portfolio <- Project.portfolio(list(project1,project2))
 
 test_that("Project.portfolio  constructor\n", {
   expect_error(Project.portfolio(), )

@@ -7,26 +7,26 @@
 \alias{as.data.frame,Project.portfolio-method}
 \title{as.data.frame}
 \usage{
-as.data.frame(x, ...)
+as.data.frame(x, row.names, optional, ...)
 
 \S4method{as.data.frame}{Option.portfolio}(x)
 
-\S4method{as.data.frame}{Project.portfolio}(x, get.specific = FALSE)
+\S4method{as.data.frame}{Project.portfolio}(x, row.names = NA,
+  optional = FALSE)
 }
 \arguments{
 \item{x}{Option.portfolio S4 object}
 
-\item{(x, }{get.specific = FALSE)
+\item{(x, }{row.names, optional = FALSE)
 \itemize{
 \item x is a Project.portfolio S4 objec
-\item get.specific indicates if the return is a data.frame with factor
+\item row.names - not used. It is inherited from \code{base::as.data.frame()}
+\item optional get.specific indicates if the return is a data.frame with factor
 evaluations or with the information about which factors are specific to
-a project.
+a project. The default is \code{optional = FALSE}
 }}
 }
 \value{
-data.frame
-
 data.frame
 }
 \description{
@@ -35,7 +35,11 @@ Generic S4 method to \code{\link{as.data.frame}}.
 \examples{
 \dontrun{as.data.frame(option.portfolio)}
 
-\dontrun{as.data.frame(option.portfolio, TRUE)}
+\dontrun{as.data.frame(project.portfolio, option = TRUE)}
+\dontrun{as.data.frame(project.portfolio,  , TRUE)}
+\dontrun{as.data.frame(project.portfolio, ANY, FALSE)}
+\dontrun{as.data.frame(project.portfolio, option = FALSE)}
+\dontrun{as.data.frame(project.portfolio)} This infer option is FALSE, too.
 
 
 }

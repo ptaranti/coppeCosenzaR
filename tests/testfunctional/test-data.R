@@ -11,7 +11,7 @@
 #' @include option-portfolio.R
 #' @include factors-under-consideration.R
 #'
-FuntionalTest <- function(){
+FunctionalTest <- function(){
 
 project.portfolio <- Project.portfolio(
   list(
@@ -185,6 +185,7 @@ factors.under.consideration <- Factors.under.consideration(
   )
   )
 
-CoppeCosenza(project.portfolio, option.portfolio, factors.under.consideration)
+Coppe.cosenza(project.portfolio, option.portfolio, factors.under.consideration)
+
 
 }

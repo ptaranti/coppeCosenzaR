@@ -1,12 +1,15 @@
-#' @title  Project.portfolio
+
+
+#' Project.portfolio
 #'
-#' @description Project.portfolio S4 class contains a type-checked list of S4
+#' Project.portfolio S4 class contains a type-checked list of S4
 #' Project objects. This project.portfolio is an argument to construct the
 #' CoppeCosenza S4 objects, which, in turn, represents the method solution.
 #'
 #' @slot list.of.project list of Project S4 objects
 #'
 #' @export
+#'
 #' @note  Any S4 Project object can be included in the @list.of.project. This
 #' means we can have projects with different set of factors. It is possible to
 #' export and import Project.portfolio to/from data.frame, allowing to store
@@ -19,34 +22,28 @@ setClass(
   "Project.portfolio",
   representation(
     list.of.project = "list"),
-
   validity = function(object) {
-
     # not null
     if (is.null(object@list.of.project))
       stop("@list.of.project cannot be NULL")
-    #is.data.frame(df) && nrow(df)==0
-
     # is list and have elements
     if (!(is.list(object@list.of.project) &&
           length(object@list.of.project) > 0))
       stop("list.of.project must be a list with one or more
            Project")
-
     # all elements are Project
     for (project in object@list.of.project) {
       if (!methods::is(project, "Project"))
-        stop("@list.of.project must be a list of
-             Project S4 objects")
+        stop("@list.of.project must be a list of Project S4 objects")
     }
-
+    # Project@name are distinct
     project.names <- c()
     for (project in object@list.of.project) {
       project.names <- c(project.names, project@name)}
     #print(project.names)
-    if (anyDuplicated(project.names) > 0) stop("Project names must be different
-                                               from each other. Check -> ",
-                                               project.names )
+    if (anyDuplicated(project.names) > 0)
+      stop("Project names must be different from each other. Check -> ",
+           project.names )
   }
 )
 
@@ -68,7 +65,7 @@ setMethod(
 
 
 
-#' Project.portfolio Constructor
+#' Project.portfolio
 #'
 #' S4 method to construct Project.portfolio S4 objects. It accepts different
 #' sets for parameters types.
@@ -80,7 +77,7 @@ setGeneric("Project.portfolio", function(x, y, ...)
   standardGeneric("Project.portfolio"))
 
 
-#'
+
 #' @rdname Project.portfolio
 #' @param Arguments (ANY) \cr
 #'  A call to \code{Project.portfolio( )} with no parameters will return
@@ -99,8 +96,6 @@ setMethod("Project.portfolio",
 #'
 #' @examples
 #' \dontrun{option.portfolio <- Project.portfolio(list.of.project)}
-#'
-#' @include project-portfolio.R
 #'
 setMethod("Project.portfolio",
           signature("list"),
@@ -132,9 +127,6 @@ setMethod("Project.portfolio",
 #' \dontrun{project.portfolio <-
 #' (project.portfolio.as.data.frame, project.portfolio.specifics.as.data.frame)}
 #'
-#' @rdname Project.portfolio
-#'
-#' @include project-portfolio.R
 #'
 setMethod("Project.portfolio",
           signature("data.frame", "data.frame"),
@@ -229,7 +221,7 @@ getProjectPortfolioSpecificsAsDataFrame <- function(project.portfolio){
 #'
 #' function that provides a sorted vector with factors from the project list.
 #'
-#' @param project.portfolio
+#' @param project.portfolio S4 Project.portfolio object
 #'
 #' @return vector of character
 #'
@@ -260,7 +252,7 @@ getProjectPortfolioFactors <- function(project.portfolio){
 #'
 #' function that provides a sorted vector with project names.
 #'
-#' @param project.portfolio
+#' @param project.portfolio S4 Project.portfolio object
 #'
 #' @return vector of character
 #'
@@ -287,18 +279,23 @@ getProjectPortfolioNames <- function(project.portfolio){
 
 #' @rdname as.data.frame
 #'
-#' @param (x, get.specific = FALSE)
+#' @param (x, row.names, optional = FALSE)
 #' \itemize{
 #' \item x is a Project.portfolio S4 objec
-#' \item get.specific indicates if the return is a data.frame with factor
+#' \item row.names - not used. It is inherited from \code{base::as.data.frame()}
+#' \item optional get.specific indicates if the return is a data.frame with factor
 #' evaluations or with the information about which factors are specific to
-#' a project.
+#' a project. The default is \code{optional = FALSE}
 #' }
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{as.data.frame(option.portfolio, TRUE)}
+#' \dontrun{as.data.frame(project.portfolio, option = TRUE)}
+#' \dontrun{as.data.frame(project.portfolio,  , TRUE)}
+#' \dontrun{as.data.frame(project.portfolio, ANY, FALSE)}
+#' \dontrun{as.data.frame(project.portfolio, option = FALSE)}
+#' \dontrun{as.data.frame(project.portfolio)} This infer option is FALSE, too.
 #'
 #'
 #' @include option-portfolio.R
@@ -306,9 +303,10 @@ getProjectPortfolioNames <- function(project.portfolio){
 #  The generic S4 method is in option-portfolio.R
 #
 setMethod("as.data.frame", signature("Project.portfolio"),
-          function(x, get.specific = FALSE) {
+          function(x, row.names = NA, optional  = FALSE) {
+            if (missing(optional)) optional <- FALSE
             option.portfolio <- x
-            if (get.specific)
+            if (optional)
               return(getProjectPortfolioSpecificsAsDataFrame(option.portfolio))
             else return(getProjectPortfolioAsDataFrame(option.portfolio))
           }
