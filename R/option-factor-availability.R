@@ -69,7 +69,7 @@ setMethod(
 #'
 #'
 Option.factor.availability <- function(factor, availability){
-  new("Option.factor.availability", factor, availability)
+  new("Option.factor.availability", factor, as.character(availability))
 }
 
 

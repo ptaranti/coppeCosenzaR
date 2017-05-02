@@ -80,5 +80,5 @@ setMethod(
 #' Project.criterion(Factor("fator1"), "LC", FALSE)
 #'
 Project.criterion <- function(factor, importance.degree, specific){
-  new("Project.criterion", factor, importance.degree, specific)
+  new("Project.criterion", factor,  as.character(importance.degree), as.logical(specific))
 }

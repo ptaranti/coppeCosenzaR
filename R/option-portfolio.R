@@ -138,10 +138,11 @@ setMethod("Option.portfolio",
                   option.names[[i]],
                   Option.resources(
                     lapply( x <- 1:length(factors.names), function(x) {
-                      Option.factor.availability(
-                        Factor(option.names[[x]]),
-                        option.portfolio.as.data.frame[i,x]
-                      )
+                      factor <- Factor(factors.names[[x]])
+                      print(factor)
+                      factor.availability <- as.character(option.portfolio.as.data.frame[i,x])
+                      print(factor.availability)
+                      return(new("Option.factor.availability", factor, factor.availability))
                     }
                     )
                   )

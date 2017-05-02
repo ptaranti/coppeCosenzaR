@@ -58,7 +58,7 @@ setMethod(
 #'
 #'
 Factor <- function(name){
-  new("Factor", name)
+  new("Factor", as.character(name))
 }
 
 

@@ -159,9 +159,9 @@ setMethod("Project.portfolio",
                   Project.criteria(
                     lapply( x <- 1:length(factors.names), function(x) {
                       Project.criterion(
-                        Factor(factors.names[[x]]),
-                        project.portfolio.as.data.frame[i,x],
-                        project.portfolio.specifics.as.data.frame[i,x]
+                        Factor(as.character(factors.names[[x]])),
+                        as.character(project.portfolio.as.data.frame[i,x]),
+                        as.logical(project.portfolio.specifics.as.data.frame[i,x])
                       )
                     }
                     )
