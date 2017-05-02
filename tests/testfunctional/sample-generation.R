@@ -1,5 +1,7 @@
 
-#' Title
+#' Project.portfolio.sample.generation
+#'
+#' Project.portfolio.sample.generation
 #'
 #' @param number.of.projects
 #' @param number.of.factors
@@ -14,7 +16,7 @@
 #' @include factor.R
 #'
 #'
-#' @examples
+#'
 Project.portfolio.sample.generation <- function(number.of.projects, number.of.factors){
 
   specific <- c(TRUE,FALSE, FALSE, FALSE, FALSE)
@@ -40,7 +42,9 @@ Project.portfolio.sample.generation <- function(number.of.projects, number.of.fa
 
 
 
-#' Title
+#' Option.portfolio.sample.generation
+#'
+#' Option.portfolio.sample.generation
 #'
 #' @param number.of.option
 #' @param number.of.factors
@@ -77,5 +81,23 @@ Option.portfolio.sample.generation <- function(number.of.options, number.of.fact
 }
 
 
+
+#' Factors.under.consideration.sample.generetion
+#'
+#' Factors.under.consideration.sample.generetion
+#'
+#' @param nr.fatores
+#'
+#' @return
+#' @export
+#'
+#'
+Factors.under.consideration.sample.generetion <- function(nr.fatores){
+  Factors.under.consideration(
+    lapply( x <- 1:nr.fatores, function(x)
+      Factor(x)
+      )
+  )
+}
 
 

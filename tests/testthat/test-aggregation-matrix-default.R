@@ -51,40 +51,43 @@ factors.under.consideration <-
   Factors.under.consideration(list(Factor("fator2")))
 
 
-context("\n\n Coppe.cosenza \n")
 
+context("\n\n Aggregation.Matrix.default  Agregate\n")
+test_that("Aggregation.Matrix.default - function Agregate \n", {
 
+  expect_is(Agregate("Cr", "Good", TRUE), "numeric")
+  expect_equal(Agregate("Cr", "Good", TRUE), -1)
+  expect_equal(Agregate("Cr", "Good", FALSE), 0)
 
-test_that("Coppe.cosenza constructor\n", {
-  expect_error(
-    Coppe.cosenza(project3, option.portfolio, factors.under.consideration), )
-  expect_error(
-    Coppe.cosenza(project.portfolio, option2, factors.under.consideration), )
-  expect_error(
-    Coppe.cosenza(project.portfolio, option.portfolio, Factor("factor")), )
-
-  expect_error(
-    Coppe.cosenza( , option.portfolio, factors.under.consideration), )
-  expect_error(
-    Coppe.cosenza(project.portfolio,  , factors.under.consideration), )
-  expect_error(
-    Coppe.cosenza(project.portfolio, option.portfolio,  ), )
-
-  expect_error(
-    Coppe.cosenza(
-      project.portfolio,
-      option.portfolio,
-      Factors.under.consideration("fator1")
-      ),
-    )
-
-  expect_is(
-    Coppe.cosenza(
-      project.portfolio,
-      option.portfolio,
-      factors.under.consideration
-      ),
-    "Coppe.cosenza"
-  )
 }
 )
+
+context("\n\n Aggregation.Matrix.default  AggregateMatrix\n")
+
+test_that("Aggregation.Matrix.default - function AggregateMatrix \n", {
+
+  project.portfolio.as.data.frame <- as.data.frame(project.portfolio)
+  project.portfolio.as.data.frame <- project.portfolio.as.data.frame[,3, drop = FALSE]
+  project.portfolio.specifics.as.data.frame  <- as.data.frame(project.portfolio,,TRUE)
+  project.portfolio.specifics.as.data.frame <- project.portfolio.specifics.as.data.frame[,3, drop = FALSE]
+  option.portfolio.as.data.frame  <- as.data.frame(option.portfolio)
+  option.portfolio.as.data.frame <- option.portfolio.as.data.frame[,3, drop = FALSE]
+
+  #cat("\n")
+  # print(project.portfolio.as.data.frame)
+  # cat("\n")
+  # print(project.portfolio.specifics.as.data.frame)
+  # cat("\n")
+  # print(option.portfolio.as.data.frame)
+
+
+
+
+  expect_is(AggregateMatrix(new("Aggregation.matrix.default"),
+    project.portfolio.as.data.frame,
+    project.portfolio.specifics.as.data.frame,
+    option.portfolio.as.data.frame)
+    , "data.frame")
+}
+)
+

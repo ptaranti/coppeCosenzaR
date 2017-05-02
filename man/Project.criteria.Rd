@@ -8,7 +8,8 @@ Project.criteria(list.of.project.criterion)
 }
 \arguments{
 \item{list}{list of Project.criterion S4 objects. The list is type checked
-and cannot be empty.}
+and cannot be empty. The factors of the used project.criterion must be
+distinct}
 }
 \value{
 a \code{\link{Project.criteria}} S4 object
@@ -17,6 +18,6 @@ a \code{\link{Project.criteria}} S4 object
 Project.criteria is a constructor to Factor S4 objects.
 }
 \examples{
-# TODO(Taranti) inserir exemplo
+\dontrun{Project.criteria(list(project.criterion1,project.criterion2))}
 
 }

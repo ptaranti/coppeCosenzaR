@@ -67,14 +67,15 @@ setMethod(
 #' Project.criteria is a constructor to Factor S4 objects.
 #'
 #' @param list list of Project.criterion S4 objects. The list is type checked
-#' and cannot be empty.
+#' and cannot be empty. The factors of the used project.criterion must be
+#' distinct
 #'
 #' @return a \code{\link{Project.criteria}} S4 object
 #'
 #' @export
 #'
 #' @examples
-#' # TODO(Taranti) inserir exemplo
+#' \dontrun{Project.criteria(list(project.criterion1,project.criterion2))}
 #'
 Project.criteria <- function(list.of.project.criterion){
   new("Project.criteria", list.of.project.criterion)

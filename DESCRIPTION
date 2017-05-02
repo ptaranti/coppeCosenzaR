@@ -21,6 +21,8 @@ Suggests:
     testthat
 BugReports: XXX@XXX.xxx
 Collate: 
+    'aggregation-matrix.R'
+    'aggregation-matrix-default.R'
     'factor.R'
     'factors-under-consideration.R'
     'option-factor-availability.R'
@@ -31,5 +33,5 @@ Collate:
     'project-criteria.R'
     'project.R'
     'project-portfolio.R'
-    'coppeCosenza.R'
-    'coppeCosenzaR.R'
+    'coppe-cosenza.R'
+    'coppe-cosenzaR.R'
