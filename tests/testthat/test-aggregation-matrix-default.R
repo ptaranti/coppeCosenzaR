@@ -5,11 +5,11 @@ require(testthat)
 #
 # Option
 #
-ofa1 <- Option.factor.availability(Factor("fator0"), "Regular")
-ofa2 <- Option.factor.availability(Factor("fator1"), "Excellent")
-ofa3 <- Option.factor.availability(Factor("fator2"), "Regular")
-ofa4 <- Option.factor.availability(Factor("fator3"), "Weak")
-ofa5 <- Option.factor.availability(Factor("fator4"), "Excellent")
+ofa1 <- Option.factor.availability(Factor("fator0"), "R")
+ofa2 <- Option.factor.availability(Factor("fator1"), "Ex")
+ofa3 <- Option.factor.availability(Factor("fator2"), "R")
+ofa4 <- Option.factor.availability(Factor("fator3"), "W")
+ofa5 <- Option.factor.availability(Factor("fator4"), "Ex")
 
 option.resources1 <- Option.resources(list(ofa1, ofa2, ofa3))
 option.resources2 <- Option.resources(list(ofa2, ofa3, ofa4))
@@ -47,17 +47,17 @@ project.portfolio <- Project.portfolio(list(project1,project2))
 #
 # Factors under consideration
 #
-factors.under.consideration <-
-  Factors.under.consideration(list(Factor("fator2")))
+factors.of.interest <-
+  Factors.of.interest(list(Factor("fator2")))
 
 
 
-context("\n\n Aggregation.Matrix.default  Agregate\n")
+context("\n\n Aggregation.Matrix.default  Aggregate\n")
 test_that("Aggregation.Matrix.default - function Agregate \n", {
 
-  expect_is(Agregate("Cr", "Good", TRUE), "numeric")
-  expect_equal(Agregate("Cr", "Good", TRUE), -1)
-  expect_equal(Agregate("Cr", "Good", FALSE), 0)
+  expect_is(Aggregate(new("Aggregation.matrix.default"), "Cr", "G", TRUE, 4), "numeric")
+  expect_equal(Aggregate(new("Aggregation.matrix.default"), "Cr", "G", TRUE, 4), -1)
+  expect_equal(Aggregate(new("Aggregation.matrix.default"), "Cr", "G", FALSE, 4), 0)
 
 }
 )

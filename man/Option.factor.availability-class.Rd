@@ -10,8 +10,8 @@ in association to a factor when evaluatig projects ...
 TODO(Pessoa) VRF eAmpliar
 }
 \details{
-The accepted degrees are: "Excellent", "Good", "Regular", "Weak", "Void",
-"Zero", "Inexistent"
+The accepted degrees are: Excellent (Ex), Good (G), Regular (R), Weak (W),
+Empty (Em), Zero (Z), and Inexistent (In).
 }
 \section{Slots}{
 

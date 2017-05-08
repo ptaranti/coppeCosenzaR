@@ -5,6 +5,14 @@
 \alias{Aggregation.matrix.default-class}
 \title{Aggregation.matrix.default}
 \description{
-This class represents the default aggregation matrix. This matrix was defined
-by ... # TODO(Cosenza)
+This class represents extends the Aggregation.matrix S4 and is the default
+aggregation matrix, that presents a zero value, when the option does not
+provide an adequate level of the required factor.  In other words, if the
+option level is below the required one, the evaluation of the criteria for
+the studied option will be zero. Such matrix provides a low compensatory
+effect. Nevertheless for problems which allows greater compensatory effects,
+the package allows using different aggregation matrices.
+}
+\seealso{
+Aggregation.matrix
 }

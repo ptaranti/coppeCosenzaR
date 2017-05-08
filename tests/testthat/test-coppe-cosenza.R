@@ -5,11 +5,11 @@ require(testthat)
 #
 # Option
 #
-ofa1 <- Option.factor.availability(Factor("fator0"), "Regular")
-ofa2 <- Option.factor.availability(Factor("fator1"), "Excellent")
-ofa3 <- Option.factor.availability(Factor("fator2"), "Regular")
-ofa4 <- Option.factor.availability(Factor("fator3"), "Weak")
-ofa5 <- Option.factor.availability(Factor("fator4"), "Excellent")
+ofa1 <- Option.factor.availability(Factor("fator0"), "R")
+ofa2 <- Option.factor.availability(Factor("fator1"), "Ex")
+ofa3 <- Option.factor.availability(Factor("fator2"), "R")
+ofa4 <- Option.factor.availability(Factor("fator3"), "W")
+ofa5 <- Option.factor.availability(Factor("fator4"), "Ex")
 
 option.resources1 <- Option.resources(list(ofa1, ofa2, ofa3))
 option.resources2 <- Option.resources(list(ofa2, ofa3, ofa4))
@@ -45,10 +45,10 @@ project.portfolio <- Project.portfolio(list(project1,project2))
 
 #
 #
-# Factors under consideration
+# Factors of interest
 #
-factors.under.consideration <-
-  Factors.under.consideration(list(Factor("fator2")))
+factors.of.interest <-
+  Factors.of.interest(list(Factor("fator2")))
 
 
 context("\n\n Coppe.cosenza \n")
@@ -57,16 +57,16 @@ context("\n\n Coppe.cosenza \n")
 
 test_that("Coppe.cosenza constructor\n", {
   expect_error(
-    Coppe.cosenza(project3, option.portfolio, factors.under.consideration), )
+    Coppe.cosenza(project3, option.portfolio, factors.of.interest), )
   expect_error(
-    Coppe.cosenza(project.portfolio, option2, factors.under.consideration), )
+    Coppe.cosenza(project.portfolio, option2, factors.of.interest), )
   expect_error(
     Coppe.cosenza(project.portfolio, option.portfolio, Factor("factor")), )
 
   expect_error(
-    Coppe.cosenza( , option.portfolio, factors.under.consideration), )
+    Coppe.cosenza( , option.portfolio, factors.of.interest), )
   expect_error(
-    Coppe.cosenza(project.portfolio,  , factors.under.consideration), )
+    Coppe.cosenza(project.portfolio,  , factors.of.interest), )
   expect_error(
     Coppe.cosenza(project.portfolio, option.portfolio,  ), )
 
@@ -74,7 +74,7 @@ test_that("Coppe.cosenza constructor\n", {
     Coppe.cosenza(
       project.portfolio,
       option.portfolio,
-      Factors.under.consideration("fator1")
+      Factors.of.interest("fator1")
       ),
     )
 
@@ -82,7 +82,7 @@ test_that("Coppe.cosenza constructor\n", {
     Coppe.cosenza(
       project.portfolio,
       option.portfolio,
-      factors.under.consideration
+      factors.of.interest
       ),
     "Coppe.cosenza"
   )

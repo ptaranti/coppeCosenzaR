@@ -63,7 +63,7 @@ Project.portfolio.sample.generation <- function(number.of.projects, number.of.fa
 Option.portfolio.sample.generation <- function(number.of.options, number.of.factors){
 
 
-  factor.evaluation <-   c("Excellent", "Good", "Regular", "Weak", "Void", "Zero", "Inexistent")
+  factor.evaluation <-   c("Ex", "G", "R", "W", "Em", "Z", "In")
 
   Option.portfolio(
     lapply( x <- 1:number.of.options, function(x)
@@ -82,9 +82,9 @@ Option.portfolio.sample.generation <- function(number.of.options, number.of.fact
 
 
 
-#' Factors.under.consideration.sample.generetion
+#' Factors.of.interest.sample.generetion
 #'
-#' Factors.under.consideration.sample.generetion
+#' Factors.of.interest.sample.generetion
 #'
 #' @param nr.fatores
 #'
@@ -92,8 +92,8 @@ Option.portfolio.sample.generation <- function(number.of.options, number.of.fact
 #' @export
 #'
 #'
-Factors.under.consideration.sample.generetion <- function(nr.fatores){
-  Factors.under.consideration(
+Factors.of.interest.sample.generetion <- function(nr.fatores){
+  Factors.of.interest(
     lapply( x <- 1:nr.fatores, function(x)
       Factor(x)
       )

@@ -6,7 +6,13 @@
 \title{Coppe.cosenza S4 Class}
 \description{
 Coppe.cosenza S4 class represents the solution of the COPPE-Cosenza method.
-# TODO(Pessoa)Ampliar aqui.
+In order to do so, this S4 class contains the final evaluation of the options
+regarding the studied projects. It presents a data frame presenting the
+final evaluation of the options regarding each project.
+If an option does not satisfies project´s specific factors, the option is
+discarded (a veto operation), with the value "out".  The result also
+presents relevant  messages list, describing if some evaluation could not be
+performed due to entry failures or missing evaluations.
 }
 \section{Slots}{
 

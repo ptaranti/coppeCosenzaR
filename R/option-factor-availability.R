@@ -5,8 +5,8 @@
 #' in association to a factor when evaluatig projects ...
 #' TODO(Pessoa) VRF eAmpliar
 #'
-#' The accepted degrees are: "Excellent", "Good", "Regular", "Weak", "Void",
-#' "Zero", "Inexistent"
+#' The accepted degrees are: Excellent (Ex), Good (G), Regular (R), Weak (W),
+#' Empty (Em), Zero (Z), and Inexistent (In).
 #'
 #' @slot factor Factor S4 class
 #' @slot availability character, must mach the scale of degrees to be used
@@ -22,11 +22,10 @@ setClass(
     if (!methods::is(object@factor, "Factor"))
       stop("@factor must be a Factor S4 object")
     accepted.availability <-
-      c("Excellent", "Good", "Regular", "Weak", "Void", "Zero", "Inexistent")
+      c("Ex", "G", "R", "W", "Em", "Z", "In")
     if (!(object@availability %in% accepted.availability))
       stop("'@availability must match an expectded value. Currently:
-           c(\"Excellent\", \"Good\", \"Regular\",\"Weak\",\"Void\",\"Zero\",
-           \"Inexistent\")")
+           c( \"Ex\", \" G \", \" R \", \"W\", \"Em\", \"Z\", \"In\")")
     TRUE
   }
 )

@@ -8,19 +8,50 @@
 \title{coppeCosenzaR}
 \description{
 COPPE-Cosenza Fuzzy Hierarchy Model (coppeCosenzaR).
-# TODO(Pessoa)
 
-accepted.availability <- c("Excellent", "Good", "Regular", "Weak", "Void", "Zero", "Inexistent")
-The package also includes several facilities for ......
+The program implements the COPPE-Cosenza Fuzzy Hierarchy Model .
 
-Currently, coppeCosenza provides implementation to support .....:
+The model was based on the evaluation of local alternatives, representing
+regional potentialities, so as to fulfill demands of economic projects.
+After defining demand profiles in terms of their technological coefficients,
+the degree of importance of factors is dimensioned so as to represent
+the productive activity.
+
+The method can detect a surplus of supply without the restriction of the
+distance of classical algebra, defining an hierarchy of location
+alternatives. In Coppe-Cosenza Model, the distance between factors
+is measured in terms of the difference between grades of  memberships of the
+same factors belonging to two or more  sets under comparison.
+
+The required factors are classified under the following linguistic variables:
 \itemize{
-\item Stratified.ceg.model
-\item Stratified.staged.tree
-\item Stratified.event.tree
+\item Critical (CR),
+\item Contitioning (C),
+\item Little Conditioning (LC), and
+\item Irrelevant (I).
 }
-These classes are implemented as S4 classes and have constructor methods with
-the same name as the class. A \code{plot} method is also provided.
+
+And the alternatives can assume the following linguistic variables:
+\itemize{
+\item Excellent (Ex),
+\item Good (G),
+\item Regular (R),
+\item Weak (W),
+\item Empty (Em),
+\item Zero (Z), and
+\item Inexistent (In).
+}
+
+The model also provides flexibility, allowing different aggregation rules to
+be performed and defined by the Decision Maker. Such feature is considered
+in this package, allowing the user to define other aggregation matrices,
+since it considers the same linguistic variables mentioned.
+}
+\references{
+Cosenza, Carlos Alberto Nunes, Francisco Antonio Doria, and Leonardo Antonio
+Monteiro Pessôa. Hierarchy Models for the Organization of Economic Spaces.
+Procedia Computer Science 55 (2015): 82-91.
+\url{https://doi.org/10.1016/j.procs.2015.07.010}
 }
 \seealso{
 Useful links:
@@ -30,11 +61,9 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Pier Taranti \email{ptaranti@gmail.com}
+Pier-Giovanni Taranti \email{ptaranti@gmail.com}
 
-Authors:
-\itemize{
-  \item Leonardo Pessoa \email{XXX@XXX.xxx}
-}
+Leonardo Antonio Monteiro Pessoa
 
+Carlos Alberto Nunes Cosenza
 }

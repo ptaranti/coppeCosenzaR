@@ -8,11 +8,16 @@
 #' Coppe.cosenza S4 Class
 #'
 #' Coppe.cosenza S4 class represents the solution of the COPPE-Cosenza method.
-#' # TODO(Pessoa)Ampliar aqui.
+#' In order to do so, this S4 class contains the final evaluation of the options
+#' regarding the studied projects. It presents a data frame presenting the
+#' final evaluation of the options regarding each project.
+#' If an option does not satisfies project´s specific factors, the option is
+#' discarded (a veto operation), with the value "out".  The result also
+#' presents relevant  messages list, describing if some evaluation could not be
+#' performed due to entry failures or missing evaluations.
 #'
 #' @slot result data.frame
 #' @slot messages list
-#'
 #' @export
 #'
 setClass(
@@ -53,21 +58,30 @@ setMethod(
 
 #' Coppe.cosenza
 #'
-#' S4 method to construc Coppe.cosenza objects. It solves de
-#' # TODO(Pessoa) explicar aqui
+#' S4 method to construc Coppe.cosenza objects. The package also provides a way
+#' to verify the consistency of the entry data. There are 3 different matrices
+#' which are considered for the evaluation purposes: The project' s required
+#' factors; The project's description of specific factors; and the options'
+#' available level of factors. All the factors must be evaluated by each project
+#'  and by each option. The program deconstruct each evaluation so as to verify:
+#'  if all the factors are evaluated for each project; if all the factors are
+#'  evaluated for each option, and besides, if all the linguistic variables are
+#'  the prescribed ones. Such verification avoids incomplete or incorrect
+#'  evaluations presenting the correspondent error messages.
 #'
-#' @export
+#'
 #'
 #' @return Coppe.cosenza S4 object
 #'
-setGeneric("Coppe.cosenza", function(x, y, z, k)
+setGeneric("Coppe.cosenza", function(x, y, factors.of.interest,
+                                     aggregation.matrix.name, normalize)
   standardGeneric("Coppe.cosenza"))
 
 
 #' @rdname Coppe.cosenza
 #' @param Arguments (ANY) A call to \code{Coppe.cosenza( )} with no parameters
 #'  will return an error message for missing argument.
-#'
+#'  @export
 setMethod("Coppe.cosenza",
           signature("ANY"),
           function(x)
@@ -77,16 +91,18 @@ setMethod("Coppe.cosenza",
 
 
 
-#' @rdname Coppe.cosenza
+#' @rdname  Coppe.cosenza
+#' @export
 setMethod("Coppe.cosenza",
           signature("Project.portfolio", "Option.portfolio",
-                    "Factors.under.consideration", "missing"),
-          function(x, y, z, k) {
+                    "Factors.of.interest", "missing", "missing"),
+          function(x, y, factors.of.interest,
+                   aggregation.matrix.name, normalize) {
 
             return(
-              Coppe.cosenza(x, y, z, "default")
+              Coppe.cosenza(x, y, factors.of.interest, "default", FALSE)
             )
-            }
+          }
           )
 
 
@@ -96,7 +112,7 @@ setMethod("Coppe.cosenza",
 #' @param Arguments \itemize{
 #' \item Project.portfolio S4 object
 #' \item Option.portfolio S4 object
-#' \item Factors.under.consideration S4 object
+#' \item Factors.of.interest S4 object
 #' \item character - the name of Aggregation.matrix to be used. If not provided
 #' the default implementation will be used}
 #'
@@ -104,22 +120,24 @@ setMethod("Coppe.cosenza",
 #' @include option-portfolio.R
 #' @include factors-under-consideration.R
 #'
+#' @export
 setMethod("Coppe.cosenza",
           signature("Project.portfolio", "Option.portfolio",
-                    "Factors.under.consideration", "character"),
-          function(x, y, z, k = "default") {
+                    "Factors.of.interest", "character", "logical"),
+          function(x, y, factors.of.interest,
+                   aggregation.matrix.name = "default", normalize = FALSE) {
             # change to semantic expressive names
             project.portfolio <- x
             option.portfolio <- y
-            factors.under.consideration <- z
-            aggregation.matrix.name <- paste0("Aggregation.matrix.", k)
-            #"default" # TODO(Taranti) marretato
+            aggregation.matrix.name <-
+              paste0("Aggregation.matrix.", aggregation.matrix.name)
+
             # warning.list store informatio to compose S4 CoppeCosenza@messages
             messages.list <- list()
 
             # verify if all factors are eveluated for the selected portfolios
             if (!CheckSelectFactors(project.portfolio, option.portfolio,
-                                    factors.under.consideration)) {
+                                    factors.of.interest)) {
               stop("The selected factors are incompatible with the portfolios")
             }
 
@@ -130,8 +148,8 @@ setMethod("Coppe.cosenza",
               as.data.frame(project.portfolio)
             project.portfolio.as.data.frame <-
               project.portfolio.as.data.frame[,
-                                              getFactorsUnderConsiderationNames
-                                              (factors.under.consideration),
+                                              getFactorsOfInterestNames
+                                              (factors.of.interest),
                                               drop = FALSE]
             temp.df <- project.portfolio.as.data.frame[
               is.na(project.portfolio.as.data.frame), , drop = FALSE]
@@ -165,7 +183,7 @@ setMethod("Coppe.cosenza",
             option.portfolio.as.data.frame <-
               option.portfolio.as.data.frame[
                 ,
-                getFactorsUnderConsiderationNames(factors.under.consideration),
+                getFactorsOfInterestNames(factors.of.interest),
                 drop = FALSE]
             temp.df <- option.portfolio.as.data.frame[
               is.na(option.portfolio.as.data.frame),
@@ -199,44 +217,91 @@ setMethod("Coppe.cosenza",
 
             coppe.cosenza <- new("Coppe.cosenza",out, messages.list )
 
-            return(coppe.cosenza) #TODO (Taranti) não esta funcionando
+            return(coppe.cosenza)
           }
 )
 
 
-# Function to verify if all factors in factors.under.consideration are included
+#' @rdname  Coppe.cosenza
+#' @export
+setMethod("Coppe.cosenza",
+          signature("Project", "Option.portfolio",
+                    "Factors.of.interest", "character", "missing"),
+          function(
+            x,
+            y,
+            factors.of.interest,
+            aggregation.matrix.name,
+            normalize = FALSE) {
+
+          Coppe.cosenza(Project.portfolio(list(x)),
+                        y,
+                        factors.of.interest,
+                        aggregation.matrix.name,
+                        normalize = FALSE)
+          }
+          )
+
+
+
+
+#' @rdname  Coppe.cosenza
+#' @export
+setMethod("Coppe.cosenza",
+          signature("Project.portfolio", "Option",
+                    "Factors.of.interest", "character", "logical"),
+          function(
+            x,
+            y,
+            factors.of.interest,
+            aggregation.matrix.name = "default",
+            normalize = FALSE) {
+
+            Coppe.cosenza(x,
+                          Option.portfolio(list(y)),
+                          factors.of.interest,
+                          aggregation.matrix.name = "default",
+                          normalize = FALSE)
+          }
+)
+
+
+
+# Function to verify if all factors in factors.of.interest are included
 # in project.portfolio and option.portfolio
 CheckSelectFactors <-
-  function(project.portfolio, option.portfolio, factors.under.consideration) {
-    factors.under.consideration.names <-
-      getFactorsUnderConsiderationNames(factors.under.consideration)
+  function(project.portfolio, option.portfolio, factors.of.interest) {
+    factors.of.interest.names <-
+      getFactorsOfInterestNames(factors.of.interest)
     project.portfolio.as.data.frame <- as.data.frame(project.portfolio, FALSE)
     option.portfolio.as.data.frame <- as.data.frame(option.portfolio)
 
     factors.not.in.project.portfolio <-
       setdiff(
-        factors.under.consideration.names,
+        factors.of.interest.names,
         colnames(project.portfolio.as.data.frame)
       )
     factors.not.in.option.portfolio <-
       setdiff(
-        factors.under.consideration.names,
+        factors.of.interest.names,
         colnames(option.portfolio.as.data.frame))
     flag <- TRUE
     if (length(factors.not.in.project.portfolio) > 0) {
       flag <- FALSE
       cat("\nThe following factors are not considered in project portfolio: ",
           factors.not.in.project.portfolio, "\nThere is no project that complies
-          with the factors.under.consideration list")
+          with the factors.of.interest list")
     }
     if (length(factors.not.in.option.portfolio) > 0 ) {
       flag <- FALSE
       cat("\nThe following factors are not considered in option portfolio: ",
           factors.not.in.option.portfolio, "\nThere is no option that complies
-          with the factors.under.consideration list")
+          with the factors.of.interest list")
     }
     return(flag)
   }
+
+
 
 
 

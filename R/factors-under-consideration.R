@@ -1,8 +1,8 @@
 
 
-#' Factors.under.consideration S4 Class
+#' Factors.of.interest S4 Class
 #'
-#' Factors.under.consideration S4 class contains a list of S4 Factor objects.
+#' Factors.of.interest S4 class contains a list of S4 Factor objects.
 #' This list is used as parameter when construction de output from Coppe-Cosenza
 #'  method.
 #'
@@ -16,13 +16,13 @@
 #' @include factor.R
 #'
 setClass(
-  "Factors.under.consideration",
+  "Factors.of.interest",
   representation(
     list.of.factors = "list"),
   validity = function(object) {
       msg <- NULL
       if (is.null(object@list.of.factors))
-        stop("Factors.under.consideration must have one or more Factors")
+        stop("Factors.of.interest must have one or more Factors")
       for (factor in object@list.of.factors) {
         if (!methods::is(factor, "Factor"))
           msg <-
@@ -39,10 +39,10 @@ setClass(
 
 setMethod(
   f = "initialize",
-  signature = "Factors.under.consideration",
+  signature = "Factors.of.interest",
   definition = function(.Object,
                         list.of.factors){
-    # cat("~~~ Factors.under.consideration: initializator ~~~ \n")
+    # cat("~~~ Factors.of.interest: initializator ~~~ \n")
     # Assignment of the slots
     .Object@list.of.factors <- list.of.factors
     methods::validObject(.Object)
@@ -51,52 +51,52 @@ setMethod(
   }
 )
 
-#' Factors.under.consideration Constructor
+#' Factors.of.interest Constructor
 #'
-#' Factors.under.consideration is a constructor. Factor elements inserted in
+#' Factors.of.interest is a constructor. Factor elements inserted in
 #' list.of.factors are type-checked as S4 coppeCosenza::Factor objects. They
 #' must have distint names.
 #'
 #'
 #' @param list.of.factors list of Factor S4 objects
 #'
-#' @return a \code{\link{Factors.under.consideration}} S4 object
+#' @return a \code{\link{Factors.of.interest}} S4 object
 #'
 #' @export
 #'
 #' @examples
-#' Factors.under.consideration(list(Factor("factor1"), Factor("factor2"),
+#' Factors.of.interest(list(Factor("factor1"), Factor("factor2"),
 #' Factor("factor3")))
 #'
 #' @include factor.R
 #'
-Factors.under.consideration <- function(list.of.factors){
-  new("Factors.under.consideration", list.of.factors)
+Factors.of.interest <- function(list.of.factors){
+  new("Factors.of.interest", list.of.factors)
 }
 
 
 
-#' getFactorsUnderConsiderationNames
+#' getFactorsOfInterestNames
 #'
 #' It provides a sorted vector with the names of factors.
 #'
-#' @param factors.under.consideration S4 Factors.under.consideration object
+#' @param factors.of.interest S4 Factors.of.interest object
 #'
 #' @return vector of character
 #' @export
 #'
 #' @examples
-#' \dontrun{getFactorsUnderConsiderationNames(factors.under.consideration)}
+#' \dontrun{getFactorsOfInterestNames(factors.of.interest)}
 #'
-getFactorsUnderConsiderationNames <- function(factors.under.consideration){
+getFactorsOfInterestNames <- function(factors.of.interest){
 
   #type check
-  if (!methods::is(factors.under.consideration, "Factors.under.consideration"))
-    stop("factors.under.consideration parameter must be a
-         Factors.under.consideration S4 object")
+  if (!methods::is(factors.of.interest, "Factors.of.interest"))
+    stop("factors.of.interest parameter must be a
+         Factors.of.interest S4 object")
 
   vector.of.factors.names <- NULL
-  for (factor in factors.under.consideration@list.of.factors) {
+  for (factor in factors.of.interest@list.of.factors) {
     vector.of.factors.names <- c(vector.of.factors.names, factor@name)
   }
   vector.of.factors.names <- sort(vector.of.factors.names, decreasing = FALSE)

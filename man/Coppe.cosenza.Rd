@@ -3,31 +3,44 @@
 \docType{methods}
 \name{Coppe.cosenza}
 \alias{Coppe.cosenza}
-\alias{Coppe.cosenza,ANY,ANY,ANY,ANY-method}
-\alias{Coppe.cosenza,Project.portfolio,Option.portfolio,Factors.under.consideration,missing-method}
-\alias{Coppe.cosenza,Project.portfolio,Option.portfolio,Factors.under.consideration,character-method}
+\alias{Coppe.cosenza,ANY,ANY,ANY,ANY,ANY-method}
+\alias{Coppe.cosenza,Project.portfolio,Option.portfolio,Factors.of.interest,missing,missing-method}
+\alias{Coppe.cosenza,Project.portfolio,Option.portfolio,Factors.of.interest,character,logical-method}
+\alias{Coppe.cosenza,Project,Option.portfolio,Factors.of.interest,character,missing-method}
+\alias{Coppe.cosenza,Project.portfolio,Option,Factors.of.interest,character,logical-method}
 \title{Coppe.cosenza}
 \usage{
-Coppe.cosenza(x, y, z, k)
+Coppe.cosenza(x, y, factors.of.interest, aggregation.matrix.name, normalize)
 
-\S4method{Coppe.cosenza}{ANY,ANY,ANY,ANY}(x)
-
-
-  \S4method{Coppe.cosenza}{Project.portfolio,Option.portfolio,Factors.under.consideration,missing}(x,
-  y, z, k)
+\S4method{Coppe.cosenza}{ANY,ANY,ANY,ANY,ANY}(x)
 
 
-  \S4method{Coppe.cosenza}{Project.portfolio,Option.portfolio,Factors.under.consideration,character}(x,
-  y, z, k = "default")
+  \S4method{Coppe.cosenza}{Project.portfolio,Option.portfolio,Factors.of.interest,missing,missing}(x,
+  y, factors.of.interest, aggregation.matrix.name, normalize)
+
+
+  \S4method{Coppe.cosenza}{Project.portfolio,Option.portfolio,Factors.of.interest,character,logical}(x,
+  y, factors.of.interest, aggregation.matrix.name = "default",
+  normalize = FALSE)
+
+
+  \S4method{Coppe.cosenza}{Project,Option.portfolio,Factors.of.interest,character,missing}(x,
+  y, factors.of.interest, aggregation.matrix.name, normalize = FALSE)
+
+
+  \S4method{Coppe.cosenza}{Project.portfolio,Option,Factors.of.interest,character,logical}(x,
+  y, factors.of.interest, aggregation.matrix.name = "default",
+  normalize = FALSE)
 }
 \arguments{
 \item{Arguments}{(ANY) A call to \code{Coppe.cosenza( )} with no parameters
-will return an error message for missing argument.}
+will return an error message for missing argument.
+@export}
 
 \item{Arguments}{\itemize{
 \item Project.portfolio S4 object
 \item Option.portfolio S4 object
-\item Factors.under.consideration S4 object
+\item Factors.of.interest S4 object
 \item character - the name of Aggregation.matrix to be used. If not provided
 the default implementation will be used}}
 }
@@ -35,6 +48,14 @@ the default implementation will be used}}
 Coppe.cosenza S4 object
 }
 \description{
-S4 method to construc Coppe.cosenza objects. It solves de
-# TODO(Pessoa) explicar aqui
+S4 method to construc Coppe.cosenza objects. The package also provides a way
+to verify the consistency of the entry data. There are 3 different matrices
+which are considered for the evaluation purposes: The project' s required
+factors; The project's description of specific factors; and the options'
+available level of factors. All the factors must be evaluated by each project
+ and by each option. The program deconstruct each evaluation so as to verify:
+ if all the factors are evaluated for each project; if all the factors are
+ evaluated for each option, and besides, if all the linguistic variables are
+ the prescribed ones. Such verification avoids incomplete or incorrect
+ evaluations presenting the correspondent error messages.
 }

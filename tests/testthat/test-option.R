@@ -7,15 +7,15 @@ context("\n\nOption.factor.availability constructor\n")
 
 fat1 <- Factor("fat1")
 fat2 <- Factor("_23FAT")
-# Excellent", "Good", "Regular", "Weak"
+# Ex", "G", "R", "W", "Em", "Z", "In"
 
 test_that("Option.factor.availability constructor\n", {
-  expect_error(Option.factor.availability("fat1", "Regular"), )
+  expect_error(Option.factor.availability("fat1", "R"), )
   expect_error(Option.factor.availability(fat2, "not.valid"), )
-  expect_error(Option.factor.availability(, "Weak"), )
+  expect_error(Option.factor.availability(, "W"), )
   expect_error(Option.factor.availability(fat1, ), )
-  expect_is(Option.factor.availability(Factor("fat1"), "Excellent"), "Option.factor.availability")
-  expect_is(Option.factor.availability(fat1, "Good"), "Option.factor.availability")
+  expect_is(Option.factor.availability(Factor("fat1"), "Ex"), "Option.factor.availability")
+  expect_is(Option.factor.availability(fat1, "G"), "Option.factor.availability")
 }
 )
 
@@ -24,9 +24,9 @@ test_that("Option.factor.availability constructor\n", {
 
 context("\n\n Option.resources constructor\n")
 
-pc1 <- Option.factor.availability(Factor("fator1"), "Regular")
-pc2 <- Option.factor.availability(Factor("fator1"), "Weak")
-pc3 <- Option.factor.availability(Factor("fator2"), "Excellent")
+pc1 <- Option.factor.availability(Factor("fator1"), "R")
+pc2 <- Option.factor.availability(Factor("fator1"), "W")
+pc3 <- Option.factor.availability(Factor("fator2"), "Ex")
 
 test_that("Option.resources  constructor\n", {
   expect_error(Option.resources(), )
@@ -43,11 +43,11 @@ test_that("Option.resources  constructor\n", {
 
 context("\n\n Option constructor\n")
 
-ofa1 <- Option.factor.availability(Factor("fator0"), "Regular")
-ofa2 <- Option.factor.availability(Factor("fator1"), "Excellent")
-ofa3 <- Option.factor.availability(Factor("fator2"), "Regular")
-ofa4 <- Option.factor.availability(Factor("fator3"), "Weak")
-ofa5 <- Option.factor.availability(Factor("fator4"), "Excellent")
+ofa1 <- Option.factor.availability(Factor("fator0"), "R")
+ofa2 <- Option.factor.availability(Factor("fator1"), "Ex")
+ofa3 <- Option.factor.availability(Factor("fator2"), "R")
+ofa4 <- Option.factor.availability(Factor("fator3"), "W")
+ofa5 <- Option.factor.availability(Factor("fator4"), "Ex")
 
 option.resources1 <- Option.resources(list(ofa1, ofa2, ofa3))
 option.resources2 <- Option.resources(list(ofa2, ofa3, ofa4))
@@ -70,11 +70,11 @@ test_that("Option  constructor\n", {
 
 context("\n\n Option.portfolio constructor\n")
 
-ofa1 <- Option.factor.availability(Factor("fator0"), "Regular")
-ofa2 <- Option.factor.availability(Factor("fator1"), "Excellent")
-ofa3 <- Option.factor.availability(Factor("fator2"), "Regular")
-ofa4 <- Option.factor.availability(Factor("fator3"), "Weak")
-ofa5 <- Option.factor.availability(Factor("fator4"), "Excellent")
+ofa1 <- Option.factor.availability(Factor("fator0"), "R")
+ofa2 <- Option.factor.availability(Factor("fator1"), "Ex")
+ofa3 <- Option.factor.availability(Factor("fator2"), "R")
+ofa4 <- Option.factor.availability(Factor("fator3"), "W")
+ofa5 <- Option.factor.availability(Factor("fator4"), "Ex")
 
 option.resources1 <- Option.resources(list(ofa1, ofa2, ofa3))
 option.resources2 <- Option.resources(list(ofa2, ofa3, ofa4))
