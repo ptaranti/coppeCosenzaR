@@ -24,7 +24,7 @@ Collate:
     'aggregation-matrix.R'
     'aggregation-matrix-default.R'
     'factor.R'
-    'factors-under-consideration.R'
+    'factors-of-interest.R'
     'option-factor-availability.R'
     'option-resources.R'
     'option.R'

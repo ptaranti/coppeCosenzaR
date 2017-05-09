@@ -150,7 +150,7 @@ FunctionalTest <- function(){
         )
       )
       ##############################  Option 3
-     o3 <-  Option(
+      o3 <-  Option(
         name = "O3",
         Option.resources(
           list(
@@ -164,7 +164,29 @@ FunctionalTest <- function(){
             ),
             Option.factor.availability(
               Factor("fat3"),
-              "Weak"
+              "W"
+            )
+          )
+        )
+      )
+
+
+      ##############################  Option 3
+      o4 <-  Option(
+        name = "O4",
+        Option.resources(
+          list(
+            Option.factor.availability(
+              Factor("fat1"),
+              "Z"
+            ),
+            Option.factor.availability(
+              Factor("fat2"),
+              "Em"
+            ),
+            Option.factor.availability(
+              Factor("fat3"),
+              "W"
             )
           )
         )

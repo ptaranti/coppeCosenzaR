@@ -1,8 +1,4 @@
-# TODO(Taranti) desacoplar o codigo para permitir facil inserção de novas
-# matrizes de agregação
-# TODO (Taranti) inserir metodo de construcao que, se nao receber lista de
-# fatores, elimine projetos e locais com NA, depois selecione a interceção de
-# fatores como conjunto maximo
+
 
 
 #' Coppe.cosenza S4 Class
@@ -74,7 +70,8 @@ setMethod(
 #' @return Coppe.cosenza S4 object
 #'
 setGeneric("Coppe.cosenza", function(x, y, factors.of.interest,
-                                     aggregation.matrix.name, normalize)
+                                     aggregation.matrix.name = "default",
+                                     normalize = FALSE)
   standardGeneric("Coppe.cosenza"))
 
 
@@ -100,10 +97,41 @@ setMethod("Coppe.cosenza",
                    aggregation.matrix.name, normalize) {
 
             return(
-              Coppe.cosenza(x, y, factors.of.interest, "default", FALSE)
+              Coppe.cosenza(x, y, factors.of.interest,
+                            aggregation.matrix.name, normalize)
             )
           }
-          )
+)
+
+#' @rdname  Coppe.cosenza
+#' @export
+setMethod("Coppe.cosenza",
+          signature("Project.portfolio", "Option.portfolio",
+                    "Factors.of.interest", "character", "missing"),
+          function(x, y, factors.of.interest,
+                   aggregation.matrix.name, normalize) {
+
+            return(
+              Coppe.cosenza(x, y, factors.of.interest,
+                            aggregation.matrix.name, normalize)
+            )
+          }
+)
+
+#' @rdname  Coppe.cosenza
+#' @export
+setMethod("Coppe.cosenza",
+          signature("Project.portfolio", "Option.portfolio",
+                    "Factors.of.interest", "missing", "logical"),
+          function(x, y, factors.of.interest,
+                   aggregation.matrix.name, normalize) {
+
+            return(
+              Coppe.cosenza(x, y, factors.of.interest,
+                            aggregation.matrix.name, normalize)
+            )
+          }
+)
 
 
 
@@ -118,14 +146,14 @@ setMethod("Coppe.cosenza",
 #'
 #' @include project-portfolio.R
 #' @include option-portfolio.R
-#' @include factors-under-consideration.R
+#' @include factors-of-interest.R
 #'
 #' @export
 setMethod("Coppe.cosenza",
           signature("Project.portfolio", "Option.portfolio",
                     "Factors.of.interest", "character", "logical"),
           function(x, y, factors.of.interest,
-                   aggregation.matrix.name = "default", normalize = FALSE) {
+                   aggregation.matrix.name, normalize) {
             # change to semantic expressive names
             project.portfolio <- x
             option.portfolio <- y
@@ -133,7 +161,7 @@ setMethod("Coppe.cosenza",
               paste0("Aggregation.matrix.", aggregation.matrix.name)
 
             # warning.list store informatio to compose S4 CoppeCosenza@messages
-            messages.list <- list()
+            messages.list <- c("Warning messages:")
 
             # verify if all factors are eveluated for the selected portfolios
             if (!CheckSelectFactors(project.portfolio, option.portfolio,
@@ -154,7 +182,6 @@ setMethod("Coppe.cosenza",
             temp.df <- project.portfolio.as.data.frame[
               is.na(project.portfolio.as.data.frame), , drop = FALSE]
             if (length(rownames(temp.df)) > 0) {
-              messages.list <-
                 paste0(
                   messages.list,
                   "The following projects have not evoluation for all considered
@@ -205,7 +232,7 @@ setMethod("Coppe.cosenza",
             # call the Aggregate function for the correct matrix
             aggregation.matrix <- new(aggregation.matrix.name)
             messages.list <- list(messages.list,
-              paste0("CoppeCosenza using", aggregation.matrix.name,
+              paste0("CoppeCosenza using ", aggregation.matrix.name,
                 collapse = " "
               ))
 
@@ -214,6 +241,29 @@ setMethod("Coppe.cosenza",
               project.portfolio.as.data.frame,
                 project.portfolio.specifics.as.data.frame,
                 option.portfolio.as.data.frame)
+
+
+            if (normalize == TRUE) {
+              paste0("CoppeCosenza normalizing result (using 1/nrfactors) ",
+                     aggregation.matrix.name,
+                     collapse = " ")
+              out <- out/length(factors.of.interest@list.of.factors)
+
+
+            }
+
+            # store col and row names
+            names <- colnames(out)
+            rows  <- row.names(out)
+
+            # resetting negatives to (-1)
+            out <- apply(out, c(1,2), function(x) if (x < 0) return(-1) else return(x))
+
+            #change -1 to "out" -- specific factor not available
+            out <- as.data.frame(apply(out,2,function(x)gsub("-1", "out",as.character(x))))
+            #resetting col and row names
+            names(out) <- names
+            rownames(out) <- rows
 
             coppe.cosenza <- new("Coppe.cosenza",out, messages.list )
 
@@ -225,20 +275,21 @@ setMethod("Coppe.cosenza",
 #' @rdname  Coppe.cosenza
 #' @export
 setMethod("Coppe.cosenza",
-          signature("Project", "Option.portfolio",
-                    "Factors.of.interest", "character", "missing"),
+          signature("Project"),
           function(
             x,
             y,
             factors.of.interest,
             aggregation.matrix.name,
-            normalize = FALSE) {
+            normalize) {
+
+            if (methods::is(y, "Option")) y <- Option.portfolio(list(y))
 
           Coppe.cosenza(Project.portfolio(list(x)),
                         y,
                         factors.of.interest,
                         aggregation.matrix.name,
-                        normalize = FALSE)
+                        normalize)
           }
           )
 
@@ -248,20 +299,19 @@ setMethod("Coppe.cosenza",
 #' @rdname  Coppe.cosenza
 #' @export
 setMethod("Coppe.cosenza",
-          signature("Project.portfolio", "Option",
-                    "Factors.of.interest", "character", "logical"),
+          signature("Project.portfolio", "Option"),
           function(
             x,
             y,
             factors.of.interest,
-            aggregation.matrix.name = "default",
-            normalize = FALSE) {
+            aggregation.matrix.name,
+            normalize) {
 
             Coppe.cosenza(x,
                           Option.portfolio(list(y)),
                           factors.of.interest,
-                          aggregation.matrix.name = "default",
-                          normalize = FALSE)
+                          aggregation.matrix.name,
+                          normalize)
           }
 )
 

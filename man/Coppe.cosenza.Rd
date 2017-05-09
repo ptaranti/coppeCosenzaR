@@ -5,31 +5,43 @@
 \alias{Coppe.cosenza}
 \alias{Coppe.cosenza,ANY,ANY,ANY,ANY,ANY-method}
 \alias{Coppe.cosenza,Project.portfolio,Option.portfolio,Factors.of.interest,missing,missing-method}
+\alias{Coppe.cosenza,Project.portfolio,Option.portfolio,Factors.of.interest,character,missing-method}
+\alias{Coppe.cosenza,Project.portfolio,Option.portfolio,Factors.of.interest,missing,logical-method}
 \alias{Coppe.cosenza,Project.portfolio,Option.portfolio,Factors.of.interest,character,logical-method}
-\alias{Coppe.cosenza,Project,Option.portfolio,Factors.of.interest,character,missing-method}
-\alias{Coppe.cosenza,Project.portfolio,Option,Factors.of.interest,character,logical-method}
+\alias{Coppe.cosenza,Project,ANY,ANY,ANY,ANY-method}
+\alias{Coppe.cosenza,Project.portfolio,Option,ANY,ANY,ANY-method}
 \title{Coppe.cosenza}
 \usage{
-Coppe.cosenza(x, y, factors.of.interest, aggregation.matrix.name, normalize)
+Coppe.cosenza(x, y, factors.of.interest, aggregation.matrix.name = "default",
+  normalize = FALSE)
 
 \S4method{Coppe.cosenza}{ANY,ANY,ANY,ANY,ANY}(x)
 
 
   \S4method{Coppe.cosenza}{Project.portfolio,Option.portfolio,Factors.of.interest,missing,missing}(x,
-  y, factors.of.interest, aggregation.matrix.name, normalize)
+  y, factors.of.interest, aggregation.matrix.name = "default",
+  normalize = FALSE)
+
+
+  \S4method{Coppe.cosenza}{Project.portfolio,Option.portfolio,Factors.of.interest,character,missing}(x,
+  y, factors.of.interest, aggregation.matrix.name = "default",
+  normalize = FALSE)
+
+
+  \S4method{Coppe.cosenza}{Project.portfolio,Option.portfolio,Factors.of.interest,missing,logical}(x,
+  y, factors.of.interest, aggregation.matrix.name = "default",
+  normalize = FALSE)
 
 
   \S4method{Coppe.cosenza}{Project.portfolio,Option.portfolio,Factors.of.interest,character,logical}(x,
   y, factors.of.interest, aggregation.matrix.name = "default",
   normalize = FALSE)
 
+\S4method{Coppe.cosenza}{Project,ANY,ANY,ANY,ANY}(x, y, factors.of.interest,
+  aggregation.matrix.name = "default", normalize = FALSE)
 
-  \S4method{Coppe.cosenza}{Project,Option.portfolio,Factors.of.interest,character,missing}(x,
-  y, factors.of.interest, aggregation.matrix.name, normalize = FALSE)
-
-
-  \S4method{Coppe.cosenza}{Project.portfolio,Option,Factors.of.interest,character,logical}(x,
-  y, factors.of.interest, aggregation.matrix.name = "default",
+\S4method{Coppe.cosenza}{Project.portfolio,Option,ANY,ANY,ANY}(x, y,
+  factors.of.interest, aggregation.matrix.name = "default",
   normalize = FALSE)
 }
 \arguments{

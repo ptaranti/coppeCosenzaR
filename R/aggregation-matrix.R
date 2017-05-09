@@ -124,7 +124,7 @@ setMethod(
       }
 
       # change any -1 to out
-      result <- as.data.frame(apply(result,2,function(x)gsub("-1", "out",as.character(x))))
+      #result <- as.data.frame(apply(result,2,function(x)gsub("-1", "out",as.character(x))))
 
       #setting column and row names
       names(result) <- row.names(option.portfolio.as.data.frame)
@@ -160,7 +160,7 @@ setMethod(
 
 
       # change any -1 to out
-      result <- as.data.frame(apply(result,2,function(x)gsub("-1", "out",as.character(x))))
+     # result <- as.data.frame(apply(result,2,function(x)gsub("-1", "out",as.character(x))))
     # setting column and row names
       names(result) <- row.names(project.portfolio.as.data.frame)
       row.names(result) <- names(option.portfolio.as.data.frame)
@@ -192,7 +192,7 @@ setMethod(
                      project.portfolio.specifics.as.data.frame[i, x],
                      nrfactors)))
         agregation <- NULL
-        if (any(temp.list.agregation == -1)) agregation <- "out"
+        if (any(temp.list.agregation == -1)) agregation <- -1  # TODO(Taranti) agregation <- "out"
         else agregation <- sum(unlist(temp.list.agregation))
         result[i,j] <- agregation
       }
