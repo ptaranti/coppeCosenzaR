@@ -82,3 +82,12 @@ setMethod(
 Project.criterion <- function(factor, importance.degree, specific){
   new("Project.criterion", factor,  as.character(importance.degree), specific)
 }
+
+#' @export
+setMethod("show", "Project.criterion",
+          function(object){
+            df <- data.frame(as.character(object@factor@name), object@importance.degree, object@specific)
+            names(df) <- c("Factor","importance.degree", "specific")
+            print(df)
+          }
+          )

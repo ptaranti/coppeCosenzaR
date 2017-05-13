@@ -19,6 +19,7 @@ setClass(
   "Aggregation.matrix.default",
   representation( ),
   contains = "Aggregation.matrix",
+  prototype = list(name = "Aggregation.matrix.default"),
   validity = function(object) {
     TRUE
   }

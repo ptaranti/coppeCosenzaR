@@ -79,6 +79,26 @@ Option.resources <- function(list.of.factor.availability){
   new("Option.resources", list.of.factor.availability)
 }
 
+#' @export
+setMethod("show", "Option.resources",
+          function(object){
+            df <- NULL
+            for (i in 1:length(object@list.of.factor.availability)) {
+              x <- object@list.of.factor.availability[[i]]
+              df <- rbind(
+                df,
+                data.frame(
+                  as.character(x@factor@name),
+                  x@availability
+                )
+              )
+            }
+            row.names(df) <- df[, 1]
+            df <- df[, 2, drop = FALSE]
+            names(df) <- c("availability")
+            print(df)
+          }
+)
 
 
 

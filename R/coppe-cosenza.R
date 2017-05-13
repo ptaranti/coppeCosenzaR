@@ -14,13 +14,17 @@
 #'
 #' @slot result data.frame
 #' @slot messages list
+#' @include  aggregation-matrix.R
 #' @export
 #'
 setClass(
   "Coppe.cosenza",
   representation(
     result = "data.frame",
-    messages = "list"),
+    messages = "character",
+    projects.names = "character",
+    options.names = "character",
+    aggregation.matrix = "Aggregation.matrix"),
   validity = function(object) {
     if (!is.data.frame(object@result)) stop("@result must be a data.frame" )
     TRUE
@@ -28,9 +32,9 @@ setClass(
     # TODO(Taranti) consider extra validation - columns and rows non empty and
     # distinct. Non empty values, not NA
     # Unit tests
-    }
+  }
 
- )
+)
 
 
 
@@ -39,11 +43,17 @@ setMethod(
   signature = "Coppe.cosenza",
   definition = function(.Object,
                         result,
-                        messages){
+                        messages,
+                        projects.names,
+                        options.names,
+                        aggregation.matrix){
     # cat("~~~ CoppeCosenza: initializator ~~~ \n")
     # Assignment of the slots
     .Object@result <- result
     .Object@messages <- messages
+    .Object@projects.names <- projects.names
+    .Object@options.names <- options.names
+    .Object@aggregation.matrix <- aggregation.matrix
     methods::validObject(.Object)
     return(.Object)
     # return of the object
@@ -161,7 +171,7 @@ setMethod("Coppe.cosenza",
               paste0("Aggregation.matrix.", aggregation.matrix.name)
 
             # warning.list store informatio to compose S4 CoppeCosenza@messages
-            messages.list <- c("Warning messages:")
+            messages.vector <- c("Warning messages:")
 
             # verify if all factors are eveluated for the selected portfolios
             if (!CheckSelectFactors(project.portfolio, option.portfolio,
@@ -169,31 +179,33 @@ setMethod("Coppe.cosenza",
               stop("The selected factors are incompatible with the portfolios")
             }
 
+            # remove factors out of interest
 
-            # remove projects that were not evaluated for any of
-            # considered factors
             project.portfolio.as.data.frame <-
-              as.data.frame(project.portfolio)
-            project.portfolio.as.data.frame <-
-              project.portfolio.as.data.frame[,
-                                              getFactorsOfInterestNames
-                                              (factors.of.interest),
-                                              drop = FALSE]
-            temp.df <- project.portfolio.as.data.frame[
-              is.na(project.portfolio.as.data.frame), , drop = FALSE]
-            if (length(rownames(temp.df)) > 0) {
-                paste0(
-                  messages.list,
-                  "The following projects have not evoluation for all considered
-                  factors and will be disregarded: \n",
-                  rownames(temp.df),
-                  collapse = " \n"
-                  )
-            }
+              as.data.frame(project.portfolio)[,
+                                               getFactorsOfInterestNames
+                                               (factors.of.interest),
+                                               drop = FALSE]
+
+            # remove projects with NA values for any factor
+
+            rows.initial <- row.names(project.portfolio.as.data.frame)
 
             project.portfolio.as.data.frame <-
               na.omit(project.portfolio.as.data.frame)
 
+            rows.without.NA <- row.names(project.portfolio.as.data.frame)
+
+            rows.whith.NA <-  base::setdiff(rows.initial, rows.without.NA)
+
+            if (length(rows.whith.NA) > 0) {
+              messages.vector <- c(messages.vector,
+                                    paste0(
+                                      "Disregarding projects with NA value for any factors:",
+                                      sep = " ", as.character(rows.whith.NA)))
+            }
+
+            #setting project specifics data.frame
             project.portfolio.specifics.as.data.frame <-
               as.data.frame(project.portfolio, optional = TRUE)
 
@@ -204,49 +216,45 @@ setMethod("Coppe.cosenza",
                 drop = FALSE]
 
 
-            # remove options that were not evaluated for any of
-            # considered factors
-            option.portfolio.as.data.frame <- as.data.frame(option.portfolio)
+            # remove factors out of interest
             option.portfolio.as.data.frame <-
-              option.portfolio.as.data.frame[
-                ,
-                getFactorsOfInterestNames(factors.of.interest),
-                drop = FALSE]
-            temp.df <- option.portfolio.as.data.frame[
-              is.na(option.portfolio.as.data.frame),
-              ,
-              drop = FALSE]
-            if (length(rownames(temp.df)) > 0) {
-              messages.list <- list(messages.list,
-                paste0(
-                  "The following options have not evoluation for all considered
-                  factors and will be disregarded: \n",
-                  rownames(temp.df),
-                  collapse = " \n"
-                ))
-            }
+              as.data.frame(option.portfolio)[ ,
+                                               getFactorsOfInterestNames
+                                               (factors.of.interest),
+                                               drop = FALSE]
+
+
+            # remove options with NA values for any factor
+
+            rows.initial <- row.names(option.portfolio.as.data.frame)
+
             option.portfolio.as.data.frame <-
               na.omit(option.portfolio.as.data.frame)
 
+            rows.without.NA <- row.names(option.portfolio.as.data.frame)
+
+            rows.whith.NA <-  base::setdiff(rows.initial, rows.without.NA)
+
+            if (length(rows.whith.NA) > 0) {
+              messages.vector <- c(messages.vector,
+                                    paste0(
+                                      "Disregarding options with NA value for any factors:",
+                                      sep = " ", as.character(rows.whith.NA)))
+            }
 
             # call the Aggregate function for the correct matrix
             aggregation.matrix <- new(aggregation.matrix.name)
-            messages.list <- list(messages.list,
-              paste0("CoppeCosenza using ", aggregation.matrix.name,
-                collapse = " "
-              ))
+
 
             out <- AggregateMatrix(
               aggregation.matrix,
               project.portfolio.as.data.frame,
-                project.portfolio.specifics.as.data.frame,
-                option.portfolio.as.data.frame)
+              project.portfolio.specifics.as.data.frame,
+              option.portfolio.as.data.frame)
 
 
             if (normalize == TRUE) {
-              paste0("CoppeCosenza normalizing result (using 1/nrfactors) ",
-                     aggregation.matrix.name,
-                     collapse = " ")
+              messages.vector <- c(messages.vector,"CoppeCosenza normalizing result (using 1/nrfactors)")
               out <- out/length(factors.of.interest@list.of.factors)
 
 
@@ -265,7 +273,12 @@ setMethod("Coppe.cosenza",
             names(out) <- names
             rownames(out) <- rows
 
-            coppe.cosenza <- new("Coppe.cosenza",out, messages.list )
+            coppe.cosenza <- new("Coppe.cosenza",
+                                 out,
+                                 messages.vector,
+                                 getProjectPortfolioNames(project.portfolio),
+                                 getOptionPortfolioNames(option.portfolio),
+                                 aggregation.matrix )
 
             return(coppe.cosenza)
           }
@@ -285,13 +298,13 @@ setMethod("Coppe.cosenza",
 
             if (methods::is(y, "Option")) y <- Option.portfolio(list(y))
 
-          Coppe.cosenza(Project.portfolio(list(x)),
-                        y,
-                        factors.of.interest,
-                        aggregation.matrix.name,
-                        normalize)
+            Coppe.cosenza(Project.portfolio(list(x)),
+                          y,
+                          factors.of.interest,
+                          aggregation.matrix.name,
+                          normalize)
           }
-          )
+)
 
 
 
@@ -352,6 +365,76 @@ CheckSelectFactors <-
   }
 
 
+#' summary
+#'
+#' Generic S4 method to \code{\link{summary}}.
+#' @export
+#'
+#setGeneric("summary", function(x, ...) standardGeneric("summary"))
+setGeneric("summary", function(object, ...)
+  standardGeneric("summary"),
+  useAsDefault = base::summary
+)
 
+#' @export
+setMethod("summary", signature("Coppe.cosenza"),
+          function(object) {
+            project.list <- row.names(object@result)
+            option.list  <- colnames(object@result)
 
+            if (length(project.list) == 1) {
+              print("projetos")
+            }
+
+            if (length(option.list) == 1) {
+              print("opcoes")
+            }
+
+            if (length(project.list) != 1 &&
+                length(option.list) != 1) {
+              df1 <- NULL
+              df <- NULL
+              for (i in 1:length(project.list) ) {
+                for (j in 1:length(option.list) ) {
+                  if (as.character(object@result[[i,j]]) != "out")
+                    df <- rbind(
+                      df,
+                      data.frame(project.list[[i]],
+                                 option.list[[j]],
+                                 object@result[[i,j]]
+                      )
+                    )
+                  else df1 <- rbind(
+                    df1,
+                    data.frame(project.list[[i]],
+                               option.list[[j]]
+                    )
+                  )
+                }
+              }
+
+              if (length(row.names(df)) == 0) return("No solution found")
+
+              names(df) <-  c("Project","Option", "Aggregate.value")
+              df$Aggregate.value <- as.numeric(as.character(df$Aggregate.value))
+              df <- df[order( df[,3] , decreasing = TRUE),]
+              cat("\n\n-----------------Coppe.cosenza method---------------------------\n\n")
+
+              if (length(object@messages) > 1) {
+                for (txt in object@messages) cat(paste0(txt, sep = " ", "\n"))
+              }
+              cat("\n----------------\n")
+              cat(paste0("Solutions using the ", sep = " ", object@aggregation.matrix@name))
+              cat("\n----------------\n")
+              print(df)
+
+              names(df1) <-  c("Dropped Project","Incompatible Option")
+              df <- df[order( df[,1]),]
+              cat(paste0("\n-------------------\nIncompatible solutions using the", sep = " ", object@aggregation.matrix@name, ":"))
+              cat("\n--------------------\n")
+              print(df1)
+              cat("\n--------------------\n")
+            }
+          }
+)
 

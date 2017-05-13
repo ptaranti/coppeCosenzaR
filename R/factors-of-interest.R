@@ -105,4 +105,16 @@ getFactorsOfInterestNames <- function(factors.of.interest){
 }
 
 
+#' @export
+setMethod("show", "Factors.of.interest",
+          function(object){
+            print("Factors.of.interest:")
+            print(
+                unlist(lapply(object@list.of.factors, function(x)(x@name)))
+                )
+          }
+)
+
+
+
 

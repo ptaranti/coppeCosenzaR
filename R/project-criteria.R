@@ -83,6 +83,28 @@ Project.criteria <- function(list.of.project.criterion){
 
 
 
+#' @export
+setMethod("show", "Project.criteria",
+          function(object){
+
+            df <- NULL
+            for (i in 1:length(object@list.of.project.criterion)) {
+              x <- object@list.of.project.criterion[[i]]
+              df <- rbind(
+                df,
+                data.frame(
+                  as.character(x@factor@name),
+                  x@importance.degree,
+                  x@specific
+                  )
+                )
+            }
+            row.names(df) <- df[, 1]
+            df <- df[, -1]
+            names(df) <- c("importance.degree","specific")
+            print(df)
+          }
+)
 
 
 

@@ -71,7 +71,14 @@ Option.factor.availability <- function(factor, availability){
   new("Option.factor.availability", factor, as.character(availability))
 }
 
-
+#' @export
+setMethod("show", "Option.factor.availability",
+          function(object){
+            df <- data.frame(as.character(object@factor@name), object@availability)
+            names(df) <- c("Factor","availability")
+            print(df)
+          }
+)
 
 
 

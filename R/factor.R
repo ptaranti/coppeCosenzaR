@@ -61,7 +61,12 @@ Factor <- function(name){
   new("Factor", as.character(name))
 }
 
-
+#' @export
+setMethod("show", "Factor",
+          function(object){
+            print(paste("Factor:", sep = " ", object@name))
+}
+)
 
 
 

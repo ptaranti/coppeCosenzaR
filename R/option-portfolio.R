@@ -264,4 +264,13 @@ setMethod("as.data.frame", signature("Option.portfolio"),
           }
 )
 
+#' @export
+setMethod("show", "Option.portfolio",
+          function(object){
+            print("Option.portfolio:")
+            print(
+              unlist(lapply(object@list.of.option, function(x)(x@name)))
+            )
+          }
+)
 

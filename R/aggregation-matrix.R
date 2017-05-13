@@ -8,7 +8,8 @@
 #'
 setClass(
   "Aggregation.matrix",
-  representation( ),
+  representation(
+    name = "character"),
   validity = function(object) {
     TRUE
   }
@@ -24,6 +25,7 @@ setMethod(
   {
     # cat("~~~ Aggregation.matrix: initializator ~~~ \n")
     # Assignment of the slots
+
     methods::validObject(.Object)
     return(.Object)
     # return of the object
@@ -243,3 +245,5 @@ setGeneric(
                  "nrfactors")
 )
 
+#' @export
+setMethod("show", "Aggregation.matrix", function(object) print(object@name))

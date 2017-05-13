@@ -311,3 +311,15 @@ setMethod("as.data.frame", signature("Project.portfolio"),
             else return(getProjectPortfolioAsDataFrame(option.portfolio))
           }
 )
+
+
+
+#' @export
+setMethod("show", "Project.portfolio",
+          function(object){
+            print("Project.portfolio:")
+            print(
+              unlist(lapply(object@list.of.project, function(x)(x@name)))
+            )
+          }
+)

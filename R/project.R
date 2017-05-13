@@ -137,3 +137,12 @@ getProjectFactorsSpecific <- function(project){
   vector.of.factors.names <- sort(vector.of.factors.names, decreasing = FALSE)
   return(vector.of.factors.names)
 }
+
+#' @export
+setMethod("show", "Project",
+          function(object){
+            print(paste("Project:", sep = " ", object@name))
+            print(object@project.criteria)
+          }
+)
+
