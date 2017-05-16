@@ -8,7 +8,7 @@
 #' regarding the studied projects. It presents a data frame presenting the
 #' final evaluation of the options regarding each project.
 #' If an option does not satisfies project´s specific factors, the option is
-#' discarded (a veto operation), with the value "out".  The result also
+#' discarded (a veto operation), with the value NA.  The result also
 #' presents relevant  messages list, describing if some evaluation could not be
 #' performed due to entry failures or missing evaluations.
 #'
@@ -24,6 +24,7 @@ setClass(
     messages = "character",
     projects.names = "character",
     options.names = "character",
+    factors.of.interest = "Factors.of.interest",
     aggregation.matrix = "Aggregation.matrix"),
   validity = function(object) {
     if (!is.data.frame(object@result)) stop("@result must be a data.frame" )
@@ -46,6 +47,7 @@ setMethod(
                         messages,
                         projects.names,
                         options.names,
+                        factors.of.interest,
                         aggregation.matrix){
     # cat("~~~ CoppeCosenza: initializator ~~~ \n")
     # Assignment of the slots
@@ -53,6 +55,7 @@ setMethod(
     .Object@messages <- messages
     .Object@projects.names <- projects.names
     .Object@options.names <- options.names
+    .Object@factors.of.interest <- factors.of.interest
     .Object@aggregation.matrix <- aggregation.matrix
     methods::validObject(.Object)
     return(.Object)
@@ -261,23 +264,24 @@ setMethod("Coppe.cosenza",
             }
 
             # store col and row names
-            names <- colnames(out)
-            rows  <- row.names(out)
+            #names <- colnames(out)
+            #rows  <- row.names(out)
 
             # resetting negatives to (-1)
-            out <- apply(out, c(1,2), function(x) if (x < 0) return(-1) else return(x))
+            #out <- apply(out, c(1,2), function(x) if (x < 0) return(-1) else return(x))
 
             #change -1 to "out" -- specific factor not available
-            out <- as.data.frame(apply(out,2,function(x)gsub("-1", "out",as.character(x))))
+            #out <- as.data.frame(apply(out,2,function(x)gsub("-1", "out",as.character(x))))
             #resetting col and row names
-            names(out) <- names
-            rownames(out) <- rows
+            #names(out) <- names
+            #rownames(out) <- rows
 
             coppe.cosenza <- new("Coppe.cosenza",
                                  out,
                                  messages.vector,
                                  getProjectPortfolioNames(project.portfolio),
                                  getOptionPortfolioNames(option.portfolio),
+                                 factors.of.interest,
                                  aggregation.matrix )
 
             return(coppe.cosenza)
@@ -379,24 +383,116 @@ setGeneric("summary", function(object, ...)
 #' @export
 setMethod("summary", signature("Coppe.cosenza"),
           function(object) {
-            project.list <- row.names(object@result)
-            option.list  <- colnames(object@result)
 
-            if (length(project.list) == 1) {
-              print("projetos")
+
+            cat("\n\n-----------------Coppe.cosenza method---------------------------\n\n")
+            if (length(object@messages) > 1) {
+              for (txt in object@messages) cat(paste0(txt, sep = " ", "\n"))
             }
 
-            if (length(option.list) == 1) {
-              print("opcoes")
+
+            ########### summary for a single project
+            if (length(object@projects.names) == 1) {
+
+                factor.list <- row.names(object@result)
+                option.list <- names(object@result)
+                data <- object@result
+
+                cat("\n----------------\n")
+                cat(paste0("Solutions for ", as.character(object@projects.names),sep = " "))
+                cat(paste0("\nUsing  ", object@aggregation.matrix@name,sep = " "))
+                cat("\n----------------\n")
+
+                for (i in 1:length(factor.list)) {
+                  for (j in 1:length(option.list)) {
+                    if (is.na(data[i, j])) {
+                      cat(paste0("\nProject ", as.character(object@projects.names), " cannot use option ", option.list[[j]], " since factor ", factor.list[[i]], " is specific and not satisfied" ))
+                    }
+                  }
+                }
+
+                # transpose data
+                data <- t(data)
+
+                #removing options with NA (specific factors not satisfied)
+                data <- as.data.frame(na.omit(data))
+
+                cat("\n----------------\n")
+                cat(paste("Options and factor value analisys - considering project", as.character(object@projects.names), "\n\n",sep = " "))
+
+                data.rows <- row.names(data)
+                df <- NULL
+                for (i in 1:length(data.rows)) {
+                  df <- rbind(df, summary(as.numeric(data[i, ])))
+                }
+
+                row.names(df) <- data.rows
+                #order by min, max, and median
+                df <- df[order( df[ ,1], df[ ,6], df[ ,3], decreasing = TRUE),]
+
+                print(df)
+              }
+
+
+            ########### summary for a single option
+            if (length(object@options.names) == 1) {
+
+              factor.list <- row.names(object@result)
+              project.list <- names(object@result)
+              data <- object@result
+
+              cat("\n----------------\n")
+              cat(paste0("Solutions for ", as.character(object@options.names),sep = " "))
+              cat(paste0("\nUsing  ", object@aggregation.matrix@name,sep = " "))
+              cat("\n----------------\n")
+
+              for (i in 1:length(factor.list)) {
+                for (j in 1:length(project.list)) {
+                  if (is.na(data[i, j])) {
+                    cat(paste0("\nOption ", as.character(object@options.names), " cannot be applied to ", project.list[[j]], " since factor ", factor.list[[i]], " is specific and not satisfied" ))
+                  }
+                }
+              }
+
+              # transpose data
+              data <- t(data)
+
+              #removing projectes with NA (specific factors not satisfied)
+              data <- as.data.frame(na.omit(data))
+
+              cat("\n----------------\n")
+              cat(paste("Projects and factor value analisys - considering option", as.character(object@options.names), "\n\n",sep = " "))
+
+              data.rows <- row.names(data)
+              df <- NULL
+              for (i in 1:length(data.rows)) {
+                df <- rbind(df, summary(as.numeric(data[i, ])))
+              }
+
+              row.names(df) <- data.rows
+              #order by min, max, and median
+              df <- df[order( df[ ,1], df[ ,6], df[ ,3], decreasing = TRUE),]
+
+              print(df)
             }
 
-            if (length(project.list) != 1 &&
-                length(option.list) != 1) {
+
+            ########### summary for a set of projects and options
+
+            if (length(object@projects.names) > 1 &&
+                length(object@options.names) > 1) {
+
+              # project and option list may differ from object@projects.names and
+              # object@options.names, since some of the originals can be
+              #  disregarded because do not have all factors of interest evaluated
+              project.list <- row.names(object@result)
+              option.list <- names(object@result)
+
               df1 <- NULL
               df <- NULL
               for (i in 1:length(project.list) ) {
                 for (j in 1:length(option.list) ) {
-                  if (as.character(object@result[[i,j]]) != "out")
+                  if (!is.na(object@result[[i,j]])) {
                     df <- rbind(
                       df,
                       data.frame(project.list[[i]],
@@ -404,6 +500,7 @@ setMethod("summary", signature("Coppe.cosenza"),
                                  object@result[[i,j]]
                       )
                     )
+                  }
                   else df1 <- rbind(
                     df1,
                     data.frame(project.list[[i]],
@@ -413,16 +510,12 @@ setMethod("summary", signature("Coppe.cosenza"),
                 }
               }
 
-              if (length(row.names(df)) == 0) return("No solution found")
+              if (length(row.names(df)) == 0) cat("No solution found\n")
 
               names(df) <-  c("Project","Option", "Aggregate.value")
               df$Aggregate.value <- as.numeric(as.character(df$Aggregate.value))
               df <- df[order( df[,3] , decreasing = TRUE),]
-              cat("\n\n-----------------Coppe.cosenza method---------------------------\n\n")
 
-              if (length(object@messages) > 1) {
-                for (txt in object@messages) cat(paste0(txt, sep = " ", "\n"))
-              }
               cat("\n----------------\n")
               cat(paste0("Solutions using the ", sep = " ", object@aggregation.matrix@name))
               cat("\n----------------\n")
@@ -433,8 +526,27 @@ setMethod("summary", signature("Coppe.cosenza"),
               cat(paste0("\n-------------------\nIncompatible solutions using the", sep = " ", object@aggregation.matrix@name, ":"))
               cat("\n--------------------\n")
               print(df1)
-              cat("\n--------------------\n")
+
             }
+
+
+            cat("\n--------------------------------------------------------\n")
+
+            cat(paste0("Description of the used ", object@aggregation.matrix@name, ":\n\n"))
+
+            print(new("Aggregation.matrix.default"))
+
+            #print(citation("coppeCosenzaR"))
+
+            cat("\n--------------------------------------------------------\n")
+
           }
 )
 
+
+#' @export
+setMethod("show", "Coppe.cosenza",
+          function(object){
+            print(object@result)
+          }
+)

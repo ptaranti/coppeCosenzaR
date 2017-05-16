@@ -109,8 +109,10 @@ getOptionFactorsNames <- function(option){
 #' @export
 setMethod("show", "Option",
           function(object){
-            print(paste("Option:", sep = " ", object@name))
+            cat("\n")
+            cat(paste0("Option: ", object@name, "\n"))
             print(object@option.resources)
+            cat("\n")
           }
 )
 

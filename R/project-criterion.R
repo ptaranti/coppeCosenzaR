@@ -86,8 +86,9 @@ Project.criterion <- function(factor, importance.degree, specific){
 #' @export
 setMethod("show", "Project.criterion",
           function(object){
-            df <- data.frame(as.character(object@factor@name), object@importance.degree, object@specific)
-            names(df) <- c("Factor","importance.degree", "specific")
+            df <- NULL
+            df <- data.frame(object@importance.degree, object@specific, row.names = object@factor@name)
+            names(df) <- c("importance.degree", "specific")
             print(df)
           }
           )

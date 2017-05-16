@@ -34,6 +34,7 @@ setMethod(
     #cat("~~~ Factor: initializator ~~~ \n")
     # Assignment of the slots
     .Object@name <- as.character(name)
+    names(.Object@name) <- as.character(name)
     methods::validObject(.Object)
     return(.Object)
     # return of the object
@@ -64,7 +65,7 @@ Factor <- function(name){
 #' @export
 setMethod("show", "Factor",
           function(object){
-            print(paste("Factor:", sep = " ", object@name))
+            cat(paste("Factor:", sep = " ", object@name))
 }
 )
 

@@ -141,7 +141,7 @@ getProjectFactorsSpecific <- function(project){
 #' @export
 setMethod("show", "Project",
           function(object){
-            print(paste("Project:", sep = " ", object@name))
+            cat(paste("\nProject: ", object@name), "\n")
             print(object@project.criteria)
           }
 )

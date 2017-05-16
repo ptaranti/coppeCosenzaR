@@ -103,6 +103,7 @@ setMethod("show", "Project.criteria",
             df <- df[, -1]
             names(df) <- c("importance.degree","specific")
             print(df)
+            cat("\n")
           }
 )
 

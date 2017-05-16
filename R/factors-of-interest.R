@@ -45,7 +45,7 @@ setMethod(
     # cat("~~~ Factors.of.interest: initializator ~~~ \n")
     # Assignment of the slots
     .Object@list.of.factors <- list.of.factors
-    methods::validObject(.Object)
+     methods::validObject(.Object)
     return(.Object)
     # return of the object
   }
@@ -108,10 +108,11 @@ getFactorsOfInterestNames <- function(factors.of.interest){
 #' @export
 setMethod("show", "Factors.of.interest",
           function(object){
-            print("Factors.of.interest:")
-            print(
-                unlist(lapply(object@list.of.factors, function(x)(x@name)))
+            cat("\nFactors.of.interest:\n")
+            cat(
+                unlist(lapply(object@list.of.factors, function(x)paste0(x@name, " ")))
                 )
+            cat("\n")
           }
 )
 

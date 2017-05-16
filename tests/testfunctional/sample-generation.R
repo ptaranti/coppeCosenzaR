@@ -19,15 +19,15 @@
 #'
 Project.portfolio.sample.generation <- function(number.of.projects, number.of.factors){
 
-  specific <- c(TRUE,FALSE, FALSE, FALSE, FALSE)
-  factor.evaluation <-  c("Cr", "C", "LC", "C", "LC","I")
+  specific <- c(TRUE, FALSE, FALSE, FALSE, FALSE)
+  factor.evaluation <-  c("Cr", "C", "LC","I", "LC","I")
 
   Project.portfolio(
     lapply( x <- 1:number.of.projects, function(x)
-      Project(x, Project.criteria(
+      Project(paste0("Project", as.character(x)), Project.criteria(
         lapply(y <- 1:number.of.factors, function(y)
           Project.criterion(
-            Factor(y),
+            Factor(paste0("Factor", as.character(y))),
             sample(factor.evaluation, 1),
             sample(specific, 1)
           )
@@ -63,14 +63,14 @@ Project.portfolio.sample.generation <- function(number.of.projects, number.of.fa
 Option.portfolio.sample.generation <- function(number.of.options, number.of.factors){
 
 
-  factor.evaluation <-   c("Ex", "G", "R", "W", "Em", "Z", "In")
+  factor.evaluation <-   c("Ex", "G", "R", "W", "Ex", "G", "R", "W", "Ex", "G", "R", "W", "Em", "Z", "In")
 
   Option.portfolio(
     lapply( x <- 1:number.of.options, function(x)
-      Option(x, Option.resources(
+      Option(paste0("Option", as.character(x)), Option.resources(
         lapply(y <- 1:number.of.factors, function(y)
           Option.factor.availability(
-            Factor(y),
+            Factor(paste0("Factor", as.character(y))),
             sample(factor.evaluation, 1)
           )
         )
@@ -95,9 +95,15 @@ Option.portfolio.sample.generation <- function(number.of.options, number.of.fact
 Factors.of.interest.sample.generetion <- function(nr.fatores){
   Factors.of.interest(
     lapply( x <- 1:nr.fatores, function(x)
-      Factor(x)
+      Factor(paste0("Factor", as.character(x)))
       )
   )
 }
 
+
+Project.portfolio.sample.generation
+
+Option.portfolio.sample.generation
+
+Factors.of.interest.sample.generetion
 

@@ -267,10 +267,12 @@ setMethod("as.data.frame", signature("Option.portfolio"),
 #' @export
 setMethod("show", "Option.portfolio",
           function(object){
-            print("Option.portfolio:")
-            print(
-              unlist(lapply(object@list.of.option, function(x)(x@name)))
+            cat("\n")
+            cat("Option.portfolio:\n")
+            cat(
+              unlist(lapply(object@list.of.option, function(x) paste0(x@name, " ")))
             )
+            cat("\n")
           }
 )
 

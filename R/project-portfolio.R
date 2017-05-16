@@ -317,9 +317,10 @@ setMethod("as.data.frame", signature("Project.portfolio"),
 #' @export
 setMethod("show", "Project.portfolio",
           function(object){
-            print("Project.portfolio:")
-            print(
-              unlist(lapply(object@list.of.project, function(x)(x@name)))
+            cat("\nProject.portfolio:\n")
+            cat(
+              unlist(lapply(object@list.of.project, function(x) paste0(x@name, " ")))
             )
+            cat("\n\n")
           }
 )

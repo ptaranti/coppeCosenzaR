@@ -49,7 +49,6 @@ setMethod(
 #'
 #' @export
 #'
-
 setMethod(
   "Aggregate",
   signature = c( "Aggregation.matrix.default",
@@ -69,14 +68,14 @@ setMethod(
     # nrfactors - numeric
     if (factor.evaluation == "Cr") {
       if (resource.evaluation == "Ex") return(1)
-      if (factor.is.specific) return(-1)
+      if (factor.is.specific) return(NA)
       return(0) # if -> "G", "R", "W", "Em", "Z", "In"
     }
 
     if (factor.evaluation == "C") {
       if (resource.evaluation == "Ex") return(1 + 1/nrfactors)
       if (resource.evaluation == "G") return(1)
-      if (factor.is.specific) return(-1)
+      if (factor.is.specific) return(NA)
       return(0) # "R", "W", "Em", "Z", "In"
     }
 
@@ -84,7 +83,7 @@ setMethod(
       if (resource.evaluation == "Ex") return(1 + 2/nrfactors)
       if (resource.evaluation == "G") return(1 + 1/nrfactors)
       if (resource.evaluation == "R") return(1)
-      if (factor.is.specific) return(-1)
+      if (factor.is.specific) return(NA)
       return(0) # "W", "Em", "Z", "In"
     }
 
@@ -93,8 +92,8 @@ setMethod(
       if (resource.evaluation == "G") return(1 + 2/nrfactors)
       if (resource.evaluation == "R") return(1 + 1/nrfactors)
       if (resource.evaluation == "W") return(1)
-      if (resource.evaluation == "Em") return(0.001)
-      if (resource.evaluation == "Z") return(0.000001)
+      if (resource.evaluation == "Em") return(0.01)
+      if (resource.evaluation == "Z") return(0.001)
       return(0) # "Inexistent"
     }
 
@@ -103,3 +102,39 @@ setMethod(
 )
 
 
+
+
+#' @export
+setMethod("show", "Aggregation.matrix.default",
+          function(object){
+            cat("\nAgregation Matrix Default:\n")
+            cat("general evaluation matrix")
+            cr <- c(         "1",          "0",          "0", "0",    "0",
+                             "0", "0")
+            c  <- c("(1 + 1/nf)",          "1",          "0", "0",    "0",
+                    "0", "0")
+            lc <- c("(1 + 2/nf)", "(1 + 1/nf)",          "1", "0",    "0",
+                    "0", "0")
+            i  <- c("(1 + 3/nf)", "(1 + 2/nf)", "(1 + 1/nf)", "1", "0.01",
+                    "0.001", "0")
+
+            df <- rbind(cr, c, lc, i)
+            colnames(df) <- c("Ex", "G", "R", "W", "Em", "Z", "In")
+            row.names(df) <- c("Cr", "C", "LC", "I")
+
+
+
+            cat("\n")
+
+            print(df)
+
+            cat("\nSpecfics factors to a project must achieve a value bigger
+                then 0, otherwise they are evaluated as NA and causes the full
+                option not being acceptable.\n ")
+            cat("More information about the model see:  Cosenza, Carlos Alberto
+                Nunes, Francisco Antonio Doria, and Leonardo Antonio Monteiro
+                Pessôa. Hierarchy Models for the Organization of Economic
+                Spaces. Procedia Computer Science 55 (2015): 82-91.
+                https://doi.org/10.1016/j.procs.2015.07.010")
+          }
+)

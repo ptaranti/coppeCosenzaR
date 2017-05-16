@@ -74,12 +74,21 @@ Option.factor.availability <- function(factor, availability){
 #' @export
 setMethod("show", "Option.factor.availability",
           function(object){
-            df <- data.frame(as.character(object@factor@name), object@availability)
-            names(df) <- c("Factor","availability")
+            df <- data.frame(row.names = as.character(object@factor@name), object@availability)
+            names(df) <- c("availability")
             print(df)
           }
 )
 
-
+#' #' @export
+#' setMethod("show", "Project.criterion",
+#'           function(object){
+#'             df <- NULL
+#'             df <- data.frame(object@importance.degree, object@specific)
+#'             names(df) <- c("importance.degree", "specific")
+#'             row.names(df) <- object@factor@name
+#'             print(df)
+#'           }
+#' )
 
 

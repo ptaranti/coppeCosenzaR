@@ -140,7 +140,4 @@ Coppe.cosenza(p1, op, foi, "default", FALSE)
 message("\n\n Testing: Coppe.cosenza(project.portfolio, o1, factors.of.interest)")
 Coppe.cosenza(pp, o1, foi, "default", FALSE)
 
-
-
-
 }

@@ -1,12 +1,13 @@
 Package: coppeCosenzaR
-Title: COPPE-Cosenza Fuzzy Hierarchy Model (coppeCosenza)
+Title: COPPE-Cosenza Fuzzy Hierarchy Model
 Date: 2017-04-29
 Version: 0.1.0
-Authors@R: c(
-             person("Leonardo", "Pessoa", email = "XXX@XXX.xxx",
+Authors@R: c(person("Pier", "Taranti", email = "ptaranti@gmail.com",
+             role = c("aut","cre")),
+             person("Leonardo", "Pessoa",
              role = c("aut")),
-             person("Pier", "Taranti", email = "ptaranti@gmail.com",
-             role = c("aut","cre"))
+             person("Carlos", "Cosenza",
+             role = c("aut"))
              )
 Description: TODO(Pessoa)
 Depends:
