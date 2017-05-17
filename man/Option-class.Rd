@@ -7,13 +7,12 @@
 \description{
 Option S4 class represents a possible solution to projects. The object
 includes a list of Option.resource, which is type checked.
-TODO(Pessoa) VRF eAmpliar
 }
 \section{Slots}{
 
 \describe{
 \item{\code{name}}{character. If other type is provided it will be automatically
-casted to character using the \code{\link{as.character()}} function.}
+cast to character using the \code{\link{as.character()}} function.}
 
 \item{\code{option.resources}}{Option.resources}
 }}

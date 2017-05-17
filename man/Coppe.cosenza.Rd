@@ -60,7 +60,7 @@ the default implementation will be used}}
 Coppe.cosenza S4 object
 }
 \description{
-S4 method to construc Coppe.cosenza objects. The package also provides a way
+S4 method to construct Coppe.cosenza objects. The package also provides a way
 to verify the consistency of the entry data. There are 3 different matrices
 which are considered for the evaluation purposes: The project' s required
 factors; The project's description of specific factors; and the options'

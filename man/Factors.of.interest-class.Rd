@@ -6,13 +6,13 @@
 \title{Factors.of.interest S4 Class}
 \description{
 Factors.of.interest S4 class contains a list of S4 Factor objects.
-This list is used as parameter when construction de output from Coppe-Cosenza
+This list is used as parameter when construction the output from Coppe-Cosenza
  method.
 }
 \section{Slots}{
 
 \describe{
 \item{\code{list.of.factors}}{list of Factor.
-Has une or more distinct S4 Factor objects.}
+Has one or more distinct S4 Factor objects.}
 }}
 

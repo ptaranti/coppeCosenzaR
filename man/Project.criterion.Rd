@@ -19,10 +19,8 @@ project under consideration#'}
 a \code{\link{Project.criterion}} S4 object
 }
 \description{
-This function is a constructor to Project.criterion S4 class.
-It defines the criteron to be used in association to a factor when evaluatig
- projects ...
- TODO(Pessoa) VRF e Ampliar
+This function is a constructor to Project.criterion S4 class. It defines the
+criterion to be used in association to a factor when evaluating projects.
 }
 \examples{
 \dontrun{Project.criterion <- Project.criterion(factor, importance.degree, specific)}

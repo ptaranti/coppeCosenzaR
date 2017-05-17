@@ -26,7 +26,7 @@ the project}
 }
 \value{
 numeric indicate the result factor per option. If a specific factor
-is not achived it returns -1
+is not achieved it returns -1
 }
 \description{
 S4 method do not validate entries, since it is not exported and the data

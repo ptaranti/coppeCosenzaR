@@ -2,9 +2,9 @@
 
 #' Factor S4 Class
 #'
-#' Factor S4 class contains a sigle slot with the Factor name. A factor in the
-#' COPPE-Cosenza model represents ... TODO(Pessoa) Ampliar com tipo de dado e
-#' significado semantico
+#' Factor S4 class contains a single slot with the Factor name. A factor in the
+#' COPPE-Cosenza model represents an item to be considered both in the options
+#' and in projects.
 #'
 #' @slot name character
 #'
@@ -43,11 +43,11 @@ setMethod(
 
 #' Factor Constructor
 #'
-#' Factor(name) is a cosntructor to Factor S4 objects.
-#' Factor S4 class contains a sigle slot with the factor name.
+#' Factor(name) is a constructor to Factor S4 objects.
+#' Factor S4 class contains a single slot with the factor name.
 #'
-#' @param name character the factor name. If a diferent type is provided, it is
-#' casted to character using \code{\link{as.charactere()}} function.
+#' @param name character the factor name. If a different type is provided, it is
+#' casted to character using \code{\link{as.character()}} function.
 #'
 #' @return a \code{\link{Factor}} S4 object
 #'

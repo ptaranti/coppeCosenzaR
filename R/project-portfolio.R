@@ -14,7 +14,6 @@
 #' means we can have projects with different set of factors. It is possible to
 #' export and import Project.portfolio to/from data.frame, allowing to store
 #' and edit information externally.
-#'  TODO (Pessoa)  VRF
 #'
 #' @include project.R
 #'
@@ -119,7 +118,7 @@ setMethod("Project.portfolio",
 #' used to factor evaluation and for distinct names of factors and projects
 #'
 #' @note It is possible to obtain a dummy table to serve as example by
-#' construction a potrfolio using  \code{Project.portfolio(list.of.projects)}
+#' construction a portfolio using  \code{Project.portfolio(list.of.projects)}
 #' and, after, converting it in a data.frame using the function
 #' \code{as.data.frame(project.portfolio)}.
 #'

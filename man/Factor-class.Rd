@@ -5,9 +5,9 @@
 \alias{Factor-class}
 \title{Factor S4 Class}
 \description{
-Factor S4 class contains a sigle slot with the Factor name. A factor in the
-COPPE-Cosenza model represents ... TODO(Pessoa) Ampliar com tipo de dado e
-significado semantico
+Factor S4 class contains a single slot with the Factor name. A factor in the
+COPPE-Cosenza model represents an item to be considered both in the options
+and in projects.
 }
 \section{Slots}{
 

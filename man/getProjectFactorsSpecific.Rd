@@ -11,11 +11,11 @@ getProjectFactorsSpecific(project)
 }
 \value{
 It provides a sorted vector with the names of factors in an project
-whitch were classified as specific to the project under discussion.
+which were classified as specific to the project under discussion.
 }
 \description{
 This function returns a sorted vector with all the factors names in a Project
-S4 object whitch were classified as specific to the project under discussion.
+S4 object which were classified as specific to the project under discussion.
 }
 \examples{
 \dontrun{getProjectFactorsSpecific(project)}

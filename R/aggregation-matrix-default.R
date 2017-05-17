@@ -122,8 +122,6 @@ setMethod("show", "Aggregation.matrix.default",
             colnames(df) <- c("Ex", "G", "R", "W", "Em", "Z", "In")
             row.names(df) <- c("Cr", "C", "LC", "I")
 
-
-
             cat("\n")
 
             print(df)
@@ -133,7 +131,7 @@ setMethod("show", "Aggregation.matrix.default",
                 option not being acceptable.\n ")
             cat("More information about the model see:  Cosenza, Carlos Alberto
                 Nunes, Francisco Antonio Doria, and Leonardo Antonio Monteiro
-                Pessôa. Hierarchy Models for the Organization of Economic
+                Pessoa. Hierarchy Models for the Organization of Economic
                 Spaces. Procedia Computer Science 55 (2015): 82-91.
                 https://doi.org/10.1016/j.procs.2015.07.010")
           }

@@ -19,6 +19,14 @@ performed due to entry failures or missing evaluations.
 \describe{
 \item{\code{result}}{data.frame}
 
-\item{\code{messages}}{list}
+\item{\code{projects.names}}{character}
+
+\item{\code{options.names}}{character}
+
+\item{\code{factors.of.interest}}{Factors.of.interest}
+
+\item{\code{aggregation.matrix}}{Aggregation.matrix}
+
+\item{\code{messages}}{character}
 }}
 

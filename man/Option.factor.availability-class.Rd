@@ -6,8 +6,7 @@
 \title{Option.factor.availability S4 Class}
 \description{
 Option.factor.availability S4 class. It defines the availability to be used
-in association to a factor when evaluatig projects ...
-TODO(Pessoa) VRF eAmpliar
+in association to a factor when evaluating projects .
 }
 \details{
 The accepted degrees are: Excellent (Ex), Good (G), Regular (R), Weak (W),

@@ -56,7 +56,7 @@ Procedia Computer Science 55 (2015): 82-91.
 \seealso{
 Useful links:
 \itemize{
-  \item Report bugs at \url{XXX@XXX.xxx}
+  \item Report bugs at \url{ptaranti@gmail.com}
 }
 
 }

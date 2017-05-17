@@ -4,7 +4,6 @@
 #' Project S4 class represents a potential project and its slots include a
 #' Project.criteria object, with the list of needed factors to the project and
 #' their degree of importance. The project has a non-empty name.
-#' #TODO(Pessoa) VRF eAmpliar
 #'
 #' @slot name character any argument will be casted using
 #' \code{\link{as.character()}}
@@ -53,7 +52,7 @@ setMethod(
 #'
 #' Constructs a Project S4 object.  ... TODO(Pessoa) VRF e Ampliar
 #'
-#' @param  name charactere
+#' @param  name character
 #' @param  project.criteria Project.criteria S4 object
 #'
 #' @return a \code{\link{Project}} S4 object
@@ -105,12 +104,12 @@ getProjectFactorsNames <- function(project){
 #' getProjectFactorsSpecific
 #'
 #' This function returns a sorted vector with all the factors names in a Project
-#' S4 object whitch were classified as specific to the project under discussion.
+#' S4 object which were classified as specific to the project under discussion.
 #'
 #' @param option an Project S4 object
 #'
 #' @return It provides a sorted vector with the names of factors in an project
-#' whitch were classified as specific to the project under discussion.
+#' which were classified as specific to the project under discussion.
 #'
 #' @export
 #'

@@ -3,13 +3,13 @@
 #' Factors.of.interest S4 Class
 #'
 #' Factors.of.interest S4 class contains a list of S4 Factor objects.
-#' This list is used as parameter when construction de output from Coppe-Cosenza
+#' This list is used as parameter when construction the output from Coppe-Cosenza
 #'  method.
 #'
 #'
 #'
 #' @slot list.of.factors list of Factor.
-#' Has une or more distinct S4 Factor objects.
+#' Has one or more distinct S4 Factor objects.
 #'
 #' @export
 #'
@@ -55,7 +55,7 @@ setMethod(
 #'
 #' Factors.of.interest is a constructor. Factor elements inserted in
 #' list.of.factors are type-checked as S4 coppeCosenza::Factor objects. They
-#' must have distint names.
+#' must have distinct names.
 #'
 #'
 #' @param list.of.factors list of Factor S4 objects

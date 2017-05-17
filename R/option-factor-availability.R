@@ -2,8 +2,7 @@
 #' Option.factor.availability S4 Class
 #'
 #' Option.factor.availability S4 class. It defines the availability to be used
-#' in association to a factor when evaluatig projects ...
-#' TODO(Pessoa) VRF eAmpliar
+#' in association to a factor when evaluating projects .
 #'
 #' The accepted degrees are: Excellent (Ex), Good (G), Regular (R), Weak (W),
 #' Empty (Em), Zero (Z), and Inexistent (In).
@@ -24,7 +23,7 @@ setClass(
     accepted.availability <-
       c("Ex", "G", "R", "W", "Em", "Z", "In")
     if (!(object@availability %in% accepted.availability))
-      stop("'@availability must match an expectded value. Currently:
+      stop("'@availability must match an expected value. Currently:
            c( \"Ex\", \" G \", \" R \", \"W\", \"Em\", \"Z\", \"In\")")
     TRUE
   }
@@ -51,8 +50,7 @@ setMethod(
 #' Option.factor.availability Constructor
 #'
 #' Constructs a Option.factor.availability S4 class. This defines the criterion
-#' to be used in association to a factor when evaluatig projects ...
-#' TODO(Pessoa) VRF e Ampliar
+#' in association to a factor when evaluating projects .
 #'
 #' @param  factor Factor S4 class
 #' @param  availability character, must mach the scale of degrees as provided in
@@ -64,7 +62,7 @@ setMethod(
 #'
 #' @examples
 #' \dontrun{Option.factor.availability <- Option.factor.availability(factor, availability)}
-#' Option.factor.availability(Factor("fator1"), "Excellent")
+#' Option.factor.availability(Factor("fator1"), "Ex")
 #'
 #'
 Option.factor.availability <- function(factor, availability){
@@ -80,15 +78,6 @@ setMethod("show", "Option.factor.availability",
           }
 )
 
-#' #' @export
-#' setMethod("show", "Project.criterion",
-#'           function(object){
-#'             df <- NULL
-#'             df <- data.frame(object@importance.degree, object@specific)
-#'             names(df) <- c("importance.degree", "specific")
-#'             row.names(df) <- object@factor@name
-#'             print(df)
-#'           }
-#' )
+
 
 

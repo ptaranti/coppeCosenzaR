@@ -8,7 +8,6 @@
 Project S4 class represents a potential project and its slots include a
 Project.criteria object, with the list of needed factors to the project and
 their degree of importance. The project has a non-empty name.
-#TODO(Pessoa) VRF eAmpliar
 }
 \section{Slots}{
 

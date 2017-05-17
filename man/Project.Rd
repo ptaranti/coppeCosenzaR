@@ -7,7 +7,7 @@
 Project(name, project.criteria)
 }
 \arguments{
-\item{name}{charactere}
+\item{name}{character}
 
 \item{project.criteria}{Project.criteria S4 object}
 }

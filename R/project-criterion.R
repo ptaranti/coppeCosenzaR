@@ -1,13 +1,13 @@
 
 #' Project.criterion S4 Class
 #'
-#' Project.criterion S4 class. It defines the criterium to be used in
-#' association to a factor when evaluatig projects ... TODO(Pessoa) VRF eAmpliar
+#' Project.criterion S4 class. It defines the criterion to be used in
+#' association to a factor when evaluating projects.
 #'
 #' The accepted degrees are: "Cr", "C", "LC","I"
 #'
 #' @slot factor Factor S4 class
-#' @slot importance.degree charactere, must mach the scale of degrees to be used
+#' @slot importance.degree character, must mach the scale of degrees to be used
 #' @slot specific logical indicates the considered factors is specific for the
 #' project under consideration
 #'
@@ -26,7 +26,7 @@ setClass(
 
     accepted.importance.degree <- c("Cr", "C", "LC","I")
     if (!(object@importance.degree %in% accepted.importance.degree))
-      stop("'@importance.degree must match an expectded value. Currently:
+      stop("'@importance.degree must match an expected value. Currently:
            c(\"Cr\", \"C\", \"LC\",\"I\")")
 
     if (!is.logical(object@specific)) stop("@specific must be logical")
@@ -60,10 +60,8 @@ setMethod(
 
 #' Project.criterion
 #'
-#' This function is a constructor to Project.criterion S4 class.
-#' It defines the criteron to be used in association to a factor when evaluatig
-#'  projects ...
-#'  TODO(Pessoa) VRF e Ampliar
+#' This function is a constructor to Project.criterion S4 class. It defines the
+#' criterion to be used in association to a factor when evaluating projects.
 #'
 #' @param  factor Factor S4 class
 #' @param  importance.degree character, must mach one item of the scale of

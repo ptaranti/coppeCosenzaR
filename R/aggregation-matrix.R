@@ -4,6 +4,8 @@
 #' concrete classes that implement their matrix in constructors.
 #'
 #'
+#' @slot name character
+#'
 #' @export
 #'
 setClass(
@@ -82,10 +84,10 @@ setGeneric(
 #'
 # Function to handle the solving of the agregate matrix. It call agregate for
 # Project(j,i) and option(k,i), i vary from 1:number.of.factors
-# This function needs a well behavored set of parameters, said: no NA, all
+# This function needs a well-behaved set of parameters, said: no NA, all
 # values already checked and valid, and all project and options evaluated.
 #
-# If only one project is provided, the result will be dettailed on its factors.
+# If only one project is provided, the result will be detailed on its factors.
 # The same if only one option is provided.
 #
 setMethod(
@@ -167,7 +169,7 @@ setMethod(
     }
 
 
-    # Thrird possibility:
+    # Third possibility:
     # If Option.portfolio an Project.portfolio with n> 1 elements. The result
     # will show a matrix projects x option
 
@@ -218,7 +220,7 @@ setMethod(
 #' @export
 #'
 #' @return numeric indicate the result factor per option. If a specific factor
-#' is not achived it returns -1
+#' is not achieved it returns -1
 #'
 #'
 setGeneric(

@@ -40,7 +40,7 @@ sets for parameters types.
 }
 \note{
 It is possible to obtain a dummy table to serve as example by
-construction a potrfolio using  \code{Project.portfolio(list.of.projects)}
+construction a portfolio using  \code{Project.portfolio(list.of.projects)}
 and, after, converting it in a data.frame using the function
 \code{as.data.frame(project.portfolio)}.
 }

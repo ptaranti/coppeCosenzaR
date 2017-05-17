@@ -13,7 +13,12 @@
 #' performed due to entry failures or missing evaluations.
 #'
 #' @slot result data.frame
-#' @slot messages list
+#' @slot projects.names character
+#' @slot options.names character
+#' @slot factors.of.interest Factors.of.interest
+#' @slot aggregation.matrix Aggregation.matrix
+#' @slot messages character
+#'
 #' @include  aggregation-matrix.R
 #' @export
 #'
@@ -29,10 +34,6 @@ setClass(
   validity = function(object) {
     if (!is.data.frame(object@result)) stop("@result must be a data.frame" )
     TRUE
-
-    # TODO(Taranti) consider extra validation - columns and rows non empty and
-    # distinct. Non empty values, not NA
-    # Unit tests
   }
 
 )
@@ -67,7 +68,7 @@ setMethod(
 
 #' Coppe.cosenza
 #'
-#' S4 method to construc Coppe.cosenza objects. The package also provides a way
+#' S4 method to construct Coppe.cosenza objects. The package also provides a way
 #' to verify the consistency of the entry data. There are 3 different matrices
 #' which are considered for the evaluation purposes: The project' s required
 #' factors; The project's description of specific factors; and the options'
@@ -262,19 +263,6 @@ setMethod("Coppe.cosenza",
 
 
             }
-
-            # store col and row names
-            #names <- colnames(out)
-            #rows  <- row.names(out)
-
-            # resetting negatives to (-1)
-            #out <- apply(out, c(1,2), function(x) if (x < 0) return(-1) else return(x))
-
-            #change -1 to "out" -- specific factor not available
-            #out <- as.data.frame(apply(out,2,function(x)gsub("-1", "out",as.character(x))))
-            #resetting col and row names
-            #names(out) <- names
-            #rownames(out) <- rows
 
             coppe.cosenza <- new("Coppe.cosenza",
                                  out,

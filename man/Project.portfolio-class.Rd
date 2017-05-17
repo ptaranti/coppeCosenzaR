@@ -20,5 +20,4 @@ Any S4 Project object can be included in the @list.of.project. This
 means we can have projects with different set of factors. It is possible to
 export and import Project.portfolio to/from data.frame, allowing to store
 and edit information externally.
- TODO (Pessoa)  VRF
 }

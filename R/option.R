@@ -4,10 +4,9 @@
 #'
 #' Option S4 class represents a possible solution to projects. The object
 #' includes a list of Option.resource, which is type checked.
-#' TODO(Pessoa) VRF eAmpliar
 #'
 #' @slot name character. If other type is provided it will be automatically
-#' casted to character using the \code{\link{as.character()}} function.
+#' cast to character using the \code{\link{as.character()}} function.
 #'
 #' @slot option.resources Option.resources
 #'
@@ -55,10 +54,9 @@ setMethod(
 #' Constructs a Option S4 object, which  represents a possible solution to
 #' projects. The object includes a list of Option.resource, which is type
 #' checked.
-#' TODO(Pessoa) VRF eAmpliar
 #'
 #' @param  name character. If other type is provided it will be automatically
-#' casted to character using the \code{\link{as.character()}} function.
+#' cast to character using the \code{\link{as.character()}} function.
 #' @param  option.resources Option.resources S4 object. Cannot be empty.
 #'
 #' @return a \code{\link{Option}} S4 object

@@ -8,7 +8,7 @@ Option(name, option.resources)
 }
 \arguments{
 \item{name}{character. If other type is provided it will be automatically
-casted to character using the \code{\link{as.character()}} function.}
+cast to character using the \code{\link{as.character()}} function.}
 
 \item{option.resources}{Option.resources S4 object. Cannot be empty.}
 }
@@ -19,7 +19,6 @@ a \code{\link{Option}} S4 object
 Constructs a Option S4 object, which  represents a possible solution to
 projects. The object includes a list of Option.resource, which is type
 checked.
-TODO(Pessoa) VRF eAmpliar
 }
 \examples{
 \dontrun{Option <- Option(name, option.resources)}

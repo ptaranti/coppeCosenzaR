@@ -8,3 +8,9 @@
 This class was included to act as an abstract class to be inherited by
 concrete classes that implement their matrix in constructors.
 }
+\section{Slots}{
+
+\describe{
+\item{\code{name}}{character}
+}}
+

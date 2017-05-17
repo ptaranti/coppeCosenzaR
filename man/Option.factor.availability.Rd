@@ -17,12 +17,11 @@ a \code{\link{Option.factor.availability}} S4 object
 }
 \description{
 Constructs a Option.factor.availability S4 class. This defines the criterion
-to be used in association to a factor when evaluatig projects ...
-TODO(Pessoa) VRF e Ampliar
+in association to a factor when evaluating projects .
 }
 \examples{
 \dontrun{Option.factor.availability <- Option.factor.availability(factor, availability)}
-Option.factor.availability(Factor("fator1"), "Excellent")
+Option.factor.availability(Factor("fator1"), "Ex")
 
 
 }

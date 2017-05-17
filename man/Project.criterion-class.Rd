@@ -5,8 +5,8 @@
 \alias{Project.criterion-class}
 \title{Project.criterion S4 Class}
 \description{
-Project.criterion S4 class. It defines the criterium to be used in
-association to a factor when evaluatig projects ... TODO(Pessoa) VRF eAmpliar
+Project.criterion S4 class. It defines the criterion to be used in
+association to a factor when evaluating projects.
 }
 \details{
 The accepted degrees are: "Cr", "C", "LC","I"
@@ -16,7 +16,7 @@ The accepted degrees are: "Cr", "C", "LC","I"
 \describe{
 \item{\code{factor}}{Factor S4 class}
 
-\item{\code{importance.degree}}{charactere, must mach the scale of degrees to be used}
+\item{\code{importance.degree}}{character, must mach the scale of degrees to be used}
 
 \item{\code{specific}}{logical indicates the considered factors is specific for the
 project under consideration}

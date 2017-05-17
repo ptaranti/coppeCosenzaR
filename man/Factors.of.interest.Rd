@@ -15,7 +15,7 @@ a \code{\link{Factors.of.interest}} S4 object
 \description{
 Factors.of.interest is a constructor. Factor elements inserted in
 list.of.factors are type-checked as S4 coppeCosenza::Factor objects. They
-must have distint names.
+must have distinct names.
 }
 \examples{
 Factors.of.interest(list(Factor("factor1"), Factor("factor2"),
