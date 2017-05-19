@@ -5,8 +5,7 @@
 #' Option S4 class represents a possible solution to projects. The object
 #' includes a list of Option.resource, which is type checked.
 #'
-#' @slot name character. If other type is provided it will be automatically
-#' cast to character using the \code{\link{as.character()}} function.
+#' @slot name character (any other argument will be cast to character)
 #'
 #' @slot option.resources Option.resources
 #'
@@ -55,8 +54,8 @@ setMethod(
 #' projects. The object includes a list of Option.resource, which is type
 #' checked.
 #'
-#' @param  name character. If other type is provided it will be automatically
-#' cast to character using the \code{\link{as.character()}} function.
+#' @param  name character character (any other argument will be cast to
+#' character)
 #' @param  option.resources Option.resources S4 object. Cannot be empty.
 #'
 #' @return a \code{\link{Option}} S4 object
@@ -104,6 +103,8 @@ getOptionFactorsNames <- function(option){
   return(vector.of.factors.names)
 }
 
+#' @rdname show
+#' @param Option Option
 #' @export
 setMethod("show", "Option",
           function(object){

@@ -51,6 +51,11 @@ setMethod(
 #' categories,  using the same linguistic variables present in the default
 #' aggregation matrix.
 #'
+#' @param aggregation.matrix aggregation.matrix
+#' @param project.portfolio.as.data.frame project.portfolio.as.data.frame
+#' @param project.portfolio.specifics.as.data.frame project.portfolio.specifics.as.data.frame
+#' @param option.portfolio.as.data.frame option.portfolio.as.data.frame
+#'
 #' @export
 #'
 #' @return data.frame
@@ -216,6 +221,7 @@ setMethod(
 #' @param factor.is.specific logic indicates that this factor is specific for
 #' the project
 #' @param nrfactors numeric number of factors evaluated for each project/option
+#' @param aggregation.matrix aggregation.matrix
 #'
 #' @export
 #'
@@ -239,5 +245,16 @@ setGeneric(
                  "nrfactors")
 )
 
+
+
+
+#' @rdname show
+#' @param object Aggregation.matrix
 #' @export
 setMethod("show", "Aggregation.matrix", function(object) print(object@name))
+
+
+#' show
+#' @export
+#' @import  methods
+setGeneric("show", getGeneric("show", package = "methods"))

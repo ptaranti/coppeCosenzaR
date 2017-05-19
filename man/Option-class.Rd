@@ -11,8 +11,7 @@ includes a list of Option.resource, which is type checked.
 \section{Slots}{
 
 \describe{
-\item{\code{name}}{character. If other type is provided it will be automatically
-cast to character using the \code{\link{as.character()}} function.}
+\item{\code{name}}{character (any other argument will be cast to character)}
 
 \item{\code{option.resources}}{Option.resources}
 }}

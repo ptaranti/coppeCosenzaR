@@ -13,7 +13,7 @@
 #' The model was based on the evaluation of local alternatives, representing
 #' regional potentialities, so as to fulfill demands of economic projects.
 #' After defining demand profiles in terms of their technological coefficients,
-#' the degree of importance of factors is dimensioned so as to represent
+#' the degree of importance of factors is defined so as to represent
 #' the productive activity.
 #'
 #' The method can detect a surplus of supply without the restriction of the
@@ -62,6 +62,7 @@
 # @importClassesFrom graph graphNEL
 # @importMethodsFrom graph nodes edgeNames
 #' @importFrom stats na.omit
+#' @importMethodsFrom methods show
 "_PACKAGE"
 
 

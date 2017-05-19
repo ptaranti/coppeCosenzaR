@@ -8,25 +8,16 @@
 \alias{Option.portfolio,data.frame-method}
 \title{Option.portfolio}
 \usage{
-Option.portfolio(x, y, ...)
+Option.portfolio(x)
 
-\S4method{Option.portfolio}{ANY}(x, y, ...)
+\S4method{Option.portfolio}{ANY}(x)
 
 \S4method{Option.portfolio}{list}(x)
 
 \S4method{Option.portfolio}{data.frame}(x)
 }
 \arguments{
-\item{Arguments}{(ANY) \cr
-A call to \code{Project.portfolio( )} with no parameters will return
-an error message for mismatch argument.}
-
-\item{Arguments}{list(). A non-empty list with Option S4 objects.}
-
-\item{Arguments}{data.frame. A data.frame where columns represent factors and
-rows are the options. The data frame is checked for no columns and no rows.
-The constructors called subsequently will verify if acceptable values where
-used to factor evaluation and for distinct names of factors and options.}
+\item{x}{list of Option S4 object or a data.frame}
 }
 \value{
 a Option.portfolio S4 object
@@ -36,6 +27,17 @@ S4 method to construct Option.portfolio S4 objects. It accepts different
 sets for parameters types.
 }
 \note{
+Arguments (ANY) \cr
+ A call to \code{Project.portfolio( )} with no parameters will return
+ an error message for mismatch argument.
+
+Arguments list(). A non-empty list with Option S4 objects.
+
+Arguments data.frame. A data.frame where columns represent factors and
+rows are the options. The data frame is checked for no columns and no rows.
+The constructors called subsequently will verify if acceptable values where
+used to factor evaluation and for distinct names of factors and options.
+
 It is possible to obtain a dummy table to serve as example by
 construction a potrfolio using  \code{Option.portfolio(list.of.options)} and
 after converting it in a data.frame using the function

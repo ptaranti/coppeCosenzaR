@@ -46,8 +46,8 @@ setMethod(
 #' Factor(name) is a constructor to Factor S4 objects.
 #' Factor S4 class contains a single slot with the factor name.
 #'
-#' @param name character the factor name. If a different type is provided, it is
-#' casted to character using \code{\link{as.character()}} function.
+#' @param name character the factor namecharacter (any other argument will be
+#' cast to character)
 #'
 #' @return a \code{\link{Factor}} S4 object
 #'
@@ -62,6 +62,8 @@ Factor <- function(name){
   new("Factor", as.character(name))
 }
 
+#' @rdname show
+#' @param Factor Factor
 #' @export
 setMethod("show", "Factor",
           function(object){

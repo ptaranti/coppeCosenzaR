@@ -66,7 +66,7 @@ setMethod(
 #'
 #' A constructor to Option.resources S4 objects.
 #'
-#' @param list list of Option.factor.availability S4 objects
+#' @param list.of.factor.availability list of Option.factor.availability S4 objects
 #'
 #' @return a \code{\link{Option.resources}} S4 object
 #'
@@ -79,6 +79,8 @@ Option.resources <- function(list.of.factor.availability){
   new("Option.resources", list.of.factor.availability)
 }
 
+#' @rdname show
+#' @param Option.resources Option.resources
 #' @export
 setMethod("show", "Option.resources",
           function(object){

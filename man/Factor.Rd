@@ -7,8 +7,8 @@
 Factor(name)
 }
 \arguments{
-\item{name}{character the factor name. If a different type is provided, it is
-casted to character using \code{\link{as.character()}} function.}
+\item{name}{character the factor namecharacter (any other argument will be
+cast to character)}
 }
 \value{
 a \code{\link{Factor}} S4 object

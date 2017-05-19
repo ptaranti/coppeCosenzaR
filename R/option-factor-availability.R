@@ -69,6 +69,8 @@ Option.factor.availability <- function(factor, availability){
   new("Option.factor.availability", factor, as.character(availability))
 }
 
+#' @rdname show
+#' @param Option.factor.availability Option.factor.availability
 #' @export
 setMethod("show", "Option.factor.availability",
           function(object){

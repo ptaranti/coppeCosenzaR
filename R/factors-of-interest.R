@@ -105,6 +105,8 @@ getFactorsOfInterestNames <- function(factors.of.interest){
 }
 
 
+#' @rdname show
+#' @param Factors.of.interest Factors.of.interest
 #' @export
 setMethod("show", "Factors.of.interest",
           function(object){

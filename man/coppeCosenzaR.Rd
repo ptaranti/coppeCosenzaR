@@ -14,7 +14,7 @@ The program implements the COPPE-Cosenza Fuzzy Hierarchy Model .
 The model was based on the evaluation of local alternatives, representing
 regional potentialities, so as to fulfill demands of economic projects.
 After defining demand profiles in terms of their technological coefficients,
-the degree of importance of factors is dimensioned so as to represent
+the degree of importance of factors is defined so as to represent
 the productive activity.
 
 The method can detect a surplus of supply without the restriction of the
@@ -56,7 +56,8 @@ Procedia Computer Science 55 (2015): 82-91.
 \seealso{
 Useful links:
 \itemize{
-  \item Report bugs at \url{ptaranti@gmail.com}
+  \item \url{https://github.com/ptaranti/coppeCosenzaR}
+  \item Report bugs at \url{https://github.com/ptaranti/coppeCosenzaR/issues}
 }
 
 }

@@ -7,7 +7,7 @@
 getProjectFactorsNames(project)
 }
 \arguments{
-\item{option}{an Project S4 object}
+\item{project}{an Project S4 object}
 }
 \value{
 It provides a sorted vector with the names of factors in an project

@@ -104,6 +104,8 @@ setMethod(
 
 
 
+#' @rdname show
+#' @param Aggregation.matrix.default Aggregation.matrix.default
 #' @export
 setMethod("show", "Aggregation.matrix.default",
           function(object){

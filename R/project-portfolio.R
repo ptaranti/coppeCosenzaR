@@ -68,30 +68,32 @@ setMethod(
 #'
 #' S4 method to construct Project.portfolio S4 objects. It accepts different
 #' sets for parameters types.
+#' @param x list A non-empty list with Project S4 objects, or a data frame with
+#' factors evauation
+#' @param y data.frame with specfic factors, if x is also a data.frame
+#'
 #'
 #' @return a Project.portfolio S4 object
 #' @export
 #'
-setGeneric("Project.portfolio", function(x, y, ...)
+setGeneric("Project.portfolio", function(x, y)
   standardGeneric("Project.portfolio"))
 
 
 
 #' @rdname Project.portfolio
-#' @param Arguments (ANY) \cr
+#' @note Arguments (ANY) \cr
 #'  A call to \code{Project.portfolio( )} with no parameters will return
 #'  an error message for missing argument.
 #'
 setMethod("Project.portfolio",
-          signature("ANY"),
-          function(x,...)
+          signature("ANY" ),
+          function(x)
             stop("Coppe.cosenza constructor not implemented for provided parameters")
 )
 
 
 #' @rdname Project.portfolio
-#'
-#' @param Arguments list(). A non-empty list with Project S4 objects.
 #'
 #' @examples
 #' \dontrun{option.portfolio <- Project.portfolio(list.of.project)}
@@ -109,7 +111,7 @@ setMethod("Project.portfolio",
 
 #' @rdname Project.portfolio
 #'
-#' @param Arguments (data.frame, data.frame). Data.frame where columns represent
+#' @note Arguments (data.frame, data.frame). Data.frame where columns represent
 #' factors and rows are the projects. The data.frame is checked for no-columns
 #' and no-rows. The firs data.frame contain the factors evaluation and the
 #' second, with same rows and columns, contain boolean information about the
@@ -277,16 +279,6 @@ getProjectPortfolioNames <- function(project.portfolio){
 
 
 #' @rdname as.data.frame
-#'
-#' @param (x, row.names, optional = FALSE)
-#' \itemize{
-#' \item x is a Project.portfolio S4 objec
-#' \item row.names - not used. It is inherited from \code{base::as.data.frame()}
-#' \item optional get.specific indicates if the return is a data.frame with factor
-#' evaluations or with the information about which factors are specific to
-#' a project. The default is \code{optional = FALSE}
-#' }
-#'
 #' @export
 #'
 #' @examples
@@ -295,7 +287,6 @@ getProjectPortfolioNames <- function(project.portfolio){
 #' \dontrun{as.data.frame(project.portfolio, ANY, FALSE)}
 #' \dontrun{as.data.frame(project.portfolio, option = FALSE)}
 #' \dontrun{as.data.frame(project.portfolio)} This infer option is FALSE, too.
-#'
 #'
 #' @include option-portfolio.R
 #'
@@ -313,6 +304,8 @@ setMethod("as.data.frame", signature("Project.portfolio"),
 
 
 
+#' @rdname show
+#' @param Project.portfolio Project.portfolio
 #' @export
 setMethod("show", "Project.portfolio",
           function(object){

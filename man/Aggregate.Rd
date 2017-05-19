@@ -15,6 +15,8 @@ Aggregate(aggregation.matrix, factor.evaluation, resource.evaluation,
   factor.evaluation, resource.evaluation, factor.is.specific, nrfactors)
 }
 \arguments{
+\item{aggregation.matrix}{aggregation.matrix}
+
 \item{factor.evaluation}{character factor evaluation from project}
 
 \item{resource.evaluation}{character factor evaluation from option}

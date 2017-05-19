@@ -5,8 +5,8 @@
 #' Project.criteria object, with the list of needed factors to the project and
 #' their degree of importance. The project has a non-empty name.
 #'
-#' @slot name character any argument will be casted using
-#' \code{\link{as.character()}}
+#' @slot name character (any other argument will be cast to character)
+#'
 #' @slot project.criteria Project.criteria
 #'
 #' @export
@@ -75,7 +75,7 @@ Project <- function(name, project.criteria){
 #' This function returns a sorted vector with all the factors names in a Project
 #' S4 object
 #'
-#' @param option an Project S4 object
+#' @param project an Project S4 object
 #'
 #' @return It provides a sorted vector with the names of factors in an project
 #' @export
@@ -106,7 +106,7 @@ getProjectFactorsNames <- function(project){
 #' This function returns a sorted vector with all the factors names in a Project
 #' S4 object which were classified as specific to the project under discussion.
 #'
-#' @param option an Project S4 object
+#' @param project an Project S4 object
 #'
 #' @return It provides a sorted vector with the names of factors in an project
 #' which were classified as specific to the project under discussion.
@@ -137,6 +137,8 @@ getProjectFactorsSpecific <- function(project){
   return(vector.of.factors.names)
 }
 
+#' @rdname show
+#' @param Project Project
 #' @export
 setMethod("show", "Project",
           function(object){

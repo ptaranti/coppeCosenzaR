@@ -14,6 +14,15 @@ AggregateMatrix(aggregation.matrix, project.portfolio.as.data.frame,
   project.portfolio.as.data.frame, project.portfolio.specifics.as.data.frame,
   option.portfolio.as.data.frame)
 }
+\arguments{
+\item{aggregation.matrix}{aggregation.matrix}
+
+\item{project.portfolio.as.data.frame}{project.portfolio.as.data.frame}
+
+\item{project.portfolio.specifics.as.data.frame}{project.portfolio.specifics.as.data.frame}
+
+\item{option.portfolio.as.data.frame}{option.portfolio.as.data.frame}
+}
 \value{
 data.frame
 

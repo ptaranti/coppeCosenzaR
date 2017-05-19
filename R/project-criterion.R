@@ -81,6 +81,8 @@ Project.criterion <- function(factor, importance.degree, specific){
   new("Project.criterion", factor,  as.character(importance.degree), specific)
 }
 
+#' @rdname show
+#' @param Project.criterion Project.criterion
 #' @export
 setMethod("show", "Project.criterion",
           function(object){

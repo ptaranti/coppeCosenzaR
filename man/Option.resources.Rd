@@ -7,7 +7,7 @@
 Option.resources(list.of.factor.availability)
 }
 \arguments{
-\item{list}{list of Option.factor.availability S4 objects}
+\item{list.of.factor.availability}{list of Option.factor.availability S4 objects}
 }
 \value{
 a \code{\link{Option.resources}} S4 object

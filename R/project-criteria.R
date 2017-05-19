@@ -66,7 +66,7 @@ setMethod(
 #'
 #' Project.criteria is a constructor to Factor S4 objects.
 #'
-#' @param list list of Project.criterion S4 objects. The list is type checked
+#' @param list.of.project.criterion list of Project.criterion S4 objects. The list is type checked
 #' and cannot be empty. The factors of the used project.criterion must be
 #' distinct
 #'
@@ -83,6 +83,8 @@ Project.criteria <- function(list.of.project.criterion){
 
 
 
+#' @rdname show
+#' @param Project.criteria Project.criteria
 #' @export
 setMethod("show", "Project.criteria",
           function(object){

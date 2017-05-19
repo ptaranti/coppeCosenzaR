@@ -7,7 +7,7 @@
 Project.criteria(list.of.project.criterion)
 }
 \arguments{
-\item{list}{list of Project.criterion S4 objects. The list is type checked
+\item{list.of.project.criterion}{list of Project.criterion S4 objects. The list is type checked
 and cannot be empty. The factors of the used project.criterion must be
 distinct}
 }

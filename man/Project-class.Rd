@@ -12,8 +12,7 @@ their degree of importance. The project has a non-empty name.
 \section{Slots}{
 
 \describe{
-\item{\code{name}}{character any argument will be casted using
-\code{\link{as.character()}}}
+\item{\code{name}}{character (any other argument will be cast to character)}
 
 \item{\code{project.criteria}}{Project.criteria}
 }}

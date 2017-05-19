@@ -7,8 +7,8 @@
 Option(name, option.resources)
 }
 \arguments{
-\item{name}{character. If other type is provided it will be automatically
-cast to character using the \code{\link{as.character()}} function.}
+\item{name}{character character (any other argument will be cast to
+character)}
 
 \item{option.resources}{Option.resources S4 object. Cannot be empty.}
 }

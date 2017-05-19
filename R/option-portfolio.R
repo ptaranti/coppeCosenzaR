@@ -63,21 +63,23 @@ setMethod(
 #' S4 method to construct Option.portfolio S4 objects. It accepts different
 #' sets for parameters types.
 #'
+#' @param x list of Option S4 object or a data.frame
+#'
 #' @return a Option.portfolio S4 object
 #' @export
 #'
-setGeneric("Option.portfolio", function(x, y, ...)
+setGeneric("Option.portfolio", function(x)
   standardGeneric("Option.portfolio"))
 
 
 #' @rdname Option.portfolio
-#' @param Arguments (ANY) \cr
+#' @note Arguments (ANY) \cr
 #'  A call to \code{Project.portfolio( )} with no parameters will return
 #'  an error message for mismatch argument.
-#'
+#' @export
 setMethod("Option.portfolio",
           signature("ANY"),
-          function(x,...)
+          function(x)
             stop("Option.portfolio constructor not
                  implemented for provided parameters")
 )
@@ -85,8 +87,8 @@ setMethod("Option.portfolio",
 
 #' @rdname Option.portfolio
 #'
-#' @param Arguments list(). A non-empty list with Option S4 objects.
-#'
+#' @note Arguments list(). A non-empty list with Option S4 objects.
+#' @export
 #' @examples
 #' \dontrun{option.portfolio <- Option.portfolio(list.of.options)}
 #'
@@ -101,7 +103,7 @@ setMethod("Option.portfolio",
 
 #' @rdname Option.portfolio
 #'
-#' @param Arguments data.frame. A data.frame where columns represent factors and
+#' @note Arguments data.frame. A data.frame where columns represent factors and
 #' rows are the options. The data frame is checked for no columns and no rows.
 #' The constructors called subsequently will verify if acceptable values where
 #' used to factor evaluation and for distinct names of factors and options.
@@ -115,7 +117,7 @@ setMethod("Option.portfolio",
 #' \dontrun{option.portfolio <- Option.portfolio(my.option.portfolio.data.frame)}
 #'
 #' @rdname Option.portfolio
-#'
+#' @export
 #' @include option-portfolio.R
 #'
 setMethod("Option.portfolio",
@@ -218,15 +220,23 @@ getOptionPortfolioNames <- function(option.portfolio){
 
 
 
+
 #' as.data.frame
 #'
-#' Generic S4 method to \code{\link{as.data.frame}}.
+#' This S4 method masks the \code{base::as.data.frame()} S3 function. If a call
+#' uses parameters other then the expected by this package, then it will be
+#' forward to the S3 function.
+#'
+#' @param x Option.portfolio or Project.portfolio
+#' @param row.names not used. It is inherited from \code{base::as.data.frame()}
+#' @param optional logical. To be used with  Project.portfolio. Indicates if the
+#'  return is a data.frame with factor evaluations or with the information about
+#'   which factors are specific to a project.
+#'   The default is \code{optional = FALSE}
+#' @param ... not used.
 #'
 #' @return data.frame
-#'
 #' @export
-#'
-#setGeneric("as.data.frame", function(x, ...) standardGeneric("as.data.frame"))
 setGeneric("as.data.frame", function(x, row.names, optional, ...)
   standardGeneric("as.data.frame"),
   useAsDefault = base::as.data.frame
@@ -234,11 +244,7 @@ setGeneric("as.data.frame", function(x, row.names, optional, ...)
 
 
 #' @rdname as.data.frame
-#'
-#' @param x Option.portfolio S4 object
-#'
 #' @export
-#'
 #' @examples
 #' \dontrun{as.data.frame(option.portfolio)}
 #'
@@ -264,6 +270,8 @@ setMethod("as.data.frame", signature("Option.portfolio"),
           }
 )
 
+#' @rdname show
+#' @param Option.portfolio Option.portfolio
 #' @export
 setMethod("show", "Option.portfolio",
           function(object){

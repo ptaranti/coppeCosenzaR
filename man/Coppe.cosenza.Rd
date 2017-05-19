@@ -45,16 +45,17 @@ Coppe.cosenza(x, y, factors.of.interest, aggregation.matrix.name = "default",
   normalize = FALSE)
 }
 \arguments{
-\item{Arguments}{(ANY) A call to \code{Coppe.cosenza( )} with no parameters
-will return an error message for missing argument.
-@export}
+\item{x}{Project.portfolio or Project S4 object}
 
-\item{Arguments}{\itemize{
-\item Project.portfolio S4 object
-\item Option.portfolio S4 object
-\item Factors.of.interest S4 object
-\item character - the name of Aggregation.matrix to be used. If not provided
-the default implementation will be used}}
+\item{y}{Option.portfolio or Option S4 object}
+
+\item{factors.of.interest}{Factors.of.interest S4 object}
+
+\item{aggregation.matrix.name}{character - the name of Aggregation.matrix to
+be used. If not provided the "default" implementation will be used}
+
+\item{normalize}{logical - if TRUE, the values will be normalized,
+dividing results by the number of factors.}
 }
 \value{
 Coppe.cosenza S4 object

@@ -79,7 +79,18 @@ setMethod(
 #'  the prescribed ones. Such verification avoids incomplete or incorrect
 #'  evaluations presenting the correspondent error messages.
 #'
+#' @include project-portfolio.R
+#' @include option-portfolio.R
+#' @include factors-of-interest.R
 #'
+#'
+#' @param x Project.portfolio or Project S4 object
+#' @param y  Option.portfolio or Option S4 object
+#' @param factors.of.interest Factors.of.interest S4 object
+#' @param aggregation.matrix.name character - the name of Aggregation.matrix to
+#'  be used. If not provided the "default" implementation will be used
+#' @param normalize logical - if TRUE, the values will be normalized,
+#' dividing results by the number of factors.
 #'
 #' @return Coppe.cosenza S4 object
 #'
@@ -90,9 +101,7 @@ setGeneric("Coppe.cosenza", function(x, y, factors.of.interest,
 
 
 #' @rdname Coppe.cosenza
-#' @param Arguments (ANY) A call to \code{Coppe.cosenza( )} with no parameters
-#'  will return an error message for missing argument.
-#'  @export
+#' @export
 setMethod("Coppe.cosenza",
           signature("ANY"),
           function(x)
@@ -102,7 +111,7 @@ setMethod("Coppe.cosenza",
 
 
 
-#' @rdname  Coppe.cosenza
+#' @rdname Coppe.cosenza
 #' @export
 setMethod("Coppe.cosenza",
           signature("Project.portfolio", "Option.portfolio",
@@ -150,18 +159,6 @@ setMethod("Coppe.cosenza",
 
 
 #' @rdname Coppe.cosenza
-#'
-#' @param Arguments \itemize{
-#' \item Project.portfolio S4 object
-#' \item Option.portfolio S4 object
-#' \item Factors.of.interest S4 object
-#' \item character - the name of Aggregation.matrix to be used. If not provided
-#' the default implementation will be used}
-#'
-#' @include project-portfolio.R
-#' @include option-portfolio.R
-#' @include factors-of-interest.R
-#'
 #' @export
 setMethod("Coppe.cosenza",
           signature("Project.portfolio", "Option.portfolio",
@@ -360,14 +357,21 @@ CheckSelectFactors <-
 #' summary
 #'
 #' Generic S4 method to \code{\link{summary}}.
+#'
+#' @param object Coppe.cosenza
+#' @param ... not used.
+#'
+#' @return summary
+#'
 #' @export
 #'
-#setGeneric("summary", function(x, ...) standardGeneric("summary"))
 setGeneric("summary", function(object, ...)
   standardGeneric("summary"),
   useAsDefault = base::summary
 )
 
+
+#' @rdname summary
 #' @export
 setMethod("summary", signature("Coppe.cosenza"),
           function(object) {
@@ -532,6 +536,8 @@ setMethod("summary", signature("Coppe.cosenza"),
 )
 
 
+#' @rdname show
+#' @param Coppe.cosenza Coppe.cosenza
 #' @export
 setMethod("show", "Coppe.cosenza",
           function(object){
