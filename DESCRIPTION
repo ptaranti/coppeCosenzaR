@@ -1,7 +1,7 @@
 Package: coppeCosenzaR
 Title: COPPE-Cosenza Fuzzy Hierarchy Model
-Date: 2017-04-29
-Version: 0.1.0
+Date: 2017-07-10
+Version: 0.1.2
 Authors@R: c(person("Pier", "Taranti", email = "ptaranti@gmail.com",
              role = c("aut","cre")),
              person("Leonardo", "Pessoa",
@@ -9,6 +9,7 @@ Authors@R: c(person("Pier", "Taranti", email = "ptaranti@gmail.com",
              person("Carlos", "Cosenza",
              role = c("aut"))
              )
+Maintainer: Pier Giovanni Taranti <ptaranti@gmail.com>
 Description: The program implements the COPPE-Cosenza Fuzzy Hierarchy Model. 
     The model was based on the evaluation of local alternatives, representing 
     regional potentialities, so as to fulfill demands of economic projects. 
