@@ -46,6 +46,13 @@ The model also provides flexibility, allowing different aggregation rules to
 be performed and defined by the Decision Maker. Such feature is considered
 in this package, allowing the user to define other aggregation matrices,
 since it considers the same linguistic variables mentioned.
+
+The following matrices are avaiable in the package:
+\itemize{
+\item Default Matrix (see Aggregation.matrix.default)
+\item Membership Difference Matrix (see Aggregation.matrix.membership.difference)
+}#'
+New matrices can be added when requested.
 }
 \references{
 Cosenza, Carlos Alberto Nunes, Francisco Antonio Doria, and Leonardo Antonio

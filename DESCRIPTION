@@ -43,6 +43,7 @@ BugReports: https://github.com/ptaranti/coppeCosenzaR/issues
 Collate: 
     'aggregation-matrix.R'
     'aggregation-matrix-default.R'
+    'aggregation-matrix-membership-difference.R'
     'factor.R'
     'factors-of-interest.R'
     'option-factor-availability.R'

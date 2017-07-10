@@ -121,7 +121,7 @@ setMethod(
 
 
 #' @rdname show
-#' @param aggregation.matrix.membership.difference Aggregation.matrix.membership.difference
+#' @param Aggregation.matrix.membership.difference Aggregation.matrix.membership.difference
 #' @export
 setMethod("show", "Aggregation.matrix.membership.difference",
           function(object){
