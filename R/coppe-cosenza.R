@@ -527,7 +527,8 @@ setMethod("summary", signature("Coppe.cosenza"),
 
             cat(paste0("Description of the used ", object@aggregation.matrix@name, ":\n\n"))
 
-            print(new("Aggregation.matrix.default"))
+            #print(new("Aggregation.matrix.default"))
+            print(new(object@aggregation.matrix@name))
 
             #print(citation("coppeCosenzaR"))
 
