@@ -72,7 +72,7 @@ setMethod(
       if (resource.evaluation == "G")  return(0.75)
       if (resource.evaluation == "R")  return(0.50)
       if (resource.evaluation == "W")  return(0.25)
-      #if (factor.is.specific) return(NA)
+      if (factor.is.specific) return(NA)
       return(0) # if -> "Em", "Z", "In"
     }
 
@@ -83,7 +83,7 @@ setMethod(
       if (resource.evaluation == "G")  return(1.00)
       if (resource.evaluation == "R")  return(0.75)
       if (resource.evaluation == "W")  return(0.50)
-      #if (factor.is.specific) return(NA)
+      if (factor.is.specific) return(NA)
       return(0) # if -> "Em", "Z", "In"
     }
 
@@ -94,7 +94,7 @@ setMethod(
       if (resource.evaluation == "G")  return(1.25)
       if (resource.evaluation == "R")  return(1.00)
       if (resource.evaluation == "W")  return(0.75)
-      #if (factor.is.specific) return(NA)
+      if (factor.is.specific) return(NA)
       return(0) # if -> "Em", "Z", "In"
     }
 
@@ -105,7 +105,7 @@ setMethod(
       if (resource.evaluation == "G")  return(1.50)
       if (resource.evaluation == "R")  return(1.25)
       if (resource.evaluation == "W")  return(1.00)
-      #if (factor.is.specific) return(NA)
+      if (factor.is.specific) return(NA)
       return(0) # if -> "Em", "Z", "In"
     }
 
