@@ -94,7 +94,8 @@ setMethod(
       if (resource.evaluation == "W") return(1)
       if (resource.evaluation == "Em") return(0.01)
       if (resource.evaluation == "Z") return(0.001)
-      return(0) # "Inexistent"
+      if (factor.is.specific) return(NA)
+      return(0) # "Inexistent - In"
     }
 
     stop("fail when agregating  - invalid factor or resource evaluation")
